@@ -1,13 +1,20 @@
-@font-face {
-  font-family: "Sansation-Bold";
-  font-style: normal;
-  font-weight: 700;
-  src: url('./fonts/sansation.Bold.ttf') format('truetype');
-}
 
 @font-face {
-  font-family: "Sansation-Regular";
+  font-family: "sf-pro-regular";
   font-style: normal;
-  font-weight: 700;
-  src: url('./fonts/sansation.Regular.ttf') format('truetype');
+  src: url('./fonts/SF Pro Display Regular.ttf') format('truetype');
+}
+
+body{
+  font-family: "sf-pro-regular";
+}
+h1{
+  font-size: 40px !important;
+  margin-bottom: 8px;
+}
+.text-align-left{
+  text-align: left;
+}
+.space{
+  background-color: #005fbd !important;
 }

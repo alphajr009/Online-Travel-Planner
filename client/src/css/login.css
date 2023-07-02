@@ -1,0 +1,36 @@
+
+body {
+    background-color: #F9FAFB !important; /* Replace with your desired color */
+  }
+.main-col{
+    height: 100vh;
+}
+.login-pic{
+    background-image: url(../../public/images/login-pic.png);
+    background-repeat: no-repeat;
+    object-fit: contain !important;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+}
+.ant-form-item .ant-form-item-label >label{
+    font-family: "sf-pro-regular !important";
+    font-size: 16px;
+}
+.form-section{
+    padding: 52px 96px;
+}
+.sign-up-google{
+    padding: 12px;
+    background: #f0f1f8;
+    border: none;
+    border-radius: 8px;
+    width: 80%;
+    display: flex;
+    color: #313957;
+    align-items: center;
+    justify-content: center;
+  }
+  .sign-up-google img{
+    padding: 0px 12px;
+  }
