@@ -4,7 +4,18 @@ const express = require("express");
 const app = express();
 
 const dbconfig = require('./db')
+const userRoute = require('./routes/usersRoute')
+const placeRoute = require('./routes/placesRoute')
+const reviewRoute = require('./routes/reviewsRoute')
+const tripRoute = require('./routes/tripsRoute')
 
+
+app.use(express.json())
+
+app.use('/api/users', userRoute)
+app.use('/api/places', placeRoute)
+app.use('/api/reviews', reviewRoute)
+app.use('/api/trips', tripRoute)
 
 const port = process.env.PORT || 5000;
 
