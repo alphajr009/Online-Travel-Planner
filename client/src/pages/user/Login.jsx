@@ -1,6 +1,6 @@
 import React from "react";
 import { Layout, Space, Col, Row, Button, Form, Input } from "antd";
-import "../../css/login.css"
+import "../../css/login.css";
 const { Content } = Layout;
 const onFinish = (values) => {
 	console.log("Success:", values);
@@ -15,25 +15,36 @@ const Login = () => (
 			width: "100%",
 		}}
 		size={[0, 48]}
-        className="space"
+		className="space"
 	>
 		<Layout>
 			<Content>
 				<Row className="main-col">
-					<Col className="form-section" type="flex" justify="center" align="" span={12}>
-
+					<Col
+						className="form-section"
+						type="flex"
+						justify="center"
+						align=""
+						span={12}
+					>
+                        <Col
+						className="innter-form-section"
+						type="flex"
+						justify="center"
+						align=""
+						span={12}
+					>
                         <h1 className="text-align-left">Login</h1>
-                        <p className="text-align-left">Let’s explore world today <br></br>
-                        Sign in to start managing your bookings.</p>
-                        <button className="sign-up-google"> <img src="/images/Google.svg" alt="" srcset="" />Sign up with Google</button>
-						<Form 
-							name="basic"
-							labelCol={{
-								span: 8,
-							}}
-							wrapperCol={{
-								span: 16,
-							}}
+						<p className="text-align-left">
+							Let’s explore world today <br></br>
+							Sign in to start managing your bookings.
+						</p>
+						<button className="sign-up-google">
+							{" "}
+							<img src="/images/Google.svg" alt="" srcset="" />
+							Sign up with Google
+						</button>
+						<Form
 							style={{
 								maxWidth: 600,
 							}}
@@ -44,21 +55,25 @@ const Login = () => (
 							onFinishFailed={onFinishFailed}
 							autoComplete="off"
 						>
-                            <label className="text-align-left" >Email</label>
-							<Form.Item
-								
-								name="Email"
-								rules={[
-									{
-										required: true,
-										message: "Please input your email",
-									},
-								]}
-							>
-								<Input />
-							</Form.Item>
-
-                            <label className="text-align-left" >Password</label>
+							<div className="m-8">
+								<label className="text-align-left m-8">Email</label>
+							</div>
+							<div>
+								<Form.Item
+									name="Email"
+									rules={[
+										{
+											required: true,
+											message: "Please input your email",
+										},
+									]}
+								>
+									<Input />
+								</Form.Item>
+							</div>
+							<div className="m-8">
+								<label className="text-align-left m-8">Password</label>
+							</div>
 							<Form.Item
 								name="password"
 								rules={[
@@ -72,31 +87,28 @@ const Login = () => (
 							</Form.Item>
 
 							<Form.Item
-								name="remember"
-								valuePropName="checked"
 								wrapperCol={{
 									offset: 8,
 									span: 16,
 								}}
 							>
-							</Form.Item>
-
-							<Form.Item
-								wrapperCol={{
-									offset: 8,
-									span: 16,
-								}}
-							>
-                                <p>I agree with Private Policy </p>
+								<p>I agree with Private Policy </p>
 								<Button className="form" type="primary" htmlType="submit">
-									Sign up
-								</Button>
+									Login								</Button>
 							</Form.Item>
 						</Form>
-                        <p>Don't you have an account? Sign in   </p>
+						<p>Don't you have an account? <a href="#">sadsada</a> </p>
+                    </Col>
+
+						
 					</Col>
-					<Col className="login-pic" type="flex" justify="space-around" align="middle" span={12}>
-					</Col>
+					<Col
+						className="login-pic"
+						type="flex"
+						justify="space-around"
+						align="middle"
+						span={12}
+					></Col>
 				</Row>
 			</Content>
 		</Layout>

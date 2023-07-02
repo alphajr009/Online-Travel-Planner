@@ -2,6 +2,9 @@
 body {
     background-color: #F9FAFB !important; /* Replace with your desired color */
   }
+.m-8{
+    margin: 8px 0px !important;
+}
 .main-col{
     height: 100vh;
 }
@@ -18,14 +21,14 @@ body {
     font-size: 16px;
 }
 .form-section{
-    padding: 52px 96px;
+    
 }
 .sign-up-google{
     padding: 12px;
     background: #f0f1f8;
     border: none;
     border-radius: 8px;
-    width: 80%;
+    width: 100%;
     display: flex;
     color: #313957;
     align-items: center;
@@ -33,4 +36,13 @@ body {
   }
   .sign-up-google img{
     padding: 0px 12px;
+  }
+  input{
+    padding: 8px 8px !important;
+  }
+  .ant-input-affix-wrapper >input.ant-input{
+    padding: 4px 0px !important;
+  }
+  :where(.css-dev-only-do-not-override-12upa3x).ant-form label {
+    margin: 8px 0px !important;
   }
