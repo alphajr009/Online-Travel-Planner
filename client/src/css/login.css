@@ -1,48 +1,56 @@
-
 body {
-    background-color: #F9FAFB !important; /* Replace with your desired color */
-  }
-.m-8{
-    margin: 8px 0px !important;
+  background-color: #F9FAFB !important;
+  /* Replace with your desired color */
 }
-.main-col{
-    height: 100vh;
+
+.m-8 {
+  margin: 8px 0px !important;
 }
-.login-pic{
-    background-image: url(../../public/images/login-pic.png);
-    background-repeat: no-repeat;
-    object-fit: contain !important;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: 50% 50%;
+
+.main-col {
+  height: 100vh;
 }
-.ant-form-item .ant-form-item-label >label{
-    font-family: "sf-pro-regular !important";
-    font-size: 16px;
+
+.login-pic {
+  background-image: url(../../public/images/login-pic.png);
+  background-repeat: no-repeat;
+  object-fit: contain !important;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
 }
-.form-section{
-    
+
+.ant-form-item .ant-form-item-label>label {
+  font-family: "sf-pro-regular !important";
+  font-size: 16px;
 }
-.sign-up-google{
-    padding: 12px;
-    background: #f0f1f8;
-    border: none;
-    border-radius: 8px;
-    width: 100%;
-    display: flex;
-    color: #313957;
-    align-items: center;
-    justify-content: center;
-  }
-  .sign-up-google img{
-    padding: 0px 12px;
-  }
-  input{
-    padding: 8px 8px !important;
-  }
-  .ant-input-affix-wrapper >input.ant-input{
-    padding: 4px 0px !important;
-  }
-  :where(.css-dev-only-do-not-override-12upa3x).ant-form label {
-    margin: 8px 0px !important;
-  }
+
+.form-section {}
+
+.sign-up-google {
+  padding: 12px;
+  background: #f0f1f8;
+  border: none;
+  border-radius: 8px;
+  width: 100%;
+  display: flex;
+  color: #313957;
+  align-items: center;
+  justify-content: center;
+}
+
+.sign-up-google img {
+  padding: 0px 12px;
+}
+
+input {
+  padding: 8px 8px !important;
+}
+
+.ant-input-affix-wrapper>input.ant-input {
+  padding: 4px 0px !important;
+}
+
+.ant-form label {
+  margin: 8px 0px !important;
+}

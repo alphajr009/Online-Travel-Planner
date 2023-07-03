@@ -1,19 +1,66 @@
 @font-face {
-	font-family: "sf-pro-regular";
+	font-family: "SF Pro Display-Regular";
 	font-style: normal;
-	src: url("./fonts/SF Pro Display Regular.ttf") format("truetype");
+	font-weight: 400;
+	src: url("./fonts/SFPro-Display-Regular.ttf") format("truetype");
 }
 
-body {
-	font-family: "sf-pro-regular";
+@font-face {
+	font-family: "SF Pro Display-Medium";
+	font-style: normal;
+	font-weight: 500;
+	src: url("./fonts/SFPro-Medium.otf") format("opentype");
 }
+
+@font-face {
+	font-family: "SF Pro Display-Bold";
+	font-style: normal;
+	font-weight: 500;
+	src: url("./fonts/SFPro-Bold.ttf") format("truetype");
+}
+
+
+body {
+	font-family: "SF Pro Display-Regular";
+}
+
 h1 {
+	font-family: "SF Pro Display-Medium";
 	font-size: 40px !important;
 	margin-bottom: 8px;
 }
+
+h2 {
+	font-family: "SF Pro Display-Regular";
+	font-size: 39px !important;
+	margin-bottom: 8px;
+}
+
+.ant-form label {
+	font-family: "SF Pro Display-Medium";
+	font-size: 20px !important;
+	margin-bottom: 8px;
+}
+
+
+:where(.css-dev-only-do-not-override-12upa3x)[class*=" ant-form"] {
+	font-family: "SF Pro Display-Regular";
+	font-size: 16px !important;
+
+}
+
+.p {
+	font-family: "SF Pro Display-Regular";
+	font-size: 16px !important;
+	margin-bottom: 8px;
+}
+
+.a {}
+
 .text-align-left {
 	text-align: left;
 }
+
 .space {
 	background-color: #005fbd !important;
 }
