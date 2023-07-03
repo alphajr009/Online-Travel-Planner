@@ -27,9 +27,16 @@ body {
 h1 {
 	font-family: "SF Pro Display-Medium";
 	font-size: 40px !important;
-	margin-bottom: 8px;
+  margin-top: 0px ;
+	margin-bottom: 20px;
 }
-
+p{
+  margin-top: 0px;
+  margin-bottom: 8px;
+}
+.fw-medium{
+  font-family: "SF Pro Display-Medium";
+}
 h2 {
 	font-family: "SF Pro Display-Regular";
 	font-size: 39px !important;
@@ -55,10 +62,11 @@ h2 {
 	margin-bottom: 8px;
 }
 
-.a {}
-
 .text-align-left {
 	text-align: left;
+}
+.text-align-center{
+	text-align: center;
 }
 
 .space {

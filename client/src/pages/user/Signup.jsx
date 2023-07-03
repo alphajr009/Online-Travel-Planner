@@ -114,8 +114,8 @@ const SignUp = () => {
                                     </Form.Item>
                                     <Form.Item
                                         wrapperCol={{
-                                            offset: 8,
-                                            span: 16,
+                                            offset: 0,
+                                            span: 24,
                                         }}
                                     >
                                         <Checkbox
@@ -125,7 +125,7 @@ const SignUp = () => {
                                             I agree with <a href="#PrivacyPolicy">Privacy Policy</a>
                                         </Checkbox>
                                         <Button
-                                            className="form"
+                                            className="login-btn"
                                             type="primary"
                                             htmlType="submit"
                                             disabled={!isPrivacyPolicyChecked}
@@ -134,9 +134,9 @@ const SignUp = () => {
                                         </Button>
                                     </Form.Item>
                                 </Form>
-                                <p>
+                                <p className="text-align-center" >Don't you have an account? 
                                     {" "}
-                                    <a href="#">Forget password</a>{" "}
+                                    <a className="fw-medium" href="#">Sign in</a>{" "}
                                 </p>
                             </Col>
                         </Col>

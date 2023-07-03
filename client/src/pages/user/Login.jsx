@@ -27,16 +27,10 @@ const Login = () => {
 					<Row className="main-col">
 						<Col
 							className="form-section"
-							type="flex"
-							justify="center"
-							align=""
 							span={12}
 						>
 							<Col
 								className="innter-form-section"
-								type="flex"
-								justify="center"
-								align=""
 								span={12}
 							>
 								<h1 className="text-align-left">Login</h1>
@@ -90,21 +84,21 @@ const Login = () => {
 									>
 										<Input.Password />
 									</Form.Item>
-									<Form.Item
+									<Form.Item className="sign-up-btn-col"
 										wrapperCol={{
-											offset: 8,
-											span: 16,
+											offset: 0,
+											span: 24,
 										}}
 									>
 										<p>I agree with Private Policy </p>
-										<Button className="form" type="primary" htmlType="submit">
+										<Button className="login-btn" type="primary" htmlType="submit">
 											Login
 										</Button>
 									</Form.Item>
 								</Form>
-								<p>
-									Don't you have an account? <a href="#">sadsada</a>{" "}
-								</p>
+								<div className="forget-pw">
+                                <a href="#">Remember me</a>{" "} <a href="#">Forget password</a>{" "}
+								</div>
 							</Col>
 						</Col>
 						<Col
