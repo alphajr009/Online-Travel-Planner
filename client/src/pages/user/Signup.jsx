@@ -1,50 +1,60 @@
-import React from "react";
-import { Layout, Space, Col, Row, Button, Form, Input, Checkbox } from "antd";
-import "../../css/login.css";
+import React, { useState } from 'react';
+import axios from 'axios';
+import { Layout, Space, Col, Row, Button, Form, Input, Checkbox, Alert } from 'antd';
+import '../../css/login.css';
 
 const { Content } = Layout;
 
-const onFinish = (values) => {
-    console.log("Success:", values);
-};
-
-const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
-};
-
 const SignUp = () => {
-    const [isPrivacyPolicyChecked, setIsPrivacyPolicyChecked] = React.useState(false);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
+    const [warning, setWarning] = useState(false);
+    const [isPrivacyPolicyChecked, setIsPrivacyPolicyChecked] = useState(false);
 
     const handlePrivacyPolicyChange = (e) => {
         setIsPrivacyPolicyChecked(e.target.checked);
     };
 
+    const register = async () => {
+        if (password === confirmPassword) {
+            const user = {
+                email,
+                password,
+            };
+            try {
+                setLoading(true);
+                const result = await axios.post('/api/users/register', user).data;
+                setLoading(false);
+                window.location.href = '/login';
+            } catch (error) {
+                console.log(error);
+                setLoading(false);
+                setError(true);
+            }
+        } else {
+            setWarning(true);
+        }
+    };
+
+    const onFinish = (values) => {
+        console.log('Success:', values);
+        register();
+    };
+
+    const onFinishFailed = (errorInfo) => {
+        console.log('Failed:', errorInfo);
+    };
+
     return (
-        <Space
-            direction="vertical"
-            style={{
-                width: "100%",
-            }}
-            size={[0, 48]}
-            className="space"
-        >
+        <Space direction="vertical" style={{ width: '100%' }} size={[0, 48]} className="space">
             <Layout>
                 <Content>
                     <Row className="main-col">
-                        <Col
-                            className="form-section"
-                            type="flex"
-                            justify="center"
-                            align=""
-                            span={12}
-                        >
-                            <Col
-                                className="innter-form-section"
-                                type="flex"
-                                justify="center"
-                                align=""
-                                span={12}
-                            >
+                        <Col className="form-section" type="flex" justify="center" align="" span={12}>
+                            <Col className="innter-form-section" type="flex" justify="center" align="" span={12}>
                                 <h2 className="text-align-left">Sign up</h2>
                                 <p className="text-align-left">
                                     Let’s explore the world today
@@ -75,11 +85,11 @@ const SignUp = () => {
                                             rules={[
                                                 {
                                                     required: true,
-                                                    message: "Please input your email",
+                                                    message: 'Please input your email',
                                                 },
                                             ]}
                                         >
-                                            <Input />
+                                            <Input value={email} onChange={(e) => setEmail(e.target.value)} />
                                         </Form.Item>
                                     </div>
                                     <div className="m-8">
@@ -90,34 +100,32 @@ const SignUp = () => {
                                         rules={[
                                             {
                                                 required: true,
-                                                message: "Please input your password!",
+                                                message: 'Please input your password!',
                                             },
                                         ]}
                                     >
-                                        <Input.Password />
+                                        <Input.Password value={password} onChange={(e) => setPassword(e.target.value)} />
                                     </Form.Item>
                                     <div className="m-8">
-                                        <label className="text-align-left m-8">
-                                            Confirm password
-                                        </label>
+                                        <label className="text-align-left m-8">Confirm password</label>
                                     </div>
                                     <Form.Item
                                         name="Confirm password"
                                         rules={[
                                             {
                                                 required: true,
-                                                message: "Please input your password!",
+                                                message: 'Please input your password!',
                                             },
                                         ]}
+                                        validateStatus={warning ? 'error' : ''}
+                                        help={warning ? 'Passwords do not match' : null}
                                     >
-                                        <Input.Password />
+                                        <Input.Password
+                                            value={confirmPassword}
+                                            onChange={(e) => setConfirmPassword(e.target.value)}
+                                        />
                                     </Form.Item>
-                                    <Form.Item
-                                        wrapperCol={{
-                                            offset: 0,
-                                            span: 24,
-                                        }}
-                                    >
+                                    <Form.Item wrapperCol={{ offset: 0, span: 24 }}>
                                         <div className="signup-agree-label">
                                             <Checkbox
                                                 checked={isPrivacyPolicyChecked}
@@ -136,10 +144,10 @@ const SignUp = () => {
                                         </Button>
                                     </Form.Item>
                                 </Form>
-                                <p className="text-align-center" >Already have an account?
-                                    {" "}
-                                    <a className="fw-medium" href="/login">Log in</a>{" "}
+                                <p className="text-align-center">
+                                    Already have an account? <a className="fw-medium" href="/login">Log in</a>
                                 </p>
+                                {error && <Alert message="Error occurred while signing up" type="error" />}
                             </Col>
                         </Col>
                         <Col
