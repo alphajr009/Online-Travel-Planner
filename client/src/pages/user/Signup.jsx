@@ -118,12 +118,14 @@ const SignUp = () => {
                                             span: 24,
                                         }}
                                     >
-                                        <Checkbox
-                                            checked={isPrivacyPolicyChecked}
-                                            onChange={handlePrivacyPolicyChange}
-                                        >
-                                            I agree with <a href="#PrivacyPolicy">Privacy Policy</a>
-                                        </Checkbox>
+                                        <div className="signup-agree-label">
+                                            <Checkbox
+                                                checked={isPrivacyPolicyChecked}
+                                                onChange={handlePrivacyPolicyChange}
+                                            >
+                                                I agree with <a href="#PrivacyPolicy">Privacy Policy</a>
+                                            </Checkbox>
+                                        </div>
                                         <Button
                                             className="login-btn"
                                             type="primary"
@@ -134,9 +136,9 @@ const SignUp = () => {
                                         </Button>
                                     </Form.Item>
                                 </Form>
-                                <p className="text-align-center" >Don't you have an account? 
+                                <p className="text-align-center" >Already have an account?
                                     {" "}
-                                    <a className="fw-medium" href="#">Sign in</a>{" "}
+                                    <a className="fw-medium" href="/login">Log in</a>{" "}
                                 </p>
                             </Col>
                         </Col>
