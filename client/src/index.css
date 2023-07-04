@@ -27,16 +27,20 @@ body {
 h1 {
 	font-family: "SF Pro Display-Medium";
 	font-size: 40px !important;
-  margin-top: 0px ;
+	margin-top: 0px;
 	margin-bottom: 20px;
 }
-p{
-  margin-top: 0px;
-  margin-bottom: 8px;
+
+p {
+	font-family: "SF Pro Display-Regular";
+	margin-top: 0px;
+	margin-bottom: 8px;
 }
-.fw-medium{
-  font-family: "SF Pro Display-Medium";
+
+.fw-medium {
+	font-family: "SF Pro Display-Medium";
 }
+
 h2 {
 	font-family: "SF Pro Display-Regular";
 	font-size: 39px !important;
@@ -45,7 +49,7 @@ h2 {
 
 .ant-form label {
 	font-family: "SF Pro Display-Medium";
-	font-size: 20px !important;
+	font-size: 18px !important;
 	margin-bottom: 8px;
 }
 
@@ -64,9 +68,12 @@ h2 {
 
 .text-align-left {
 	text-align: left;
+	font-family: "SF Pro Display-Regular";
 }
-.text-align-center{
+
+.text-align-center {
 	text-align: center;
+	font-family: "SF Pro Display-Regular";
 }
 
 .space {
@@ -80,4 +87,16 @@ h2 {
 	align-content: center;
 	justify-content: center;
 	height: 100vh;
+}
+
+.ant-input {
+	font-family: "SF Pro Display-Regular";
+}
+
+
+:where(.css-dev-only-do-not-override-12upa3x)[class^="ant-btn"],
+:where(.css-dev-only-do-not-override-12upa3x)[class*=" ant-btn"] {
+
+	font-family: "SF Pro Display-Medium";
+	font-size: 16px !important;
 }

@@ -1,8 +1,10 @@
-import React from "react";
-import { Layout, Space, Col, Row, Button, Form, Input } from "antd";
+import React, { Component } from "react";
+import { Layout, Space, Col, Row, Button, Form, Input, Checkbox } from "antd";
+
 import "../../css/login.css";
 
 const { Content } = Layout;
+
 
 const onFinish = (values) => {
 	console.log("Success:", values);
@@ -13,6 +15,13 @@ const onFinishFailed = (errorInfo) => {
 };
 
 const Login = () => {
+
+	const [isRememberMe, setIsRememberMe] = React.useState(false);
+
+	const handleRememberMeChange = (e) => {
+		setIsRememberMe(e.target.checked);
+	};
+
 	return (
 		<Space
 			direction="vertical"
@@ -90,14 +99,28 @@ const Login = () => {
 											span: 24,
 										}}
 									>
-										<p>I agree with Private Policy </p>
+
 										<Button className="login-btn" type="primary" htmlType="submit">
 											Login
 										</Button>
 									</Form.Item>
 								</Form>
 								<div className="forget-pw">
-                                <a href="#">Remember me</a>{" "} <a href="#">Forget password</a>{" "}
+									<Checkbox
+										checked={isRememberMe}
+										onChange={handleRememberMeChange}
+									>
+										<a title={isRememberMe ? "You are Remembered!" : "Click to Remember"}>
+											Remember me
+										</a>
+									</Checkbox>{" "}
+									<a href="#">Forgot password</a>{" "}
+								</div>
+								<div className="login-acc-have">
+									<p className="text-align-center" >Don't you have an account?
+										{" "}
+										<a className="fw-medium" href="/signup">Sign up</a>{" "}
+									</p>
 								</div>
 							</Col>
 						</Col>
