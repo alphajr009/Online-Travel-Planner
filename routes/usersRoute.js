@@ -4,17 +4,22 @@ const User = require("../models/user");
 
 
 router.post("/register", async (req, res) => {
-
-    const newuser = new User({ email: req.body.email, password: req.body.password })
+    const { email, password } = req.body;
 
     try {
-        const user = await newuser.save()
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            return res.status(400).json({ error: "User with this email already exists." });
+        }
+
+        const newUser = new User({ email, password });
+        const user = await newUser.save();
         res.send('User Registered Successfully');
     } catch (error) {
         return res.status(400).json({ error });
     }
-
 });
+
 
 
 router.post("/login", async (req, res) => {
