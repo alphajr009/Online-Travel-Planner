@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Layout, Space, Col, Row, Button, Form, Input, Checkbox, Alert } from 'antd';
+import { Layout, Space, Col, Row, Button, Form, Input, Checkbox, Alert, notification } from 'antd';
 import '../../css/login.css';
 
 const { Content } = Layout;
@@ -9,6 +9,7 @@ const SignUp = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
     const [warning, setWarning] = useState(false);
@@ -18,6 +19,7 @@ const SignUp = () => {
         setIsPrivacyPolicyChecked(e.target.checked);
     };
 
+
     const register = async () => {
         if (password === confirmPassword) {
             const user = {
@@ -26,18 +28,39 @@ const SignUp = () => {
             };
             try {
                 setLoading(true);
-                const result = await axios.post('/api/users/register', user).data;
+                const result = await axios.post('/api/users/register', user);
                 setLoading(false);
                 window.location.href = '/login';
             } catch (error) {
                 console.log(error);
                 setLoading(false);
-                setError(true);
+                if (error.response && error.response.status === 400 && error.response.data.error === 'User with this email already exists.') {
+                    // User already exists
+                    notification.info({
+                        message: 'User Already Registered',
+                        description: 'The user with this email is already registered.',
+                        placement: 'topLeft',
+                        btn: (
+                            <button className='notification-btn' type="primary" size="small" onClick={() => { window.location.href = '/login'; }}>
+                                Login
+                            </button>
+                        ),
+                    });
+                } else {
+                    // Other registration error
+                    notification.error({
+                        message: 'Registration Failed',
+                        description: 'An error occurred while registering the user.',
+                    });
+                }
             }
+
         } else {
             setWarning(true);
         }
     };
+
+
 
     const onFinish = (values) => {
         console.log('Success:', values);
@@ -61,10 +84,10 @@ const SignUp = () => {
                                     <br />
                                     Sign in to start managing your bookings.
                                 </p>
-                                <button className="sign-up-google">
+                                <Button className="sign-up-google">
                                     <img src="/images/Google.svg" alt="" srcSet="" />
                                     Sign up with Google
-                                </button>
+                                </Button>
                                 <Form
                                     style={{
                                         maxWidth: 600,
