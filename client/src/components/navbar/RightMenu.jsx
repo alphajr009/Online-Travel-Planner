@@ -6,12 +6,12 @@ class RightMenu extends Component {
   render() {
     return (
       <Menu mode="horizontal">
-        <Menu.Item key="mail">
-          <a href="">Signin</a>
-        </Menu.Item>
-        <Menu.Item key="app">
-          <a href="">Signup</a>
-        </Menu.Item>
+         <SubMenu title={<span>Profile</span>}>
+          <MenuItemGroup title="">
+            <Menu.Item key="setting:1">Sign Out</Menu.Item>
+            <Menu.Item key="setting:2">Sign In</Menu.Item>
+          </MenuItemGroup>
+        </SubMenu>
       </Menu>
     );
   }

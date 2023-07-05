@@ -72,7 +72,7 @@ h2 {
 }
 
 .text-align-center {
-	text-align: center;
+	text-align: center !important;
 	font-family: "SF Pro Display-Regular";
 }
 
