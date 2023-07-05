@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import axios from 'axios';
+import { GoogleLogin } from '@react-oauth/google';
 import { Layout, Space, Col, Row, Button, Form, Input, Checkbox, Alert, notification } from 'antd';
 import '../../css/login.css';
+import { GoogleLoginButton } from "react-social-login-buttons";
+import { LoginSocialGoogle } from "reactjs-social-login";
 
 const { Content } = Layout;
 
@@ -15,9 +18,37 @@ const SignUp = () => {
     const [warning, setWarning] = useState(false);
     const [isPrivacyPolicyChecked, setIsPrivacyPolicyChecked] = useState(false);
 
+    const [provider, setProvider] = useState('')
+    const [profile, setProfile] = useState(null)
+
+
+
+
+
     const handlePrivacyPolicyChange = (e) => {
         setIsPrivacyPolicyChecked(e.target.checked);
     };
+
+    const onLoginStart = useCallback(() => {
+        alert('login start')
+    }, [])
+
+
+
+    const generateRandomPassword = () => {
+        const length = 10;
+        const charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        let password = '';
+
+        for (let i = 0; i < length; i++) {
+            const randomIndex = Math.floor(Math.random() * charset.length);
+            password += charset[randomIndex];
+        }
+
+        return password;
+    };
+
+
 
 
     const register = async () => {
@@ -47,7 +78,6 @@ const SignUp = () => {
                         ),
                     });
                 } else {
-                    // Other registration error
                     notification.error({
                         message: 'Registration Failed',
                         description: 'An error occurred while registering the user.',
@@ -84,10 +114,26 @@ const SignUp = () => {
                                     <br />
                                     Sign in to start managing your bookings.
                                 </p>
-                                <Button className="sign-up-google">
+
+                                <button className="sign-up-google">
                                     <img src="/images/Google.svg" alt="" srcSet="" />
                                     Sign up with Google
-                                </Button>
+                                </button>
+
+                                {/* <LoginSocialGoogle
+                                    isOnlyGetToken
+                                    client_id={"489666950957-8dudnsbvm19o2jl44oh3n4m6or84vlme.apps.googleusercontent.com"}
+                                    onLoginStart={onLoginStart}
+                                    onResolve={({ provider, data }) => {
+                                        setProvider(provider)
+                                        setProfile(data)
+                                    }}
+                                    onReject={(err) => {
+                                        console.log(err)
+                                    }}
+                                >
+                                    <GoogleLoginButton />
+                                </LoginSocialGoogle> */}
                                 <Form
                                     style={{
                                         maxWidth: 600,
