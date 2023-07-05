@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { Layout, Space, Col, Row, Button, Form, Input, Checkbox } from "antd";
 
 import "../../css/login.css";
