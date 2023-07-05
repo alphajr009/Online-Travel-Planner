@@ -1,4 +1,5 @@
 const express = require("express");
+const helmet = require('helmet');
 
 
 const app = express();
@@ -8,6 +9,18 @@ const userRoute = require('./routes/usersRoute')
 const placeRoute = require('./routes/placesRoute')
 const reviewRoute = require('./routes/reviewsRoute')
 const tripRoute = require('./routes/tripsRoute')
+
+app.use(helmet());
+
+app.use(
+    helmet.contentSecurityPolicy({
+        directives: {
+            'cross-origin-opener-policy': ['same-origin', 'allow-popups', 'strict-origin',],
+            'cross-origin-embedder-policy': ['require-corp'],
+        },
+    })
+);
+
 
 
 app.use(express.json())

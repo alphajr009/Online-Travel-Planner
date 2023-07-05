@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import axios from 'axios';
 import { GoogleLogin } from '@react-oauth/google';
 import { Layout, Space, Col, Row, Button, Form, Input, Checkbox, Alert, notification } from 'antd';
 import '../../css/login.css';
+import { GoogleLoginButton } from "react-social-login-buttons";
+import { LoginSocialGoogle } from "reactjs-social-login";
 
 const { Content } = Layout;
 
@@ -16,9 +18,20 @@ const SignUp = () => {
     const [warning, setWarning] = useState(false);
     const [isPrivacyPolicyChecked, setIsPrivacyPolicyChecked] = useState(false);
 
+    const [provider, setProvider] = useState('')
+    const [profile, setProfile] = useState(null)
+
+
+
+
+
     const handlePrivacyPolicyChange = (e) => {
         setIsPrivacyPolicyChecked(e.target.checked);
     };
+
+    const onLoginStart = useCallback(() => {
+        alert('login start')
+    }, [])
 
 
 
@@ -35,48 +48,6 @@ const SignUp = () => {
         return password;
     };
 
-    const handleGoogleSuccess = async (response) => {
-        const { profileObj: { email, name } } = response;
-
-        try {
-            setLoading(true);
-            const randomPassword = generateRandomPassword();
-
-            // Register the user using API call
-            const result = await axios.post('/api/users/register', {
-                email,
-                password: randomPassword,
-                name
-            });
-
-            setLoading(false);
-            window.location.href = '/login';
-        } catch (error) {
-            console.log(error);
-            setLoading(false);
-            if (error.response && error.response.status === 400 && error.response.data.error === 'User with this email already exists.') {
-                // User already exists
-                notification.info({
-                    message: 'User Already Registered',
-                    description: 'The user with this email is already registered.',
-                    placement: 'topLeft',
-                    btn: (
-                        <button className='notification-btn' type="primary" size="small" onClick={() => { window.location.href = '/login'; }}>
-                            Login
-                        </button>
-                    ),
-                });
-            }
-        }
-    };
-
-    const handleGoogleFailure = (error) => {
-        console.log(error);
-        notification.error({
-            message: 'Registration Failed',
-            description: 'An error occurred while registering the user.',
-        });
-    };
 
 
 
@@ -143,11 +114,26 @@ const SignUp = () => {
                                     <br />
                                     Sign in to start managing your bookings.
                                 </p>
-                                {/* <Button className="sign-up-google">
+
+                                <button className="sign-up-google">
                                     <img src="/images/Google.svg" alt="" srcSet="" />
                                     Sign up with Google
-                                </Button> */}
-                                <GoogleLogin onSuccess={handleGoogleSuccess} onError={handleGoogleFailure} />
+                                </button>
+
+                                {/* <LoginSocialGoogle
+                                    isOnlyGetToken
+                                    client_id={"489666950957-8dudnsbvm19o2jl44oh3n4m6or84vlme.apps.googleusercontent.com"}
+                                    onLoginStart={onLoginStart}
+                                    onResolve={({ provider, data }) => {
+                                        setProvider(provider)
+                                        setProfile(data)
+                                    }}
+                                    onReject={(err) => {
+                                        console.log(err)
+                                    }}
+                                >
+                                    <GoogleLoginButton />
+                                </LoginSocialGoogle> */}
                                 <Form
                                     style={{
                                         maxWidth: 600,
