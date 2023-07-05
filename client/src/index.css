@@ -100,3 +100,21 @@ h2 {
 	font-family: "SF Pro Display-Medium";
 	font-size: 16px !important;
 }
+
+.notification-btn {
+	font-family: "SF Pro Display-Regular";
+	padding: 4px 8px;
+	background-color: #1677ff;
+	color: white;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+.ant-notification-notice-message {
+	font-family: "SF Pro Display-Regular";
+}
+
+.ant-notification-notice-description {
+	font-family: "SF Pro Display-Regular";
+}

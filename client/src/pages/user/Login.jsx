@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from 'react'
+import axios from 'axios';
 import { Layout, Space, Col, Row, Button, Form, Input, Checkbox } from "antd";
 
 import "../../css/login.css";
@@ -15,6 +16,38 @@ const onFinishFailed = (errorInfo) => {
 };
 
 const Login = () => {
+
+	const [email, setemail] = useState('')
+	const [password, setpassword] = useState('')
+
+
+	const [loading, setloading] = useState(false);
+	const [error, seterror] = useState(false);
+
+
+	async function Login() {
+
+		const user = {
+			email,
+			password,
+		}
+		try {
+			setloading(true)
+			const { data, status } = await axios.post('/api/users/login', user)
+			setloading(false)
+
+			if (status === 200) {
+				localStorage.setItem('currentUser', JSON.stringify(data));
+				window.location.href = '/home'
+			} else {
+				seterror(true);
+			}
+		} catch (error) {
+			console.log(error)
+			setloading(false)
+			seterror(true)
+		}
+	}
 
 	const [isRememberMe, setIsRememberMe] = React.useState(false);
 
@@ -76,7 +109,7 @@ const Login = () => {
 												},
 											]}
 										>
-											<Input />
+											<Input value={email} onChange={(e) => { setemail(e.target.value) }} />
 										</Form.Item>
 									</div>
 									<div className="m-8">
@@ -91,7 +124,7 @@ const Login = () => {
 											},
 										]}
 									>
-										<Input.Password />
+										<Input.Password value={password} onChange={(e) => { setpassword(e.target.value) }} />
 									</Form.Item>
 									<Form.Item className="sign-up-btn-col"
 										wrapperCol={{
@@ -100,7 +133,7 @@ const Login = () => {
 										}}
 									>
 
-										<Button className="login-btn" type="primary" htmlType="submit">
+										<Button onClick={Login} className="login-btn" type="primary" htmlType="submit">
 											Login
 										</Button>
 									</Form.Item>
