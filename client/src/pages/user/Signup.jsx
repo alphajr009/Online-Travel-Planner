@@ -61,7 +61,7 @@ const SignUp = () => {
                 setLoading(true);
                 const result = await axios.post('/api/users/register', user);
                 setLoading(false);
-                window.location.href = '/login';
+                window.location.href = '/login'
             } catch (error) {
                 console.log(error);
                 setLoading(false);

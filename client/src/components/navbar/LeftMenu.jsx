@@ -5,8 +5,8 @@ import { Menu, Icon } from 'antd';
 class LeftMenu extends Component {
   render() {
     return (
-   <Menu mode="horizontal">
-       <Menu.Item key="mail">
+      <Menu mode="horizontal">
+        <Menu.Item key="mail">
           <a href="">Home</a>
         </Menu.Item>
         <Menu.Item key="location">
@@ -15,10 +15,10 @@ class LeftMenu extends Component {
         <Menu.Item key="about">
           <a href="">About us</a>
         </Menu.Item>
-        <Menu.Item key="favourites" class="no-ellipsis">
+        <Menu.Item key="favourites" >
           <a href="">Favourites</a>
         </Menu.Item>
-        <Menu.Item key="Contact us" class="no-ellipsis">
+        <Menu.Item key="Contact us" >
           <a href="">Contact us</a>
         </Menu.Item>
       </Menu>
