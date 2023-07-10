@@ -1,5 +1,5 @@
 import { Carousel, Col } from "antd";
-import { Input} from "antd";
+import { Input } from "antd";
 import "../css/slider.css";
 const contentStyle = {
 	height: "450px",
