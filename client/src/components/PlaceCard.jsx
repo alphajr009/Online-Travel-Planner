@@ -8,7 +8,7 @@ const PlaceCard = ({PlaceCardName}) => (
     hoverable
     cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
   >
-    <p>{PlaceCardName}</p>
+    <p>{PlaceCardName}</p >
   </Card>
 );
 
