@@ -3,20 +3,19 @@ import AdminNav from '../../components/admin/navbar/aNavbar';
 import { Layout } from 'antd';
 import { useLocation } from 'react-router-dom';
 
-import Places from './places/places';
-import Users from './users/users';
-
+import Places from './places/Place';
+import Users from './users/User';
 function Admin() {
     const location = useLocation();
 
     // Extract the active tab from the location pathname
-    const initialActiveTab = location.pathname.split('/').pop().split(':')[0];
+    const initialActiveTab = location.pathname.split('/').pop();
 
     const [activeTab, setActiveTab] = useState(initialActiveTab || 'places');
 
     useEffect(() => {
         const handlePopState = () => {
-            const newActiveTab = location.pathname.split('/').pop().split(':')[0];
+            const newActiveTab = location.pathname.split('/').pop();
             setActiveTab(newActiveTab);
         };
 
