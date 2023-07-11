@@ -5,38 +5,32 @@
     src: url("../../../fonts/SFPro-Bold.ttf") format("truetype");
 }
 
-
-
-.admin_nav {
-    overflow-x: hidden;
-}
-
 .admin_navbar {
     display: flex;
     width: 100%;
-    padding: 20px 28px 0px 24px;
     background-color: #30379B;
     background-size: cover;
+    color: #fff;
+    padding: 20px;
+}
+.bg-cl{
+    background-color:#30379B ;
+    color: #fff;
+}
+.user-avatar{
+    display: flex;
+    justify-content: end;
 }
 
 .admin_navContainer {
-    width: 100%;
+        width: 100%;
     color: aliceblue;
-    align-items: center;
-    margin-top: 2px;
-    justify-content: space-between;
-    align-items: flex-start;
 }
 
-.admin_navbar-logo-container {
-    position: relative;
-    align-items: center;
-}
 
 .admin_navbar-logo-and-text {
     display: flex;
     align-items: center;
-    margin-right: 16px;
 }
 
 .admin_navbar-logo {
@@ -46,20 +40,18 @@
 }
 
 .admin_navbar-text {
-    flex-grow: 1;
+  
     text-align: center;
 }
 
 .admin_navbar-text h1 {
     font-family: "SF Pro Display-Bold";
     font-size: 30px;
-    margin-left: 250px;
-    margin-top: 14px;
+    text-align: center;
 }
 
 .user_icon {
     display: flex;
-    align-items: center;
 }
 
 .user {
