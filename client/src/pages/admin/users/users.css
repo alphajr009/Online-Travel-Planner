@@ -1,0 +1,184 @@
+.admin-terminal-users {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.users-cus-name,
+.users-cus-id,
+.users-isadmin,
+.r-users-search {
+    margin-right: 10px;
+    height: 20px;
+    width: 20px;
+}
+
+
+.admin-terminal-users-cus-name.users-cus-name,
+.admin-users-cus-id.users-cus-id,
+.admin-terminal-IsAdmin.users-isadmin {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.admin-terminal-search-bar-users-cus-name {
+    display: flex;
+    align-items: center;
+    height: 38px;
+    width: 250px;
+    background-color: white;
+    color: black;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    padding: 0 15px;
+    margin: 0 10px 10px 10px;
+}
+
+.admin-terminal-search-bar-users-cus-name input {
+    border: none;
+    outline: none;
+    font-family: "Sansation-Bold", sans-serif;
+    font-size: 16px;
+    color: black;
+}
+
+.admin-terminal-users-cus-id {
+    display: flex;
+    align-items: center;
+    height: 38px;
+    width: 250px;
+    background-color: white;
+    color: black;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    padding: 0 15px;
+    margin: 0 10px 10px 10px;
+}
+
+.admin-terminal-users-cus-id input {
+    border: none;
+    outline: none;
+    font-family: "Sansation-Bold", sans-serif;
+    font-size: 16px;
+    color: black;
+}
+
+.admin-terminal-users-isadmin {
+    display: flex;
+    align-items: center;
+    background-color: #E1E1E1;
+    color: black;
+    border-radius: 12px;
+    padding: 0 15px;
+    margin: 0 10px 10px 10px
+}
+
+.admin-users-filter-search {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 38px;
+    width: 40px;
+    background-color: white;
+    color: black;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    margin: 0 10px 10px 10px;
+}
+
+.admin-users-filter-search.r-users-search {
+    height: 18px;
+    width: 18px;
+}
+
+.btn-users-search-admin-terminal {
+    display: flex;
+    align-items: center;
+    background-color: #FFFFFF;
+    color: rgb(0, 0, 0);
+    border: none;
+    border-radius: 11px;
+    cursor: pointer;
+}
+
+.admin-terminal-users-cname-isAdmin {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 13px 10px 3px 10px;
+    border-radius: 20px;
+    border: 1px solid #4444AA;
+    background-color: #4444AA;
+    position: absolute;
+    left: 50%;
+    margin-top: 100px;
+    transform: translateX(-50%)
+}
+
+.admin-users-table {
+    margin-top: 250px;
+    width: 90%;
+    border-collapse: collapse;
+    font-size: 15px;
+    font-family: "Sansation-Bold", sans-serif;
+
+}
+
+.admin-users-table td {
+    font-size: 15px;
+    font-family: "Sansation-Bold", sans-serif;
+}
+
+.admin-users-table td {
+    font-size: 15px;
+    font-family: "Sansation-Bold", sans-serif;
+
+
+}
+
+.ant-table-wrapper .ant-table-thead>tr>th,
+:where(.css-dev-only-do-not-override-1vtf12y).ant-table-wrapper .ant-table-thead>tr>td {
+    position: relative;
+    color: rgba(0, 0, 0, 0.88);
+    font-weight: 600;
+    text-align: start;
+    background: #30379B;
+    border-bottom: 1px solid #f0f0f0;
+    color: #fafafa;
+    font-size: 15px;
+    font-family: "Sansation-Bold", sans-serif;
+
+}
+
+.admin-terminal-users-isAdmin-yes {
+    font-family: "Sansation-Bold", sans-serif;
+    color: green;
+    height: 30px;
+    width: 80px;
+    background-color: var(--harlequin-2);
+    border-color: lightgreen;
+    border-radius: 4px;
+}
+
+:root {
+    --red-2: rgba(299, 4, 4, 0.108);
+    --harlequin-2: rgba(68, 213, 0, 0.109);
+}
+
+.admin-terminal-isAdmin-users-no {
+    font-family: "Sansation-Bold", sans-serif;
+    color: red;
+    height: 30px;
+    width: 80px;
+    background-color: var(--red-2);
+    border-color: red;
+    border-radius: 4px;
+}
+
+.no-of-users {
+    font-size: 16px;
+    font-family: "Sansation-Bold", sans-serif;
+    color: rgb(170, 42, 42);
+}
