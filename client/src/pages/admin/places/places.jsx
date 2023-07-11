@@ -7,3 +7,5 @@ function places() {
 }
 
 export default places
+
+

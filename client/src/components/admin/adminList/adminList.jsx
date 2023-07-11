@@ -13,7 +13,7 @@ function adminList({ setActiveTab, activeTab }) {
                     onClick={() => setActiveTab('places')}
                 >
                     <FontAwesomeIcon icon={faHotel} />
-                    <h1>Places</h1>
+                    <h5>Places</h5>
                 </div>
 
                 <div
@@ -21,7 +21,7 @@ function adminList({ setActiveTab, activeTab }) {
                     onClick={() => setActiveTab('users')}
                 >
                     <FontAwesomeIcon icon={faUsers} />
-                    <h1>Users</h1>
+                    <h5>Users</h5>
                 </div>
 
 
