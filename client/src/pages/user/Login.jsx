@@ -24,6 +24,13 @@ const Login = () => {
 	const [loading, setloading] = useState(false);
 	const [error, seterror] = useState(false);
 
+	const [isRememberMe, setIsRememberMe] = React.useState(false);
+
+	const handleRememberMeChange = (e) => {
+		setIsRememberMe(e.target.checked);
+	};
+
+
 
 	async function Login() {
 
@@ -38,7 +45,12 @@ const Login = () => {
 
 			if (status === 200) {
 				localStorage.setItem('currentUser', JSON.stringify(data));
-				window.location.href = '/home'
+				if (data.isAdmin = true) {
+					window.location.href = '/admin'
+				} else {
+					window.location.href = '/home'
+				}
+
 			} else {
 				seterror(true);
 			}
@@ -49,11 +61,6 @@ const Login = () => {
 		}
 	}
 
-	const [isRememberMe, setIsRememberMe] = React.useState(false);
-
-	const handleRememberMeChange = (e) => {
-		setIsRememberMe(e.target.checked);
-	};
 
 	return (
 		<Space
