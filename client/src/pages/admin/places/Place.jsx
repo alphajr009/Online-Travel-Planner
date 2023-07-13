@@ -2,30 +2,32 @@ import React, { useEffect, useState } from 'react'
 import './places.css'
 import axios from 'axios';
 import { Table, Modal, Form, Input } from 'antd';
-import CreateBlog from './CreatePlace';
+import CreatePlace from './CreatePlace';
 import Swal from 'sweetalert2'
 
 function Place() {
 
     const [activeTab, setActiveTab] = useState('create blog');
-    const [blogs, setblogs] = useState([])
+    const [places, setplaces] = useState([])
     const [loading, setloading] = useState(false)
     const [error, seterror] = useState()
     const [rooms, setRooms] = useState([]);
 
+
     const [title, settitle] = useState('')
+    const [description, setdescription] = useState('')
     const [description1, setdescription1] = useState('')
     const [description2, setdescription2] = useState('')
     const [description3, setdescription3] = useState('')
     const [description4, setdescription4] = useState('')
 
     const [isModalVisible, setIsModalVisible] = useState(false);
-    const [blogToEdit, setBlogToEdit] = useState(null);
+    const [PlaceToEdit, setPlaceToEdit] = useState(null);
     const [form] = Form.useForm();
     const [updatedBlogTitle, setUpdatedBlogTitle] = useState('');
 
-    const openEditModal = (blog) => {
-        setBlogToEdit(blog);
+    const openEditModal = (place) => {
+        setPlaceToEdit(place);
         setIsModalVisible(true);
     };
 
@@ -34,43 +36,46 @@ function Place() {
 
     };
 
-    async function updateBlog(blog) {
-        openEditModal(blog);
+    async function updatePlace(place) {
+        openEditModal(place);
     }
 
     const handleEditSubmit = async () => {
-        await editBlog(blogToEdit._id, updatedBlogTitle, description1, description2, description3, description4);
+        await editPlace(PlaceToEdit._id, updatedBlogTitle, description1, description2, description3, description4);
         closeModal();
     };
 
 
 
     const columns = [
+
+
         {
-            title: 'Place Title',
-            dataIndex: 'title',
-            key: 'blogtitle',
+            title: ' ID',
+            dataIndex: '_id',
+            key: '_id',
         },
-        ,
+
         {
             title: 'Place Name',
-            dataIndex: 'roomid',
-            key: 'roomname',
-            render: (roomId) => {
-                const room = rooms.find((r) => r._id === roomId);
-                return room ? room.title : '';
-            },
+            dataIndex: 'name',
+            key: 'name',
+        },
+        {
+            title: 'Location',
+            dataIndex: 'city',
+            key: 'city',
         },
         {
             title: 'Edit',
             dataIndex: 'edit',
             width: '9%',
             key: 'x',
-            render: (_, blogs) => {
+            render: (_, places) => {
                 return (
                     <button
-                        className="btn-edit-blogs-by-seller"
-                        onClick={() => updateBlog(blogs)}
+                        className="btn-edit-places-by-seller"
+                        onClick={() => updatePlace(places)}
                     >
                         Edit
                     </button>
@@ -85,26 +90,26 @@ function Place() {
             dataIndex: ' ',
             width: '9%',
             key: 'x',
-            render: (_, rooms) => (
-                <button className='btn-delete-blogs-by-seller' onClick={() => {
+            render: (_, places) => (
+                <button className='btn-delete-places-by-seller' onClick={() => {
                     Swal.fire({
                         title: 'Are you sure?',
-                        text: "Do you want to delete the blog",
+                        text: "Do you want to delete the place",
                         icon: 'warning',
                         showCancelButton: true,
                         cancelButtonText: 'Cancel',
                         confirmButtonColor: '#4444AA',
                         cancelButtonColor: '#B8252A',
-                        confirmButtonText: 'Yes, Blog is Deleted!'
+                        confirmButtonText: 'Yes, Place is Deleted!'
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            deleteBlog(rooms._id)
+                            deletePlace(places._id)
                             Swal.fire(
                                 'Deleted!',
-                                'Blog has been deleted.',
+                                'Place has been deleted.',
                                 'success'
                             ).then(result => {
-                                window.location.href = 'http://localhost:3000/seller/blog';
+                                window.location.href = 'http://localhost:3000/admin/places';
                             })
                         }
                     })
@@ -122,8 +127,8 @@ function Place() {
             try {
 
                 setloading(true)
-                const data = (await axios.get("/api/users/getallblogs")).data
-                setblogs(data.blogs)
+                const data = (await axios.get("/api/places/getallplaces")).data
+                setplaces(data.places)
 
                 setloading(false)
 
@@ -138,20 +143,25 @@ function Place() {
     }, []);
 
 
-    async function editBlog(_id, updatedTitle, updatedDescription1, updatedDescription2, updatedDescription3, updatedDescription4) {
+    async function editPlace(_id, updatedTitle, updatedDescription, phonenumber, city, address, googlemaplink, openingtime, closingtime) {
         try {
-            await axios.patch('/api/blogs/editblog', {
+            await axios.patch('/api/places/editblog', {
                 _id,
                 title: updatedTitle,
-                description1: updatedDescription1,
-                description2: updatedDescription2,
-                description3: updatedDescription3,
-                description4: updatedDescription4
-            });
-            console.log("Blog Updated Successfully");
+                description: updatedDescription,
+                phonenumber: phonenumber,
+                city: city,
+                address: address,
+                googlemaplink: googlemaplink,
+                openingtime: openingtime,
+                closingtime: closingtime
 
-            const data = (await axios.get("/api/blogs/getallblogs")).data;
-            setblogs(data.blogs);
+
+            });
+            console.log("Place Updated Successfully");
+
+            const data = (await axios.get("/api/places/getallplaces")).data;
+            setplaces(data.places);
         } catch (error) {
             console.log(error);
         }
@@ -159,10 +169,10 @@ function Place() {
 
 
 
-    async function deleteBlog(_id) {
+    async function deletePlace(_id) {
         try {
-            const res = (await axios.patch('/api/blogs/deleteblog', { _id })).data;
-            console.log("Blog Deleted Successfully");
+            const res = (await axios.patch('/api/places/deleteplace', { _id })).data;
+            console.log("Place Deleted Successfully");
         } catch (error) {
             console.log(error)
         }
@@ -175,8 +185,8 @@ function Place() {
             try {
 
                 setloading(true)
-                const data = (await axios.get("/api/rooms/getallrooms")).data
-                setRooms(data.rooms)
+                const data = (await axios.get("/api/places/getallplaces")).data
+                setplaces(data.places)
                 setloading(false)
 
 
@@ -189,10 +199,10 @@ function Place() {
         })();
     }, []);
     return (
-        <div className='seller-central-blogs'>
-            <div className='seller-central-blogs-container'>
+        <div className='seller-central-places'>
+            <div className='seller-central-places-container'>
 
-                <div className="seller-central-blogs-tab">
+                <div className="seller-central-places-tab">
 
                     <div
                         className={`seller-central-create-blog-tab-container ${activeTab === 'create blog' ? 'active' : ''}`}
@@ -202,25 +212,25 @@ function Place() {
                     </div>
 
                     <div
-                        className={`seller-central-blogs-tab-container ${activeTab === 'blog' ? 'active' : ''}`}
+                        className={`seller-central-places-tab-container ${activeTab === 'blog' ? 'active' : ''}`}
                         onClick={() => setActiveTab('blog')}
                     >
-                        <span className='seller-central-tab--text-blogs'>Places</span>
+                        <span className='seller-central-tab--text-places'>Places</span>
                     </div>
                 </div>
                 {activeTab === 'create blog' && (
-                    <div className='seller-central-create-blogs-sellers'>
-                        <CreateBlog />
+                    <div className='seller-central-create-places-sellers'>
+                        <CreatePlace />
                     </div>
                 )}
                 {activeTab === 'blog' && (
-                    <div className='seller-central-table-blogs-sellers'>
+                    <div className='seller-central-table-places-sellers'>
                         <Table
                             columns={columns}
-                            dataSource={blogs}
+                            dataSource={places}
                             className='seller-cental-table-for-blog'
                             rowKey="_id"
-                            footer={() => <div className="no-of-blogs">{`Total  ${blogs.length} blogs `}</div>} />
+                            footer={() => <div className="no-of-places">{`Total  ${places.length} places `}</div>} />
                     </div>
                 )}
             </div>
@@ -235,62 +245,60 @@ function Place() {
                     <Form.Item
                         label="Blog Title"
                         name="blogTitle"
-                        initialValue={blogToEdit ? blogToEdit.title : ''}
+                        initialValue={PlaceToEdit ? PlaceToEdit.name : ''}
                     >
                         <Input
                             onChange={(e) => setUpdatedBlogTitle(e.target.value)}
-                            placeholder="Enter blog title"
+                            placeholder="Enter Place title"
                         />
                     </Form.Item>
 
                     <Form.Item
                         className='userp-help-namebox-conatiner-p'
-                        label="Discription 1:"
-                        name="description1"
-                        initialValue={blogToEdit ? blogToEdit.description1 : ''}
+                        label="Discription:"
+                        name="description"
+                        initialValue={PlaceToEdit ? PlaceToEdit.description : ''}
                     >
                         <Input.TextArea style={{ height: "245px", width: "626px" }} showCount maxLength={1200} className="userp-helpmsg-custom-input"
-                            value={description1}
-                            onChange={(e) => { setdescription1(e.target.value) }}
+                            value={description}
+                            onChange={(e) => { setdescription(e.target.value) }}
                         />
                     </Form.Item>
 
                     <Form.Item
-                        className='userp-help-namebox-conatiner-p'
-                        label="Discription 2:"
-                        name="description2"
-                        initialValue={blogToEdit ? blogToEdit.description2 : ''}
+                        label="Blog Title"
+                        name="blogTitle"
+                        initialValue={PlaceToEdit ? PlaceToEdit.name : ''}
                     >
-                        <Input.TextArea style={{ height: "245px", width: "626px" }} showCount maxLength={1200} className="userp-helpmsg-custom-input"
-                            value={description2}
-                            onChange={(e) => { setdescription2(e.target.value) }}
+                        <Input
+                            onChange={(e) => setUpdatedBlogTitle(e.target.value)}
+                            placeholder="Enter Place title"
                         />
                     </Form.Item>
 
                     <Form.Item
-                        className='userp-help-namebox-conatiner-p'
-                        label="Discription 3:"
-                        name="description3"
-                        initialValue={blogToEdit ? blogToEdit.description3 : ''}
+                        label="Blog Title"
+                        name="blogTitle"
+                        initialValue={PlaceToEdit ? PlaceToEdit.name : ''}
                     >
-                        <Input.TextArea style={{ height: "245px", width: "626px" }} showCount maxLength={1200} className="userp-helpmsg-custom-input"
-                            value={description3}
-                            onChange={(e) => { setdescription3(e.target.value) }}
+                        <Input
+                            onChange={(e) => setUpdatedBlogTitle(e.target.value)}
+                            placeholder="Enter Place title"
                         />
                     </Form.Item>
-
 
                     <Form.Item
-                        className='userp-help-namebox-conatiner-p'
-                        label="Discription 4:"
-                        name="description4"
-                        initialValue={blogToEdit ? blogToEdit.description4 : ''}
+                        label="Blog Title"
+                        name="blogTitle"
+                        initialValue={PlaceToEdit ? PlaceToEdit.name : ''}
                     >
-                        <Input.TextArea style={{ height: "245px", width: "626px" }} showCount maxLength={1200} className="userp-helpmsg-custom-input"
-                            value={description4}
-                            onChange={(e) => { setdescription4(e.target.value) }}
+                        <Input
+                            onChange={(e) => setUpdatedBlogTitle(e.target.value)}
+                            placeholder="Enter Place title"
                         />
                     </Form.Item>
+
+
                 </Form>
             </Modal>
         </div>
