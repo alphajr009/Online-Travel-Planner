@@ -22,12 +22,16 @@ const upload = multer({ storage });
 router.post("/addplace", upload.array("images", 7), async (req, res) => {
 
     const newplace = new Place({
-        name: req.body.name,
+        name: req.body.title,
         category: req.body.category,
-        location: req.body.location,
+        phonenumber: req.body.phone,
+        city: req.body.city,
+        address: req.body.address,
+        googlemaplink: req.body.googlemaplink,
+        opentime: req.body.openingtime,
+        endtime: req.body.closingtime,
+        rating: 0,
         description: req.body.description,
-        opentime: req.body.opentime,
-        closetime: req.body.closetime,
     });
 
     try {

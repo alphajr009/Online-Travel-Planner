@@ -22,17 +22,21 @@ const placeSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    googlemaplink: {
+        type: String,
+        required: false
+    },
     opentime: {
-        type: Number,
+        type: String,
         required: true
     },
     endtime: {
-        type: Number,
+        type: String,
         required: true
     },
     rating: {
         type: Number,
-        required: true
+        required: false
     },
     description: {
         type: String,
