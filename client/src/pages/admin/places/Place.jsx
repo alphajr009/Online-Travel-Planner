@@ -191,21 +191,21 @@ function Place() {
     return (
         <div className='seller-central-blogs'>
             <div className='seller-central-blogs-container'>
-                {/* tab container */}
+
                 <div className="seller-central-blogs-tab">
-                    {/* container for create blog */}
+
                     <div
                         className={`seller-central-create-blog-tab-container ${activeTab === 'create blog' ? 'active' : ''}`}
                         onClick={() => setActiveTab('create blog')}
                     >
-                        <span className='seller-central-tab-text-create-blog'>Create Blog</span>
+                        <span className='seller-central-tab-text-create-blog'>Create Place</span>
                     </div>
-                    {/* container for Blogs tab */}
+
                     <div
                         className={`seller-central-blogs-tab-container ${activeTab === 'blog' ? 'active' : ''}`}
                         onClick={() => setActiveTab('blog')}
                     >
-                        <span className='seller-central-tab--text-blogs'>Blogs</span>
+                        <span className='seller-central-tab--text-blogs'>Places</span>
                     </div>
                 </div>
                 {activeTab === 'create blog' && (
