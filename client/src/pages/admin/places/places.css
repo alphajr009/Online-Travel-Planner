@@ -1,4 +1,4 @@
-.seller-central-blogs-container {
+.seller-central-places-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -7,7 +7,7 @@
 
 }
 
-.seller-central-blogs-tab {
+.seller-central-places-tab {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -43,7 +43,7 @@
 }
 
 
-.seller-central-blogs-tab-container {
+.seller-central-places-tab-container {
     font-family: "Sansation-Bold", sans-serif;
     font-size: 18px;
     display: flex;
@@ -65,7 +65,7 @@
     color: black;
 }
 
-.seller-central-blogs-tab-container.active {
+.seller-central-places-tab-container.active {
     color: black;
 }
 
@@ -74,23 +74,23 @@
     color: darkgray;
 }
 
-.seller-central-blogs-tab-container:not(.active) {
+.seller-central-places-tab-container:not(.active) {
     background-color: white;
     color: darkgray;
 }
 
-.seller-central-table-blogs-sellers {
+.seller-central-table-places-sellers {
     margin-top: 250px;
     width: 90%;
     font-family: "Sansation-Bold", sans-serif;
 }
 
-.seller-central-table-blogs-sellers th {
+.seller-central-table-places-sellers th {
     font-size: 15px;
     font-family: "Sansation-Bold", sans-serif;
 }
 
-.seller-central-table-blogs-sellers td {
+.seller-central-table-places-sellers td {
     font-size: 15px;
     font-family: "Sansation-Bold", sans-serif;
 }
@@ -102,7 +102,7 @@
 
 }
 
-.btn-edit-blogs-by-seller {
+.btn-edit-places-by-seller {
     font-family: "Sansation-Bold", sans-serif;
     color: green;
     height: 30px;
@@ -112,7 +112,7 @@
     border-radius: 4px;
 }
 
-.btn-delete-blogs-by-seller {
+.btn-delete-places-by-seller {
     font-family: "Sansation-Bold", sans-serif;
     color: red;
     height: 30px;

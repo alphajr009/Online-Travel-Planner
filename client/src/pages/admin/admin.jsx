@@ -1,33 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import AdminNav from '../../components/admin/navbar/aNavbar';
 import { Layout } from 'antd';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import Places from './places/Place';
 import Users from './users/User';
+
 function Admin() {
     const location = useLocation();
+    const navigate = useNavigate();
 
-    // Extract the active tab from the location pathname
-    const initialActiveTab = location.pathname.split('/').pop();
-
-    const [activeTab, setActiveTab] = useState(initialActiveTab || 'places');
+    const [activeTab, setActiveTab] = useState('places');
 
     useEffect(() => {
-        const handlePopState = () => {
-            const newActiveTab = location.pathname.split('/').pop();
-            setActiveTab(newActiveTab);
-        };
-
-        window.addEventListener('popstate', handlePopState);
-        return () => {
-            window.removeEventListener('popstate', handlePopState);
-        };
+        const newActiveTab = location.pathname.split('/').pop();
+        setActiveTab(newActiveTab);
     }, [location]);
 
     const handleTabChange = (newTab) => {
         setActiveTab(newTab);
-        window.history.pushState(null, null, `/admin/${newTab}`);
+        navigate(`/admin/${newTab}`);
     };
 
     return (
@@ -46,4 +38,4 @@ function Admin() {
     );
 }
 
-export default Admin; 
+export default Admin;
