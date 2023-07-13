@@ -1,8 +1,8 @@
 import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
 import SignUp from './pages/user/Signup';
 import Login from './pages/user/Login';
-import Home from './pages/user/home';
-import Admin from './pages/admin/Admin';
+import Home from './pages/user/Home';
+import Admin from './pages/admin/admin';
 
 function App() {
   return (
