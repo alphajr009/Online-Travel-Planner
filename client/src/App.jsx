@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route, useNavigate, Navigate } from 'react-router-dom';
 import SignUp from './pages/user/Signup';
 import Login from './pages/user/Login';
-import Home from './pages/user/Home';
+import Home from './pages/user/home';
 import Admin from './pages/admin/admin';
 
 
