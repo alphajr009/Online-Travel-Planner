@@ -4,6 +4,7 @@ import Login from './pages/user/Login';
 import Home from './pages/user/Home';
 import Admin from './pages/admin/admin';
 
+
 // Custom component to validate admin access
 const AdminRouteGuard = () => {
   const user = JSON.parse(localStorage.getItem('currentUser'));
@@ -15,6 +16,7 @@ const AdminRouteGuard = () => {
     return <Navigate to="/home" />;
   }
 };
+
 
 function App() {
   return (
