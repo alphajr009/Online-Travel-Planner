@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import AdminNav from '../../components/admin/navbar/aNavbar';
+import Navbar from "../../components/navbar/MainNavbar";
 import { Layout } from 'antd';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -24,8 +24,8 @@ function Admin() {
 
     return (
         <div>
-            <AdminNav setActiveTab={handleTabChange} activeTab={activeTab} />
-
+            
+            <Navbar></Navbar>
             <div className="admin">
                 <div className="admin__main">
                     <Layout.Content>

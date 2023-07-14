@@ -3,8 +3,21 @@
     flex-direction: column;
     align-items: center;
 }
+.main-search-bar{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
 
-
+.search-input-main{
+    width: 100%;
+}
+.option-selector{
+    width: 100%;
+}
+.search-button{
+    width: 100%;
+}
 .users-cus-name,
 .users-cus-id,
 .users-isadmin,
@@ -15,33 +28,13 @@
 }
 
 
-.admin-terminal-users-cus-name.users-cus-name,
+.users-cus-name,
 .admin-users-cus-id.users-cus-id,
 .admin-terminal-IsAdmin.users-isadmin {
     display: inline-block;
     vertical-align: middle;
 }
 
-.admin-terminal-search-bar-users-cus-name {
-    display: flex;
-    align-items: center;
-    height: 38px;
-    width: 250px;
-    background-color: white;
-    color: black;
-    border: 1px solid #ccc;
-    border-radius: 12px;
-    padding: 0 15px;
-    margin: 0 10px 10px 10px;
-}
-
-.admin-terminal-search-bar-users-cus-name input {
-    border: none;
-    outline: none;
-    font-family: "Sansation-Bold", sans-serif;
-    font-size: 16px;
-    color: black;
-}
 
 .admin-terminal-users-cus-id {
     display: flex;
@@ -64,57 +57,20 @@
     color: black;
 }
 
-.admin-terminal-users-isadmin {
-    display: flex;
-    align-items: center;
-    background-color: #E1E1E1;
-    color: black;
-    border-radius: 12px;
-    padding: 0 15px;
-    margin: 0 10px 10px 10px
-}
-
-.admin-users-filter-search {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 38px;
-    width: 40px;
-    background-color: white;
-    color: black;
-    border: 1px solid #ccc;
-    border-radius: 12px;
-    margin: 0 10px 10px 10px;
-}
-
-.admin-users-filter-search.r-users-search {
-    height: 18px;
-    width: 18px;
-}
-
-.btn-users-search-admin-terminal {
-    display: flex;
-    align-items: center;
-    background-color: #FFFFFF;
-    color: rgb(0, 0, 0);
-    border: none;
-    border-radius: 11px;
-    cursor: pointer;
-}
-
 .admin-terminal-users-cname-isAdmin {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
-    padding: 13px 10px 3px 10px;
-    border-radius: 20px;
-    border: 1px solid #4444AA;
-    background-color: #4444AA;
+    padding: 12px 20px;
+    border-radius: 4px;
     position: absolute;
     left: 50%;
-    margin-top: 100px;
-    transform: translateX(-50%)
+    transform: translateX(-50%);
+    width: 100%;
+}
+:where(.css-dev-only-do-not-override-12upa3x).ant-row{
+    width: 100%;
 }
 
 .admin-users-table {
@@ -150,16 +106,6 @@
     font-size: 15px;
     font-family: "Sansation-Bold", sans-serif;
 
-}
-
-.admin-terminal-users-isAdmin-yes {
-    font-family: "Sansation-Bold", sans-serif;
-    color: green;
-    height: 30px;
-    width: 80px;
-    background-color: var(--harlequin-2);
-    border-color: lightgreen;
-    border-radius: 4px;
 }
 
 :root {
