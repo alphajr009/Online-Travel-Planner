@@ -11,20 +11,22 @@ function Place() {
     const [places, setplaces] = useState([])
     const [loading, setloading] = useState(false)
     const [error, seterror] = useState()
-    const [rooms, setRooms] = useState([]);
 
 
-    const [title, settitle] = useState('')
     const [description, setdescription] = useState('')
-    const [description1, setdescription1] = useState('')
-    const [description2, setdescription2] = useState('')
-    const [description3, setdescription3] = useState('')
-    const [description4, setdescription4] = useState('')
+
 
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [PlaceToEdit, setPlaceToEdit] = useState(null);
     const [form] = Form.useForm();
     const [updatedBlogTitle, setUpdatedBlogTitle] = useState('');
+
+
+    const [updatedPhonenumber, setUpdatedPhonenumber] = useState('');
+    const [updatedCity, setUpdatedCity] = useState('');
+
+    const [updatedAddress, setUpdatedAddress] = useState('');
+    const [updatedGoogleMaplink, setUpdatedGoogleMapLink] = useState('');
 
     const openEditModal = (place) => {
         setPlaceToEdit(place);
@@ -41,7 +43,7 @@ function Place() {
     }
 
     const handleEditSubmit = async () => {
-        await editPlace(PlaceToEdit._id, updatedBlogTitle, description1, description2, description3, description4);
+        await editPlace(PlaceToEdit._id, updatedBlogTitle, updatedPhonenumber, updatedCity, updatedAddress, updatedGoogleMaplink);
         closeModal();
     };
 
@@ -143,18 +145,17 @@ function Place() {
     }, []);
 
 
-    async function editPlace(_id, updatedTitle, updatedDescription, phonenumber, city, address, googlemaplink, openingtime, closingtime) {
+    async function editPlace(_id, updatedBlogTitle, updatedPhonenumber, updatedCity, updatedAddress, updatedGoogleMaplink) {
         try {
             await axios.patch('/api/places/editblog', {
                 _id,
-                title: updatedTitle,
-                description: updatedDescription,
-                phonenumber: phonenumber,
-                city: city,
-                address: address,
-                googlemaplink: googlemaplink,
-                openingtime: openingtime,
-                closingtime: closingtime
+                title: updatedBlogTitle,
+                description: description,
+                phonenumber: updatedPhonenumber,
+                city: updatedCity,
+                address: updatedAddress,
+                googlemaplink: updatedGoogleMaplink,
+
 
 
             });
@@ -259,42 +260,53 @@ function Place() {
                         name="description"
                         initialValue={PlaceToEdit ? PlaceToEdit.description : ''}
                     >
-                        <Input.TextArea style={{ height: "245px", width: "626px" }} showCount maxLength={1200} className="userp-helpmsg-custom-input"
+                        <Input.TextArea showCount maxLength={1200} className="userp-helpmsg-custom-input"
                             value={description}
                             onChange={(e) => { setdescription(e.target.value) }}
                         />
                     </Form.Item>
 
                     <Form.Item
-                        label="Blog Title"
-                        name="blogTitle"
-                        initialValue={PlaceToEdit ? PlaceToEdit.name : ''}
+                        label="Phone Number"
+                        name="phonenumber"
+                        initialValue={PlaceToEdit ? PlaceToEdit.phonenumber : ''}
                     >
                         <Input
-                            onChange={(e) => setUpdatedBlogTitle(e.target.value)}
+                            onChange={(e) => setUpdatedPhonenumber(e.target.value)}
+                            placeholder="Enter Phone Number"
+                        />
+                    </Form.Item>
+
+                    <Form.Item
+                        label="City"
+                        name="city"
+                        initialValue={PlaceToEdit ? PlaceToEdit.city : ''}
+                    >
+                        <Input
+                            onChange={(e) => setUpdatedCity(e.target.value)}
                             placeholder="Enter Place title"
                         />
                     </Form.Item>
 
                     <Form.Item
-                        label="Blog Title"
-                        name="blogTitle"
-                        initialValue={PlaceToEdit ? PlaceToEdit.name : ''}
+                        label="Address"
+                        name="address"
+                        initialValue={PlaceToEdit ? PlaceToEdit.address : ''}
                     >
                         <Input
-                            onChange={(e) => setUpdatedBlogTitle(e.target.value)}
-                            placeholder="Enter Place title"
+                            onChange={(e) => setUpdatedAddress(e.target.value)}
+                            placeholder="Enter Address"
                         />
                     </Form.Item>
 
                     <Form.Item
-                        label="Blog Title"
-                        name="blogTitle"
-                        initialValue={PlaceToEdit ? PlaceToEdit.name : ''}
+                        label="Google Map Link"
+                        name="googlemaplink"
+                        initialValue={PlaceToEdit ? PlaceToEdit.googlemaplink : ''}
                     >
                         <Input
-                            onChange={(e) => setUpdatedBlogTitle(e.target.value)}
-                            placeholder="Enter Place title"
+                            onChange={(e) => setUpdatedGoogleMapLink(e.target.value)}
+                            placeholder="Enter Google Map Link"
                         />
                     </Form.Item>
 
