@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import LeftMenu from "./LeftMenu";
 import RightMenu from "./RightMenu";
 import { Drawer, Button } from "antd";
+import Logo from "../../assets/tripgeni_logo.svg"
 
 import "../../css/navigationBar.css";
 class Navbar extends Component {
@@ -23,7 +24,9 @@ class Navbar extends Component {
 		return (
 			<nav className="menuBar">
 				<div className="logo">
-					<a href="">logo</a>
+					<a href="/home">
+						<img src={Logo} alt="Logo" />
+					</a>
 				</div>
 				<div className="menuCon">
 					<div className="leftMenu">
