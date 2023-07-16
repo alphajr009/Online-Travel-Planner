@@ -3,10 +3,10 @@ import { Card } from 'antd';
 
 const { Meta } = Card;
 
-const PlaceCard = ({PlaceCardName}) => (
+const PlaceCard = ({ PlaceCardName, src }) => (
   <Card
     hoverable
-    cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
+    cover={<img alt="example" src={src} />}
   >
     <p>{PlaceCardName}</p >
   </Card>

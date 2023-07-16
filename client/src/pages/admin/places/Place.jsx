@@ -236,7 +236,7 @@ function Place() {
                 )}
             </div>
             <Modal
-                title="Edit Blog"
+
                 visible={isModalVisible}
                 onCancel={closeModal}
                 onOk={handleEditSubmit}
