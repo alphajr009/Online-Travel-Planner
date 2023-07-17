@@ -5,6 +5,7 @@ import { Drawer, Button } from "antd";
 import Logo from "../../assets/tripgeni_logo.svg";
 
 import "../../css/navigationBar.css";
+import AdminMenu from "./AdminMenu";
 
 class Navbar extends Component {
 	state = {
@@ -42,6 +43,9 @@ class Navbar extends Component {
 	render() {
 		const { isMobileView } = this.state;
 
+		const user = JSON.parse(localStorage.getItem('currentUser'));
+		const isAdmin = user && user.isAdmin;
+
 		return (
 			<nav className="menuBar">
 				<div className="logo">
@@ -52,9 +56,20 @@ class Navbar extends Component {
 				<div className="menuCon">
 					{!isMobileView && ( // Render LeftMenu and RightMenu only in desktop view
 						<>
-							<div className="leftMenu">
-								<LeftMenu />
-							</div>
+							{!isAdmin && (
+								<div className="leftMenu">
+									<LeftMenu />
+								</div>
+
+							)}
+
+							{isAdmin && (
+								<div className="leftMenu">
+									<AdminMenu />
+								</div>
+
+							)}
+
 							<div className="rightMenu">
 								<RightMenu />
 							</div>
@@ -71,8 +86,15 @@ class Navbar extends Component {
 								closable={false}
 								onClose={this.onClose}
 								visible={this.state.visible}
-							>
+							> {!isAdmin && (
 								<LeftMenu />
+
+							)}
+
+								{isAdmin && (
+									<AdminMenu />
+								)}
+
 								<RightMenu />
 							</Drawer>
 						</>
