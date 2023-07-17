@@ -14,7 +14,9 @@ function Place({ place }) {
                     hoverable
                     cover={<img src={`/uploads/${place._id}-0.jpg`} alt={place.name} />}
                 >
-                    <p>{place.name}</p>
+                    <div className='place-card-p'>
+                        <p>{place.name}</p>
+                    </div>
                 </Card>
             </Link>
         </div>

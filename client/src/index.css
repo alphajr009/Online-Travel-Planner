@@ -53,6 +53,10 @@ h2 {
 	margin-bottom: 8px;
 }
 
+.ant-dropdown .ant-dropdown-menu .ant-dropdown-menu-item {
+	font-family: "SF Pro Display-Regular";
+}
+
 
 :where(.css-dev-only-do-not-override-12upa3x)[class*=" ant-form"] {
 	font-family: "SF Pro Display-Regular";
@@ -117,4 +121,10 @@ h2 {
 
 .ant-notification-notice-description {
 	font-family: "SF Pro Display-Regular";
+}
+
+.ant-card .ant-card-body {
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-bottom: 0px;
 }

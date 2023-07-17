@@ -11,20 +11,15 @@ class LeftMenu extends Component {
         {!isAdmin && (
           <>
             <Menu.Item key="mail">
-              <a href="">Home</a>
+              <a href="/home">Home</a>
             </Menu.Item>
             <Menu.Item key="location">
-              <a href="">Locations</a>
-            </Menu.Item>
-            <Menu.Item key="about">
-              <a href="">About us</a>
+              <a href="/locations">Locations</a>
             </Menu.Item>
             <Menu.Item key="favourites">
-              <a href="">Favourites</a>
+              <a href="/favourites">Favourites</a>
             </Menu.Item>
-            <Menu.Item key="Contact us">
-              <a href="">Contact us</a>
-            </Menu.Item>
+
           </>
         )}
 
