@@ -1,31 +1,47 @@
+import { useState } from 'react';
 import { Tabs, Col } from 'antd';
-import PlaceCard from '../components/PlaceCard';
+import Do from './Do';
+import Eat from './Eat';
+import Stay from './Stay';
 
-const App = () => (
-  <Tabs
-    defaultActiveKey="1"
-    centered
-    items={new Array(3).fill(null).map((_, i) => {
-      const id = String(i + 1);
-      let label;
-      if (id === '1') {
-        label = 'Do';
-      } else if (id === '2') {
-        label = 'Eat';
-      } else if (id === '3') {
-        label = 'Stay';
-      }
-      return {
-        label: label,
-        key: id,
-        children: (
-          <Col className="location-card" span={6}>
-            <PlaceCard PlaceCardName={`PlaceCard ${id}`} />
-          </Col>
-        ),
-      };
-    })}
-  />
-);
+const App = () => {
+  const [activeTab, setActiveTab] = useState('1');
+
+  const handleTabChange = (key) => {
+    setActiveTab(key);
+  };
+
+  const renderContent = (key) => {
+    switch (key) {
+      case '1':
+        return <Do />;
+      case '2':
+        return <Eat />;
+      case '3':
+        return <Stay />;
+      default:
+        return null;
+    }
+  };
+
+  return (
+    <>
+      <Tabs
+        defaultActiveKey="1"
+        centered
+        activeKey={activeTab}
+        onChange={handleTabChange}
+      >
+        <Tabs.TabPane tab="Do" key="1" />
+        <Tabs.TabPane tab="Eat" key="2" />
+        <Tabs.TabPane tab="Stay" key="3" />
+      </Tabs>
+
+
+      {renderContent(activeTab)}
+
+    </>
+  );
+};
 
 export default App;
