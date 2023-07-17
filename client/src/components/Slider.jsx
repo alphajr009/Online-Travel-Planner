@@ -13,15 +13,14 @@ const Slider = () => (
 	<Carousel autoplay>
 		<div className="slider-images-01">
 			<Col className="slider-content" span={8}>
-				<h1 className="text-align-center ">Welcome to trip planner</h1>
+				<h1 className="text-align-center ">Make Your Dream Trip </h1>
 				<p>
 					{" "}
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-					eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem
-					ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-					tempor incididunt ut labore et dolore magna aliqua.
+					Discover the best places to visit, eat, and stay in any location. Explore exciting activities,
+					indulge in delicious cuisine, and book accommodations that suit your style.
+					Create unforgettable memories with ease, all in one place
 				</p>
-        <Input placeholder="Basic usage" />;
+				<Input placeholder="Where you want to go ?" />;
 			</Col>
 		</div>
 	</Carousel>
