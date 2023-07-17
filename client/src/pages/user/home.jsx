@@ -16,18 +16,7 @@ function Home() {
 			<h2 className="text-align-center">Explore Sri Lanka</h2>
 			<Row className="main-container-padding">
 
-				{/* <Col className="location-card" span={6}>
-					<PlaceCard></PlaceCard>
-				</Col>
-				<Col className="location-card" span={6}>
-					<PlaceCard></PlaceCard>
-				</Col>
-				<Col className="location-card" span={6}>
-					<PlaceCard></PlaceCard>
-				</Col>
-				<Col className="location-card" span={6}>
-					<PlaceCard></PlaceCard>
-				</Col> */}
+
 				<Col className="location-card" span={22} >
 					<ExploreSlider />
 				</Col>

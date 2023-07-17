@@ -1,0 +1,16 @@
+.blogscreen-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 40px 80px;
+    gap: 40px;
+    width: 80%;
+}
+
+.spinner-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 36vh;
+}
