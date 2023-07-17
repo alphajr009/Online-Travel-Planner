@@ -1,5 +1,7 @@
 .main-container-padding{
-    padding: 40px 80px !important;
+    display: flex;
+    justify-content: center;
+    padding: 12px 0px;
 }
 .location-card{
     padding: 0px 20px;
