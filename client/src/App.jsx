@@ -3,6 +3,8 @@ import SignUp from './pages/user/Signup';
 import Login from './pages/user/Login';
 import Home from './pages/user/home';
 import Admin from './pages/admin/admin';
+import Account from './pages/Account';
+
 
 
 // Custom component to validate admin access
@@ -27,6 +29,7 @@ function App() {
           <Route path="/login" element={<Login />} exact />
           <Route path="/home" element={<Home />} exact />
           <Route path="/admin/*" element={<AdminRouteGuard />} />
+          <Route path="/account" element={<Account />} />
         </Routes>
       </BrowserRouter>
     </div>
