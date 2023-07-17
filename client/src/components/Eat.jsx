@@ -12,7 +12,7 @@ function Place({ place }) {
                 <Card
                     span={6}
                     hoverable
-                    cover={<img src={`/uploads/${place._id}-0.jpg`} alt={place.name} />}
+                    cover={<img className='palce-card-image' src={`/uploads/${place._id}-0.jpg`} alt={place.name} />}
                 >
                     <div className='place-card-p'>
                         <p>{place.name}</p>
@@ -66,7 +66,7 @@ function Eat() {
                         {filteredPlaces
                             .slice((currentPage - 1) * placesPerPage, currentPage * placesPerPage)
                             .map(place => (
-                                <Col key={place.id} span={6}>
+                                <Col key={place.id} span={6} className='palce-card'>
                                     <Place place={place} />
                                 </Col>
                             ))}
