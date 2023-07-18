@@ -9,7 +9,7 @@ function Place({ place }) {
     return (
         <div>
             <Link to={`/place/${place._id}`}>
-                <Card 
+                <Card
                     hoverable
                     cover={<img className='palce-card-image' src={`/uploads/${place._id}-0.jpg`} alt={place.name} />}
                 >
