@@ -92,29 +92,33 @@ router.post("/getuserbyid", async (req, res) => {
 });
 
 
-
-router.put("/update", async (req, res) => {
-    const { userId } = req.body;
+router.patch("/updateuser", async (req, res) => {
+    const { _id, name, city, gender, phone, birthday, address, preferences } = req.body;
 
     try {
-        const user = await User.findById(userId);
-        if (!user) {
-            return res.status(404).json({ error: "User not found." });
+        const user = await User.findById(_id);
+        if (!user) return res.status(404).json({ message: 'User not found' });
+        user.name = name;
+        user.hometown = city;
+        user.gender = gender;
+        user.phonenumber = phone;
+        user.birthday = new Date(birthday);
+        user.address = address;
+        user.favhotles = preferences;
+        if (Array.isArray(preferences) && preferences.length > 0) {
+            user.favhotles = preferences;
         }
 
-        user.name = req.body.name || user.name;
-        user.gender = req.body.gender || user.gender;
-        user.hometown = req.body.city || user.hometown;
-        user.address = req.body.address || user.address;
-        user.phonenumber = req.body.phone || user.phonenumber;
 
         await user.save();
-
-        return res.json({ message: "User details updated successfully." });
+        return res.json({ message: 'User details updated successfully' });
     } catch (error) {
-        return res.status(500).json({ error: "Error updating user details." });
+        return res.status(400).json({ error });
     }
 });
+
+
+
 
 
 

@@ -15,6 +15,9 @@ const userSchema = mongoose.Schema({
     hometown: {
         type: String, required: false
     },
+    birthday: {
+        type: String, required: false
+    },
     address: {
         type: String, required: false
     },
