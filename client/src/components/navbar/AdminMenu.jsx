@@ -9,6 +9,10 @@ class AdminMenu extends Component {
             <Menu className='nav-menu-items' mode="horizontal">
 
                 <Menu mode="horizontal" key="place">
+                    <a href="/home">Home</a>
+                </Menu>
+
+                <Menu mode="horizontal" key="place">
                     <a href="/admin/places">Place</a>
                 </Menu>
 

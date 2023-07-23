@@ -77,6 +77,45 @@ router.patch('/changeadmin', async (req, res) => {
 });
 
 
+router.post("/getuserbyid", async (req, res) => {
+
+    const userid = req.body.userid
+
+    try {
+        const user = await User.find({ _id: userid })
+        res.send(user)
+
+    } catch (error) {
+        return res.status(400).json({ error })
+
+    }
+});
+
+
+
+router.put("/update", async (req, res) => {
+    const { userId } = req.body;
+
+    try {
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ error: "User not found." });
+        }
+
+        user.name = req.body.name || user.name;
+        user.gender = req.body.gender || user.gender;
+        user.hometown = req.body.city || user.hometown;
+        user.address = req.body.address || user.address;
+        user.phonenumber = req.body.phone || user.phonenumber;
+
+        await user.save();
+
+        return res.json({ message: "User details updated successfully." });
+    } catch (error) {
+        return res.status(500).json({ error: "Error updating user details." });
+    }
+});
+
 
 
 
