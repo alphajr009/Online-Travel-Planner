@@ -93,6 +93,30 @@ router.post("/getuserbyid", async (req, res) => {
 
 
 
+router.put("/update", async (req, res) => {
+    const { userId } = req.body;
+
+    try {
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ error: "User not found." });
+        }
+
+        user.name = req.body.name || user.name;
+        user.gender = req.body.gender || user.gender;
+        user.hometown = req.body.city || user.hometown;
+        user.address = req.body.address || user.address;
+        user.phonenumber = req.body.phone || user.phonenumber;
+
+        await user.save();
+
+        return res.json({ message: "User details updated successfully." });
+    } catch (error) {
+        return res.status(500).json({ error: "Error updating user details." });
+    }
+});
+
+
 
 
 module.exports = router

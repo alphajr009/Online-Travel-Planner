@@ -17,6 +17,10 @@ import {
 } from "antd";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { LockOutlined } from "@ant-design/icons";
+import moment from "moment";
+
+
 
 function Account() {
 	const user = JSON.parse(localStorage.getItem("currentUser"));
@@ -25,6 +29,13 @@ function Account() {
 	const [email, setEmail] = useState("");
 	const [editMode, setEditMode] = useState(false);
 	const [saveButtonText, setSaveButtonText] = useState("Edit Profile");
+	const [city, setCity] = useState("");
+	const [gender, setGender] = useState("");
+	const [phone, setPhone] = useState("");
+	const [birthday, setBirthday] = useState("");
+	const [address, setAddress] = useState("");
+	const [preferences, setPreferences] = useState([]);
+
 
 	useEffect(() => {
 		(async () => {
@@ -41,17 +52,28 @@ function Account() {
 	}, []);
 
 	const onSaveButtonClick = () => {
-		form.validateFields().then(() => {
-			// Perform the save operation here since the form is valid
+
+		form.validateFields().then((values) => {
+			setName(values.Name);
+			setCity(values.city);
+			setGender(values.gender);
+			setPhone(values.phone);
+			setBirthday(values.birthday);
+			setAddress(values.address);
+			setPreferences(values.preferences);
+
+			// Save the data (you can perform your save logic here)
+
+
 			notification.success({
 				message: "Success",
 				description: "Profile has been saved!",
 			});
 
-			// Switch back to "Edit Profile" mode after saving
 			setEditMode(false);
 			setSaveButtonText("Edit Profile");
 		}).catch((error) => {
+
 			notification.error({
 				message: "Error",
 				description: "Please fill in all required fields before saving.",
@@ -59,22 +81,72 @@ function Account() {
 		});
 	};
 
-	const options = [];
-	for (let i = 10; i < 36; i++) {
-		options.push({
-			label: i.toString(36) + i,
-			value: i.toString(36) + i,
-		});
-	}
+	const options = [
+		{ label: "#Zoo", value: "Zoo" },
+		{ label: "#Cafe", value: "Cafe" },
+		{ label: "#Club", value: "Club" },
+		{ label: "#Range", value: "Range" },
+		{ label: "#Movie", value: "Movie" },
+		{ label: "#Beach", value: "Beach" },
+		{ label: "#Hike", value: "Hike" },
+		{ label: "#Art", value: "Art" },
+		{ label: "#Museum", value: "Museum" },
+		{ label: "#Park", value: "Park" },
+		{ label: "#History", value: "History" },
+		{ label: "#Mall", value: "Mall" },
+		{ label: "#Garden", value: "Garden" },
+		{ label: "#Amusement", value: "Amusement" },
+		{ label: "#Music", value: "Music" },
+		{ label: "#Sports", value: "Sports" },
+		{ label: "#Spa", value: "Spa" },
+		{ label: "#Market", value: "Market" },
+		{ label: "#FoodStall", value: "FoodStall" },
+		{ label: "#ScenicView", value: "ScenicView" },
+		{ label: "#Pub", value: "Pub" },
+		{ label: "#Winery", value: "Winery" },
+		{ label: "#Adventure", value: "Adventure" },
+		{ label: "#Yoga", value: "Yoga" },
+		{ label: "#Bookstore", value: "Bookstore" },
+		{ label: "#Waterfall", value: "Waterfall" },
+		{ label: "#Ski", value: "Ski" },
+		{ label: "#Wildlife", value: "Wildlife" },
+		{ label: "#CookingClass", value: "CookingClass" },
+		{ label: "#HotSpring", value: "HotSpring" },
+	];
 
-	const handleChange = (value) => {
-		console.log(`selected ${value}`);
+	const handleChange = (selectedPreferences) => {
+		setPreferences(selectedPreferences);
 	};
+
 
 	const [form] = Form.useForm();
 	const [formLayout, setFormLayout] = useState("horizontal");
-	const onFormLayoutChange = ({ layout }) => {
+	const onFormLayoutChange = ({ layout, birthday }) => {
 		setFormLayout(layout);
+		if (birthday) {
+			setBirthday(birthday.format("YYYY-MM-DD"));
+		}
+	};
+
+	const initialValues = {
+		Name: name,
+		city: city,
+		gender: gender,
+		phone: phone,
+		birthday: birthday,
+		birthday: birthday ? moment(birthday, "YYYY-MM-DD") : null,
+		address: address,
+		preferences: preferences,
+	};
+
+	form.setFieldsValue(initialValues);
+
+	const onFinish = (values) => {
+		console.log('Success:', values);
+	};
+
+	const onFinishFailed = (errorInfo) => {
+		console.log('Failed:', errorInfo);
 	};
 
 	const formItemLayout =
@@ -127,13 +199,14 @@ function Account() {
 						form={form}
 						initialValues={{
 							layout: formLayout,
-							email: email,
 						}}
+						autoComplete="off"
 						onValuesChange={onFormLayoutChange}
 					>
 						<div className="form-coloums">
 							<Col span={12}>
 								<Form.Item
+									name="Name"
 									rules={[
 										{
 											required: true,
@@ -142,11 +215,14 @@ function Account() {
 									]}>
 									<label>Name</label>
 									<Input
+										value={name}
 										placeholder="Name"
-										disabled={!editMode} // Disable input field when not in edit mode
+										disabled={!editMode}
+										onChange={(e) => setName(e.target.value)}
 									/>
 								</Form.Item>
 								<Form.Item
+									name="city"
 									rules={[
 										{
 											required: true,
@@ -155,8 +231,10 @@ function Account() {
 									]}>
 									<label>City</label>
 									<Input
+										value={city}
 										placeholder="City"
-										disabled={!editMode} // Disable input field when not in edit mode
+										disabled={!editMode}
+										onChange={(e) => setCity(e.target.value)}
 									/>
 								</Form.Item>
 								<Form.Item
@@ -168,16 +246,11 @@ function Account() {
 										},
 									]}>
 									<label>Gender: </label>
-									<Radio.Group>
-										<Radio value="male" disabled={!editMode}>
-											{" "}
-											Male{" "}
-										</Radio>
-										<Radio value="female" disabled={!editMode}>
-											{" "}
-											Female{" "}
-										</Radio>
+									<Radio.Group value={gender} onChange={(e) => setGender(e.target.value)} disabled={!editMode}>
+										<Radio value="male">Male</Radio>
+										<Radio value="female">Female</Radio>
 									</Radio.Group>
+
 								</Form.Item>
 								<Form.Item
 									name="phone"
@@ -189,40 +262,44 @@ function Account() {
 									]}>
 									<label>Phone Number</label>
 									<Input
+										value={phone}
 										placeholder="Phone Number"
-										disabled={!editMode} // Disable input field when not in edit mode
+										disabled={!editMode}
+										onChange={(e) => setPhone(e.target.value)}
 									/>
 								</Form.Item>
 							</Col>
 							<Col span={12}>
 								<Form.Item
 									name="email"
-									rules={[
-										{
-											required: true,
-											message: "Please enter your email!",
-										},
-									]}>
+
+								>
 									<label>Email</label>
 									<Input
-										name="email"
+
 										placeholder={email}
-										value={email}
-										disabled={!editMode} // Disable input field when not in edit mode
+
+										disabled={true}
+										suffix={<LockOutlined style={{ color: "#aaa" }} />}
 									/>
 								</Form.Item>
-								<label>Birthday</label>
 								<Form.Item
 									name="birthday"
 									rules={[
 										{
+											type: "object",
 											required: true,
 											message: "Please select your birthday!",
 										},
-									]}>
-									<DatePicker disabled={!editMode} />{" "}
-									{/* Disable date picker when not in edit mode */}
+									]}
+								>
+									<label>Birthday</label>
+									<DatePicker
+										disabled={!editMode}
+										onChange={(date, dateString) => setBirthday(dateString)}
+									/>
 								</Form.Item>
+
 								<Form.Item
 									rules={[
 										{
@@ -232,9 +309,11 @@ function Account() {
 									]}>
 									<label>Address</label>
 									<TextArea
+										value={address}
 										rows={4}
 										placeholder="Address"
-										disabled={!editMode} // Disable input field when not in edit mode
+										disabled={!editMode}
+										onChange={(e) => setAddress(e.target.value)}
 									/>
 								</Form.Item>
 								<Space
@@ -247,6 +326,7 @@ function Account() {
 										name="preferences"
 										rules={[
 											{
+												type: "array",
 												required: true,
 												message: "Please select your preferences!",
 											},
@@ -259,18 +339,25 @@ function Account() {
 												width: "84%",
 											}}
 											placeholder="Please select"
-											defaultValue={["a10", "c12"]}
-											onChange={handleChange}
+											defaultValue={preferences}
+											onChange={handleChange} // This is where we handle the selection changes
 											options={options}
-											disabled={!editMode} // Disable select field when not in edit mode
+											disabled={!editMode}
 										/>
+
 									</Form.Item>
 								</Space>
 								<Form.Item {...buttonItemLayout}>
-									<Button className="user-submit-btn" disabled={!editMode} onClick={onSaveButtonClick}>
+									<Button
+										className="user-submit-btn"
+										disabled={!editMode}
+										type="primary"
+										htmlType="submit"
+										onClick={onSaveButtonClick}
+									>
 										Save
 									</Button>{" "}
-									{/* Disable button when not in edit mode */}
+
 								</Form.Item>
 							</Col>
 						</div>
