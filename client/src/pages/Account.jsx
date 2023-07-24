@@ -58,12 +58,6 @@ function Account() {
 				const flatPreferences = data.favhotles.flat();
 				setPreferences(flatPreferences);
 
-				setEditMode(true);
-				setSaveButtonText("Save");
-				setPageLoaded(true);
-
-
-
 			} catch (error) {
 				console.log("error");
 			}
@@ -109,13 +103,7 @@ function Account() {
 			setAddress(values.address);
 			setPreferences(values.preferences);
 
-			notification.success({
-				message: "Success",
-				description: "Profile has been saved!",
-			});
 
-			setEditMode(false);
-			setSaveButtonText("Edit Profile");
 		}).catch((error) => {
 
 			notification.error({
@@ -147,6 +135,10 @@ function Account() {
 					values.address,
 					values.preferences
 				);
+				notification.success({
+					message: "Success",
+					description: "Profile has been saved!",
+				});
 			}).catch((error) => {
 				notification.error({
 					message: "Error",
@@ -400,6 +392,7 @@ function Account() {
 								>
 									<label>Birthday</label>
 									<DatePicker
+										placeholder={birthdayPlaceholder}
 										disabled={!editMode}
 										defaultValue={birthday ? moment(new Date(birthday)) : null}
 										onChange={(date, dateString) => {
