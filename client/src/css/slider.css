@@ -18,3 +18,11 @@
     z-index: 100 !important;
     filter: brightness(100%);
   }
+  .search-bar{
+    display: flex;
+    justify-content: space-between;
+
+  }
+  .search-input{
+    width: 80%;
+  }
