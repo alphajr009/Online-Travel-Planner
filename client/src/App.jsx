@@ -4,6 +4,7 @@ import Login from './pages/user/Login';
 import Home from './pages/user/home';
 import Admin from './pages/admin/admin';
 import Account from './pages/Account';
+import PlanTrip from './pages/PlanTrip';
 
 
 
@@ -31,6 +32,8 @@ function App() {
           <Route path="/home" element={<Home />} exact />
           <Route path="/admin/*" element={<AdminRouteGuard />} />
           <Route path="/account" element={<Account />} />
+          <Route path="/plantrip" element={<PlanTrip />} />
+
         </Routes>
       </BrowserRouter>
     </div>
