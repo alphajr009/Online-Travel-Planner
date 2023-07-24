@@ -35,6 +35,10 @@ function Account() {
 	const [birthday, setBirthday] = useState("");
 	const [address, setAddress] = useState("");
 	const [preferences, setPreferences] = useState([]);
+	const { location } = window;
+
+	const [pageLoaded, setPageLoaded] = useState(false);
+
 
 
 	useEffect(() => {
@@ -45,11 +49,54 @@ function Account() {
 				});
 				const data = response.data[0];
 				setEmail(data.email);
+				setName(data.name);
+				setCity(data.hometown);
+				setPhone(data.phonenumber);
+				setGender(data.gender);
+				setBirthday(data.birthday);
+				setAddress(data.address);
+				const flatPreferences = data.favhotles.flat();
+				setPreferences(flatPreferences);
+
+				setEditMode(true);
+				setSaveButtonText("Save");
+				setPageLoaded(true);
+
+
+
 			} catch (error) {
 				console.log("error");
 			}
 		})();
 	}, []);
+
+
+	async function changeUserDetails(name, city, gender, phone, birthday, address, preferences) {
+		const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+		if (!currentUser) throw new Error('User not found in local storage');
+
+		const _id = currentUser._id;
+		try {
+			const res = await axios.patch('/api/users/updateuser', {
+				_id,
+				name,
+				city,
+				gender,
+				phone,
+				birthday,
+				address,
+				preferences: [preferences]
+			});
+			console.log(res.data);
+
+			location.reload();
+		} catch (error) {
+			console.log(error);
+		}
+	}
+
+
+
 
 	const onSaveButtonClick = () => {
 
@@ -61,9 +108,6 @@ function Account() {
 			setBirthday(values.birthday);
 			setAddress(values.address);
 			setPreferences(values.preferences);
-
-			// Save the data (you can perform your save logic here)
-
 
 			notification.success({
 				message: "Success",
@@ -80,6 +124,45 @@ function Account() {
 			});
 		});
 	};
+
+
+	const onSaveButtonClick1 = async () => {
+		try {
+			form.validateFields().then(async (values) => {
+				setName(values.Name);
+				setCity(values.city);
+				setGender(values.gender);
+				setPhone(values.phone);
+				setBirthday(values.birthday);
+				setAddress(values.address);
+				setPreferences(values.preferences);
+
+				// Call the changeUserDetails function to save the data
+				await changeUserDetails(
+					values.Name,
+					values.city,
+					values.gender,
+					values.phone,
+					values.birthday.format('YYYY-MM-DD'),
+					values.address,
+					values.preferences
+				);
+			}).catch((error) => {
+				notification.error({
+					message: "Error",
+					description: "Please fill in all required fields before saving.",
+				});
+			});
+		} catch (error) {
+			console.error("An error occurred:", error);
+		}
+	};
+	const onCancelButtonClick = () => {
+		form.resetFields(); // Reset the form fields and validation warnings
+		setEditMode(false);
+		setSaveButtonText("Edit Profile");
+	};
+
 
 	const options = [
 		{ label: "#Zoo", value: "Zoo" },
@@ -141,13 +224,8 @@ function Account() {
 
 	form.setFieldsValue(initialValues);
 
-	const onFinish = (values) => {
-		console.log('Success:', values);
-	};
+	const formattedBirthday = moment(birthday).format("MM/DD/YYYY");
 
-	const onFinishFailed = (errorInfo) => {
-		console.log('Failed:', errorInfo);
-	};
 
 	const formItemLayout =
 		formLayout === "horizontal"
@@ -178,6 +256,24 @@ function Account() {
 	const { RangePicker } = DatePicker;
 	const { TextArea } = Input;
 
+	const birthdayPlaceholder = moment(birthday).format("YYYY-MM-DD");
+	const formattedPreferences = preferences.map((pref) => "#" + pref + " " + " ");
+
+
+	const onFormLayoutChange1 = ({ layout, ...values }) => {
+		setFormLayout(layout);
+
+		// Update the state with the form field values
+		setName(values.Name);
+		setCity(values.city);
+		setGender(values.gender);
+		setPhone(values.phone);
+		setBirthday(values.birthday);
+		setAddress(values.address);
+		setPreferences(values.preferences);
+	};
+
+
 
 
 	return (
@@ -186,10 +282,18 @@ function Account() {
 			<div className="profile-cover">
 				<Button
 					className="user-edit-btn"
-					onClick={() => setEditMode(!editMode)} // Toggle the edit mode
+					onClick={() => {
+						if (editMode) {
+							onCancelButtonClick();
+						} else {
+							setEditMode(true);
+							setSaveButtonText("Save");
+						}
+					}}
 				>
 					{editMode ? "Cancel" : "Edit Profile"}
 				</Button>
+
 			</div>
 			<div className="acc-form-sec">
 				<Col span={24}>
@@ -197,6 +301,7 @@ function Account() {
 						{...formItemLayout}
 						layout={formLayout}
 						form={form}
+						onChange={onSaveButtonClick}
 						initialValues={{
 							layout: formLayout,
 						}}
@@ -263,7 +368,7 @@ function Account() {
 									<label>Phone Number</label>
 									<Input
 										value={phone}
-										placeholder="Phone Number"
+										placeholder={phone}
 										disabled={!editMode}
 										onChange={(e) => setPhone(e.target.value)}
 									/>
@@ -296,11 +401,16 @@ function Account() {
 									<label>Birthday</label>
 									<DatePicker
 										disabled={!editMode}
-										onChange={(date, dateString) => setBirthday(dateString)}
+										defaultValue={birthday ? moment(new Date(birthday)) : null}
+										onChange={(date, dateString) => {
+											const birthdayDate = moment(date).toDate();
+											setBirthday(birthdayDate);
+										}}
 									/>
 								</Form.Item>
 
 								<Form.Item
+									name="address"
 									rules={[
 										{
 											required: true,
@@ -326,7 +436,6 @@ function Account() {
 										name="preferences"
 										rules={[
 											{
-												type: "array",
 												required: true,
 												message: "Please select your preferences!",
 											},
@@ -338,9 +447,9 @@ function Account() {
 											style={{
 												width: "84%",
 											}}
-											placeholder="Please select"
+											placeholder={formattedPreferences}
 											defaultValue={preferences}
-											onChange={handleChange} // This is where we handle the selection changes
+											onChange={handleChange}
 											options={options}
 											disabled={!editMode}
 										/>
@@ -353,7 +462,7 @@ function Account() {
 										disabled={!editMode}
 										type="primary"
 										htmlType="submit"
-										onClick={onSaveButtonClick}
+										onClick={onSaveButtonClick1}
 									>
 										Save
 									</Button>{" "}
