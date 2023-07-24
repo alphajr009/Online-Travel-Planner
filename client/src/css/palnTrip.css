@@ -4,3 +4,29 @@
 .carosal{
     display: flex   ;
 }
+.place-cover{
+        background-repeat: no-repeat;
+        background-size: 100%;
+        width: 100%;
+        height: 450px;
+        object-fit: cover;
+        position: relative;
+        filter: brightness(60%);
+    }
+    .place-cover-details{
+        position: absolute;
+        top: 170px;
+        color: #fff;
+        padding: 2% 5%;
+    }
+    .place-page-content{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 4% 0%;
+    }
+    .place-page-content p{
+        margin-bottom: 20px;
+    }
