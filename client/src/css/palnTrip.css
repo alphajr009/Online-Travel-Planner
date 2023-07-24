@@ -5,3 +5,53 @@
 .carosal {
     display: flex;
 }
+
+.h3placetrip {
+    padding-top: 5%;
+}
+
+.plan-trip-card {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 15px;
+
+}
+
+.pt-create-btn {
+    margin-top: 5%;
+    text-align: center;
+}
+
+
+.plan-trip-card .ant-btn-default:not(:disabled):hover {
+    color: #ffffff;
+    border-color: rgb(255, 255, 255);
+    background-color: #1677ff;
+}
+
+.plan-trip-card .ant-btn-default {
+    background-color: #ffffff;
+    border-color: #4096ff;
+    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.02);
+    color: #000000;
+}
+
+.pt-create-btn .ant-btn-default:not(:disabled):hover {
+    color: #ffffff;
+    border-color: rgb(255, 255, 255);
+    background-color: #489afd;
+}
+
+.pt-create-btn .ant-btn-default {
+    background-color: #1677ff;
+    border-color: #1677ff;
+    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.02);
+    color: #ffffff;
+
+}
+
+.pt-create-btn .ant-btn {
+    height: 40px;
+    padding: 6px 40px;
+    border-radius: 6px;
+}

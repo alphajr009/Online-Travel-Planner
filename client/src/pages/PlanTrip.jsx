@@ -3,15 +3,9 @@ import Navbar from "../components/navbar/MainNavbar";
 import Slider from "react-slick";
 import Slider01 from "../components/Slider";
 import "../css/palnTrip.css";
-import { Carousel, Card, Col } from "antd";
+import { Carousel, Card, Col, Button } from "antd";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Sigiriya from '../assets/sigiriya.png'
-import Mirissa from '../assets/mirissa.png'
-import Ella from '../assets/ella.png'
-import Kandy from '../assets/kandy.png'
-import Yala from '../assets/yala.png'
-import Colombo from '../assets/colombo.png'
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 
@@ -20,17 +14,27 @@ const contentStyle = {
 };
 const { Meta } = Card;
 
+function Place({ place }) {
+	return (
+		<div>
+
+			<Card
+				hoverable
+				cover={<img className='palce-card-image' src={`/uploads/${place._id}-0.jpg`} alt={place.name} />}
+			>
+				<div className='place-card-p plan-trip-card '>
+					<p>{place.name}</p>
+					<Button>View</Button>
+				</div>
+			</Card>
+
+		</div>
+	);
+}
+
+
 
 function PlanTrip() {
-
-	const PlaceCard = ({ PlaceCardName, src }) => (
-		<Card
-			hoverable
-			cover={<img alt="example" src={src} />}
-		>
-			<p>{PlaceCardName}</p>
-		</Card>
-	);
 
 
 	const [doplace, setDo] = useState([]);
@@ -45,9 +49,9 @@ function PlanTrip() {
 			try {
 				const response = await axios.get('/api/places/getallplaces');
 				const data = response.data;
-				const doPlaces = data.places.filter(place => place.category === 'Do');
-				const eatPlaces = data.places.filter(place => place.category === 'Eat');
-				const stayPlaces = data.places.filter(place => place.category === 'Stay');
+				const doPlaces = data.places.filter(place => place.category === 'Do' && place.city.toLowerCase().includes(searchValue.toLowerCase()));
+				const eatPlaces = data.places.filter(place => place.category === 'Eat' && place.city.toLowerCase().includes(searchValue.toLowerCase()));
+				const stayPlaces = data.places.filter(place => place.category === 'Stay' && place.city.toLowerCase().includes(searchValue.toLowerCase()));
 
 				setDo(doPlaces);
 				setEat(eatPlaces);
@@ -115,39 +119,35 @@ function PlanTrip() {
 			<div className="container plantrip">
 				<h3>Do</h3>
 				<Slider {...settings}>
-					<Col className="location-card">
-						<PlaceCard PlaceCardName="Colombo" src={Colombo} />
-					</Col>
-
-					<Col className="location-card">
-						<PlaceCard PlaceCardName="Sigiriya" src={Sigiriya} />
-					</Col>
-
-					<Col className="location-card">
-						<PlaceCard PlaceCardName="Ella" src={Ella} />
-					</Col>
-
-					<Col className="location-card">
-						<PlaceCard PlaceCardName="Mirissa" src={Mirissa} />
-					</Col>
-
-					<Col className="location-card">
-						<PlaceCard PlaceCardName="Kandy" src={Kandy} />
-					</Col>
-
-					<Col className="location-card">
-						<PlaceCard PlaceCardName="Yala" src={Yala} />
-					</Col>
-
-					<Col className="location-card">
-						<PlaceCard PlaceCardName="Ella" src={Ella} />
-					</Col>
-
-					<Col className="location-card">
-						<PlaceCard PlaceCardName="Kandy" src={Kandy} />
-					</Col>
+					{doplace.map((place) => (
+						<Col key={place._id} className="location-card">
+							<Place place={place} />
+						</Col>
+					))}
 				</Slider>
+
+				<h3 className="h3placetrip">Eat</h3>
+				<Slider {...settings}>
+					{eatplace.map((place) => (
+						<Col key={place._id} className="location-card">
+							<Place place={place} />
+						</Col>
+					))}
+				</Slider>
+
+				<h3 className="h3placetrip">Stay</h3>
+				<Slider {...settings}>
+					{stayplace.map((place) => (
+						<Col key={place._id} className="location-card">
+							<Place place={place} />
+						</Col>
+					))}
+				</Slider>
+				<div className="pt-create-btn">
+					<Button><h4>Plan Trip</h4></Button>
+				</div>
 			</div>
+
 		</div>
 	);
 }

@@ -38,6 +38,13 @@ h3 {
 	margin-bottom: 20px;
 }
 
+h4 {
+	font-family: "SF Pro Display-Medium";
+	font-size: 18px !important;
+	margin-top: 0px;
+}
+
+
 p {
 	font-family: "SF Pro Display-Regular";
 	margin-top: 0px;
