@@ -1,5 +1,6 @@
-import { Carousel, Col } from "antd";
-import { Input, Button } from "antd";
+import { Button, Carousel, Col } from "antd";
+import { Input } from "antd";
+
 import "../css/slider.css";
 const contentStyle = {
 	height: "450px",
@@ -20,10 +21,12 @@ const Slider = () => (
 					indulge in delicious cuisine, and book accommodations that suit your style.
 					Create unforgettable memories with ease, all in one place
 				</p>
+
 				 <div class="search-bar">
 					<Input className="search-input" placeholder="Where you want to go ?" />
 					<Button type="primary" size="large">Search</Button>
 				 </div>
+
 			</Col>
 		</div>
 	</Carousel>
