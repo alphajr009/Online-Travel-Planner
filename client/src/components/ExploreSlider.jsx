@@ -50,11 +50,10 @@ function ExploreSlider() {
 
 	return (
 		<div>
-             <h1>do</h1>
 			<div>
-           
+
 				<div className="carousel">
-					
+
 					<Slider {...settings}>
 						<Col className="location-card">
 							<PlaceCard PlaceCardName="Colombo" src={Colombo} />
