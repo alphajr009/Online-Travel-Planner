@@ -1,4 +1,4 @@
-import { Carousel, Col } from "antd";
+import { Button, Carousel, Col } from "antd";
 import { Input } from "antd";
 import "../css/slider.css";
 const contentStyle = {
@@ -20,7 +20,8 @@ const Slider = () => (
 					indulge in delicious cuisine, and book accommodations that suit your style.
 					Create unforgettable memories with ease, all in one place
 				</p>
-				<Input placeholder="Where you want to go ?" />;
+				<Input placeholder="Where you want to go ?" />
+				<Button>Plan Now</Button>
 			</Col>
 		</div>
 	</Carousel>
