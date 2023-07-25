@@ -95,6 +95,7 @@
 
 .fuction-icons {
     cursor: pointer;
+    margin-right: 30px;
 }
 
 
@@ -202,4 +203,23 @@
     color: rgb(235, 169, 169);
     text-align: left;
     margin-left: 10px;
+}
+
+.like-button-container .ant-btn-default:not(:disabled):hover {
+    color: #e4264e;
+    border-color: #fad0d7;
+}
+
+.like-button-container .ant-btn {
+    color: #a9b8c2;
+    border-color: rgb(233, 187, 195);
+}
+
+.liked-heart {
+    color: #e4264e;
+}
+
+.like-button-container {
+    margin-top: 22%;
+
 }

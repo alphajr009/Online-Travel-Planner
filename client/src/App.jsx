@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, useNavigate, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import SignUp from './pages/user/Signup';
 import Login from './pages/user/Login';
 import Home from './pages/user/home';
@@ -29,6 +29,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
+          <Route path="/" element={<Navigate to="/home" />} exact />
           <Route path="/signup" element={<SignUp />} exact />
           <Route path="/login" element={<Login />} exact />
           <Route path="/home" element={<Home />} exact />

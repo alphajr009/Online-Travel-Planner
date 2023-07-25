@@ -133,6 +133,7 @@ function PlanTrip() {
 	console.log(searchValue)
 
 
+
 	var settings = {
 		infinite: false,
 		speed: 500,

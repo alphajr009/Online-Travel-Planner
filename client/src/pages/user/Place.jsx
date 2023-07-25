@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Navbar from "../../components/navbar/MainNavbar";
 import "../../css/palnTrip.css";
 import "../../css/place.css";
-import { Carousel, Col, Modal } from "antd";
+import { Carousel, Col, Modal, Button } from "antd";
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import weather1 from "../../assets/cloud.png";
@@ -15,6 +15,9 @@ import Drizzle from "../../assets/drizzle.png";
 import Mist from "../../assets/mist.png";
 import humidity from "../../assets/humidity.png";
 import Windy from "../../assets/windx.png";
+import { HeartOutlined, HeartFilled } from "@ant-design/icons";
+
+
 
 function Place() {
 
@@ -106,6 +109,19 @@ function Place() {
     setIsModalVisible(false);
   };
 
+  const [liked, setLiked] = useState(false);
+  let likes = place.likes;
+
+  const handleLikeButtonClick = () => {
+    setLiked((prevLiked) => !prevLiked);
+    setPlace((prevPlace) => ({
+      ...prevPlace,
+      likes: liked ? prevPlace.likes - 1 : prevPlace.likes + 1,
+    }));
+  };
+
+  const likedColor = "#e4264e";
+
   return (
 
 
@@ -120,11 +136,21 @@ function Place() {
           <h1>Welcome to {place.name}</h1>
           <p>Enjoy your vacation here</p>
           <div>
-            <img className="fuction-icons" src={weather1} alt="" onClick={handleModalOpen} />
+            <img className="fuction-icons " src={weather1} alt="" onClick={handleModalOpen} />
             <a href={place.googlemaplink} target="_blank" rel="noopener noreferrer">
               <img className="fuction-icons" src={Map} alt="" />
             </a>
-            <img className="fuction-icons" src={Save} alt="" />
+            <div className="like-button-container">
+              <Button
+                icon={liked ? <HeartFilled className="liked-heart" /> : <HeartOutlined />}
+                onClick={() => handleLikeButtonClick()}
+              >
+                <span style={{ color: liked ? likedColor : "inherit" }}>
+                  {likes} Likes
+                </span>
+              </Button>
+
+            </div>
           </div>
         </div>
         <div className="place-page-content">
