@@ -5,7 +5,6 @@ import "../../css/place.css";
 import { Carousel, Col, Modal } from "antd";
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import Colombo from "../../assets/place-bg.jpg";
 import weather1 from "../../assets/cloud.png";
 import Map from "../../assets/map.png";
 import Save from "../../assets/save.png";
@@ -115,7 +114,7 @@ function Place() {
 
       <div>
         <div>
-          <img className="place-cover" src={Colombo} alt="" />
+          <img className="place-cover" src={`/uploads/${params.placeid}-0.jpg`} alt="" />
         </div>
         <div className="place-cover-details">
           <h1>Welcome to {place.name}</h1>

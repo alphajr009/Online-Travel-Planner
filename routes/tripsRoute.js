@@ -4,11 +4,12 @@ const Trip = require("../models/trip");
 
 
 router.post("/createtrip", async (req, res) => {
-    const { userid, doselectedplace, eatselectedplace, stayselectedplace } = req.body;
+    const { userid, tripname, doselectedplace, eatselectedplace, stayselectedplace } = req.body;
 
     try {
         const plan = {
             userid: userid,
+            tripname: tripname,
             do: doselectedplace,
             eat: eatselectedplace,
             stay: stayselectedplace,

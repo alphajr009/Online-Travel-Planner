@@ -6,6 +6,10 @@ const tripSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    tripname: {
+        type: String,
+        required: true
+    },
     do: [],
     eat: [],
     stay: [],

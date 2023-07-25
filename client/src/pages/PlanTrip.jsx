@@ -3,7 +3,7 @@ import Navbar from "../components/navbar/MainNavbar";
 import Slider from "react-slick";
 import Slider01 from "../components/Slider";
 import "../css/palnTrip.css";
-import { Carousel, Card, Col, Button } from "antd";
+import { Card, Col, Button, Modal, Input } from "antd";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useLocation } from "react-router-dom";
@@ -44,6 +44,9 @@ function PlanTrip() {
 	const [doselectedplace, setDoSelectedPlace] = useState([]);
 	const [eatselectedplace, setEatSelectedPlace] = useState([]);
 	const [stayselectedplace, setStaySelectedPlace] = useState([]);
+
+	const [tripName, setTripName] = useState("");
+	const [isModalVisible, setIsModalVisible] = useState(false);
 
 	console.log(doselectedplace)
 	console.log(eatselectedplace)
@@ -108,6 +111,7 @@ function PlanTrip() {
 
 		const plan = {
 			userid: _id,
+			tripname: tripName,
 			doselectedplace: [doselectedplace],
 			eatselectedplace: [eatselectedplace],
 			stayselectedplace: [stayselectedplace]
@@ -115,7 +119,7 @@ function PlanTrip() {
 		}
 		try {
 			const result = await axios.post("/api/trips/createtrip", plan);
-			window.location.href = "/trip";
+			window.location.href = "/trips";
 
 		} catch (error) {
 			console.log(error)
@@ -161,6 +165,20 @@ function PlanTrip() {
 				}
 			}
 		]
+	};
+
+	const showModal = () => {
+		setIsModalVisible(true);
+	};
+
+	const handleModalCancel = () => {
+		setIsModalVisible(false);
+	};
+
+	const handleModalOk = () => {
+		setIsModalVisible(false);
+		console.log("Trip Name:", tripName);
+		plan();
 	};
 
 
@@ -211,11 +229,26 @@ function PlanTrip() {
 					))}
 				</Slider>
 				<div className="pt-create-btn">
-					<Button onClick={plan}>
+					<Button onClick={showModal}>
 						<h4>Plan Trip</h4>
 					</Button>
 				</div>
 			</div>
+
+
+
+			<Modal
+				title="Enter Trip Name"
+				visible={isModalVisible}
+				onOk={handleModalOk}
+				onCancel={handleModalCancel}
+			>
+				<Input
+					placeholder="Trip Name"
+					value={tripName}
+					onChange={(e) => setTripName(e.target.value)}
+				/>
+			</Modal>
 
 		</div>
 	);
