@@ -15,7 +15,7 @@ import Drizzle from "../../assets/drizzle.png";
 import Mist from "../../assets/mist.png";
 import humidity from "../../assets/humidity.png";
 import Windy from "../../assets/windx.png";
-import { HeartOutlined, HeartFilled, FireOutlined } from "@ant-design/icons";
+import { HeartOutlined, HeartFilled, FireOutlined, FireFilled } from "@ant-design/icons";
 import UserFooter from '../../components/footer/UserFooter';
 
 
@@ -23,6 +23,7 @@ import UserFooter from '../../components/footer/UserFooter';
 function Place() {
 
   const user = JSON.parse(localStorage.getItem("currentUser"));
+
 
 
   let params = useParams();
@@ -46,10 +47,7 @@ function Place() {
 
     (async () => {
 
-      if (!localStorage.getItem('currentUser')) {
-        window.location.href = '/login'
 
-      }
 
       try {
         const data = (await axios.post("/api/places/getplacebyid", { placeid: params.placeid })).data
@@ -103,7 +101,25 @@ function Place() {
 
 
   useEffect(() => {
-    // Check if the user has already liked the place
+
+    const checkSavedStatus = async () => {
+      const user = JSON.parse(localStorage.getItem('currentUser'));
+
+      if (user) {
+        const userId = user._id;
+        try {
+          const { data: { hasSaved } } = await axios.post('/api/users/check-save', { placeId: params.placeid, userId });
+          setSaved(hasSaved);
+        } catch (error) {
+          console.error('Error checking saved status:', error);
+        } finally {
+          setLoading(false);
+        }
+      } else {
+        setLoading(false);
+      }
+    };
+
     const checkLikedStatus = async () => {
       const user = JSON.parse(localStorage.getItem('currentUser'));
 
@@ -122,23 +138,48 @@ function Place() {
       }
     };
 
-    // Load place data and check liked status
-    const fetchDataAndCheckLikedStatus = async () => {
+
+    checkSavedStatus();
+    checkLikedStatus();
+  }, [params.placeid]);
+
+
+  useEffect(() => {
+    // Check if the user has already liked the place
+    const checkSavedStatus = async () => {
+      const user = JSON.parse(localStorage.getItem('currentUser'));
+
+      if (user) {
+        const userId = user._id;
+        try {
+          const { data: { hasSaved } } = await axios.post('/api/users/check-save', { placeId: params.placeid, userId });
+          setSaved(hasSaved);
+        } catch (error) {
+          console.error('Error checking saved status:', error);
+        } finally {
+          setLoading(false);
+        }
+      } else {
+        setLoading(false);
+      }
+    };
+
+    const fetchDataAndCheckSavedStatus = async () => {
       try {
-        // Fetch place data
-        const data = await axios.post('/api/places/getplacebyid', { placeid: params.placeid });
+
+        const data = await axios.post('/api/users/getuserbyid', { userid: user._id });
         setPlace(data.place[0]);
         setSearch(data.place[0].city);
       } catch (error) {
         console.error('Error loading data:', error);
       } finally {
         setLoading(false);
-        checkLikedStatus();
+        checkSavedStatus();
       }
     };
 
-    fetchDataAndCheckLikedStatus();
-  }, [params.placeid]);
+    fetchDataAndCheckSavedStatus();
+  }, [user._id, params.placeid]);
 
 
 
@@ -154,14 +195,13 @@ function Place() {
   };
 
   const [liked, setLiked] = useState(false);
+  const [saved, setSaved] = useState(false);
   let likes = place.likes;
 
   const handleLikeButtonClick = async () => {
     const user = JSON.parse(localStorage.getItem("currentUser"));
 
-    // Check if the user is logged in
     if (!user) {
-      // Redirect to login page or show a message to log in
       window.location.href = "/login";
       return;
     }
@@ -169,19 +209,39 @@ function Place() {
     try {
       const userId = user._id;
       if (liked) {
-        // If the place is already liked, unlike it
         await axios.post("/api/places/unlike", { placeId: params.placeid, userId });
         setPlace((prevPlace) => ({ ...prevPlace, likes: Math.max(prevPlace.likes - 1, 0) }));
       } else {
-        // If the place is not liked yet, like it
         await axios.post("/api/places/like", { placeId: params.placeid, userId });
         setPlace((prevPlace) => ({ ...prevPlace, likes: prevPlace.likes + 1 }));
       }
-      // Toggle the liked state
       setLiked((prevLiked) => !prevLiked);
     } catch (error) {
       console.error("Error liking/unliking place:", error);
-      // Handle the error (show an error message or handle it accordingly)
+    }
+  };
+
+
+  const handleSaveButtonClick = async () => {
+    const user = JSON.parse(localStorage.getItem("currentUser"));
+
+    if (!user) {
+      window.location.href = "/login";
+      return;
+    }
+
+    try {
+      const userId = user._id;
+      if (saved) {
+        console.log("Not Saved")
+        await axios.post("/api/users/unsave", { placeId: params.placeid, userId });
+      } else {
+        console.log("Saved")
+        await axios.post("/api/users/save", { placeId: params.placeid, userId });
+      }
+      setSaved((prevSaved) => !prevSaved);
+    } catch (error) {
+      console.error("Error saving/unsaving place:", error);
     }
   };
 
@@ -198,6 +258,19 @@ function Place() {
         <div>
           <img className="place-cover" src={`/uploads/${params.placeid}-0.jpg`} alt="" />
         </div>
+
+
+        <div className="place-cover-save">
+
+          <a onClick={() => handleSaveButtonClick()}>
+            {saved ? <FireFilled className="saved-fire" /> : <FireOutlined className="size-fire" />}
+
+          </a>
+
+
+        </div>
+
+
         <div className="place-cover-details">
           <h1>Welcome to {place.name}</h1>
           <p>Enjoy your vacation here</p>
