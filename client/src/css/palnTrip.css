@@ -74,6 +74,15 @@
     padding: 2% 5%;
 }
 
+.place-cover-save {
+    position: absolute;
+    top: 90px;
+    right: 0;
+    color: #fff;
+    padding: 2% 3%;
+}
+
+
 .place-page-content {
     display: flex;
     flex-direction: column;

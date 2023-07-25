@@ -219,6 +219,17 @@
     color: #e4264e;
 }
 
+.saved-fire {
+    color: #F8BA09;
+    font-size: 34px;
+    cursor: pointer;
+}
+
+.size-fire {
+    font-size: 34px;
+    cursor: pointer;
+}
+
 .like-button-container {
     margin-top: 22%;
 

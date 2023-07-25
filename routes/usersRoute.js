@@ -118,6 +118,73 @@ router.patch("/updateuser", async (req, res) => {
 });
 
 
+router.post('/save', async (req, res) => {
+    const { placeId, userId } = req.body;
+
+    try {
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        if (user.favlocations.includes(placeId)) {
+            return res.status(400).json({ error: 'User already Saved this place' });
+        }
+
+        user.favlocations.push(placeId);
+        await user.save();
+
+        return res.status(200).json({ message: 'Place saved successfully' });
+    } catch (error) {
+        console.error('Error saving place:', error);
+        return res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+
+router.post('/unsave', async (req, res) => {
+    const { placeId, userId } = req.body;
+
+    try {
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        if (!user.favlocations.includes(placeId)) {
+            return res.status(400).json({ error: 'User has not saved this place' });
+        }
+
+        user.favlocations = user.favlocations.filter((id) => id.toString() !== placeId.toString());
+
+        await user.save();
+
+        return res.status(200).json({ message: 'Place unsaved successfully' });
+    } catch (error) {
+        console.error('Error unsaving place:', error);
+        return res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+
+router.post('/check-save', async (req, res) => {
+    const { placeId, userId } = req.body;
+
+    try {
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        const hasSaved = user.favlocations.includes(placeId);
+
+        return res.status(200).json({ hasSaved });
+    } catch (error) {
+        console.error('Error checking if user has saved place:', error);
+        return res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
 
 
 
