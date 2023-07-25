@@ -86,3 +86,9 @@
 .place-page-content p {
     margin-bottom: 20px;
 }
+
+
+.ant-card.selected {
+    border: 2px solid #1677ff;
+
+}

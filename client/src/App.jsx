@@ -6,6 +6,7 @@ import Admin from './pages/admin/admin';
 import Account from './pages/Account';
 import PlanTrip from './pages/PlanTrip';
 import Place from './pages/user/Place';
+import Trips from './pages/user/Trips';
 
 
 
@@ -34,7 +35,8 @@ function App() {
           <Route path="/admin/*" element={<AdminRouteGuard />} />
           <Route path="/account" element={<Account />} />
           <Route path="/plantrip" element={<PlanTrip />} />
-          <Route path="/place" element={<Place />} />
+          <Route path="/place/:placeid" element={<Place />} />
+          <Route path="/trips" element={<Trips />} />
 
         </Routes>
       </BrowserRouter>

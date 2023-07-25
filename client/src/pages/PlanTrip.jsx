@@ -3,7 +3,7 @@ import Navbar from "../components/navbar/MainNavbar";
 import Slider from "react-slick";
 import Slider01 from "../components/Slider";
 import "../css/palnTrip.css";
-import { Carousel, Card, Col, Button } from "antd";
+import { Card, Col, Button, Modal, Input } from "antd";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useLocation } from "react-router-dom";
@@ -19,12 +19,12 @@ function Place({ place }) {
 		<div>
 
 			<Card
-				hoverable
+				hoverable={false}
 				cover={<img className='palce-card-image' src={`/uploads/${place._id}-0.jpg`} alt={place.name} />}
 			>
 				<div className='place-card-p plan-trip-card '>
 					<p>{place.name}</p>
-					<Button>View</Button>
+					<Button onClick={() => window.open(`/place/${place._id}`, '_blank')}>View</Button>
 				</div>
 			</Card>
 
@@ -40,9 +40,45 @@ function PlanTrip() {
 	const [doplace, setDo] = useState([]);
 	const [eatplace, setEat] = useState([]);
 	const [stayplace, setStay] = useState([]);
-	const [filteredPlaces, setFilteredPlaces] = useState([]);
-	const [isLoading, setIsLoading] = useState(true);
-	const [showSpinner, setShowSpinner] = useState(true);
+
+	const [doselectedplace, setDoSelectedPlace] = useState([]);
+	const [eatselectedplace, setEatSelectedPlace] = useState([]);
+	const [stayselectedplace, setStaySelectedPlace] = useState([]);
+
+	const [tripName, setTripName] = useState("");
+	const [isModalVisible, setIsModalVisible] = useState(false);
+
+	console.log(doselectedplace)
+	console.log(eatselectedplace)
+	console.log(stayselectedplace)
+
+	const handlePlaceSelect = (placeId, category) => {
+		switch (category) {
+			case 'Do':
+				setDoSelectedPlace((prevSelected) =>
+					prevSelected.includes(placeId)
+						? prevSelected.filter((id) => id !== placeId)
+						: [...prevSelected, placeId]
+				);
+				break;
+			case 'Eat':
+				setEatSelectedPlace((prevSelected) =>
+					prevSelected.includes(placeId)
+						? prevSelected.filter((id) => id !== placeId)
+						: [...prevSelected, placeId]
+				);
+				break;
+			case 'Stay':
+				setStaySelectedPlace((prevSelected) =>
+					prevSelected.includes(placeId)
+						? prevSelected.filter((id) => id !== placeId)
+						: [...prevSelected, placeId]
+				);
+				break;
+			default:
+				break;
+		}
+	};
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -57,19 +93,39 @@ function PlanTrip() {
 				setEat(eatPlaces);
 				setStay(stayPlaces);
 
-				setTimeout(() => {
-					setIsLoading(false);
-					setShowSpinner(false);
-				}, 1500);
+
 			} catch (error) {
 				console.log(error);
-				setIsLoading(false);
-				setShowSpinner(false);
+
 			}
 		};
 
 		fetchData();
 	}, []);
+
+
+	async function plan() {
+		const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+		if (!currentUser) throw new Error('User not found in local storage');
+		const _id = currentUser._id;
+
+		const plan = {
+			userid: _id,
+			tripname: tripName,
+			doselectedplace: [doselectedplace],
+			eatselectedplace: [eatselectedplace],
+			stayselectedplace: [stayselectedplace]
+
+		}
+		try {
+			const result = await axios.post("/api/trips/createtrip", plan);
+			window.location.href = "/trips";
+
+		} catch (error) {
+			console.log(error)
+
+		}
+	}
 
 
 	const location = useLocation();
@@ -111,6 +167,20 @@ function PlanTrip() {
 		]
 	};
 
+	const showModal = () => {
+		setIsModalVisible(true);
+	};
+
+	const handleModalCancel = () => {
+		setIsModalVisible(false);
+	};
+
+	const handleModalOk = () => {
+		setIsModalVisible(false);
+		console.log("Trip Name:", tripName);
+		plan();
+	};
+
 
 	return (
 		<div className="Home">
@@ -120,7 +190,12 @@ function PlanTrip() {
 				<h3>Do</h3>
 				<Slider {...settings}>
 					{doplace.map((place) => (
-						<Col key={place._id} className="location-card">
+						<Col
+							key={place._id}
+							className={` location-card  ant-card  ${doselectedplace.includes(place._id) ? 'selected' : ''
+								}`}
+							onClick={() => handlePlaceSelect(place._id, 'Do')}
+						>
 							<Place place={place} />
 						</Col>
 					))}
@@ -129,7 +204,12 @@ function PlanTrip() {
 				<h3 className="h3placetrip">Eat</h3>
 				<Slider {...settings}>
 					{eatplace.map((place) => (
-						<Col key={place._id} className="location-card">
+						<Col
+							key={place._id}
+							className={`location-card ant-card  ${eatselectedplace.includes(place._id) ? 'selected' : ''
+								}`}
+							onClick={() => handlePlaceSelect(place._id, 'Eat')}
+						>
 							<Place place={place} />
 						</Col>
 					))}
@@ -138,15 +218,37 @@ function PlanTrip() {
 				<h3 className="h3placetrip">Stay</h3>
 				<Slider {...settings}>
 					{stayplace.map((place) => (
-						<Col key={place._id} className="location-card">
+						<Col
+							key={place._id}
+							className={`location-card ant-card ${stayselectedplace.includes(place._id) ? 'selected' : ''
+								}`}
+							onClick={() => handlePlaceSelect(place._id, 'Stay')}
+						>
 							<Place place={place} />
 						</Col>
 					))}
 				</Slider>
 				<div className="pt-create-btn">
-					<Button><h4>Plan Trip</h4></Button>
+					<Button onClick={showModal}>
+						<h4>Plan Trip</h4>
+					</Button>
 				</div>
 			</div>
+
+
+
+			<Modal
+				title="Enter Trip Name"
+				visible={isModalVisible}
+				onOk={handleModalOk}
+				onCancel={handleModalCancel}
+			>
+				<Input
+					placeholder="Trip Name"
+					value={tripName}
+					onChange={(e) => setTripName(e.target.value)}
+				/>
+			</Modal>
 
 		</div>
 	);
