@@ -22,6 +22,9 @@ import UserFooter from '../../components/footer/UserFooter';
 
 function Place() {
 
+  const user = JSON.parse(localStorage.getItem("currentUser"));
+
+
   let params = useParams();
   const [place, setPlace] = useState({})
   const [image, setImage] = useState('')
@@ -35,6 +38,7 @@ function Place() {
 
   const [search, setSearch] = useState("");
   const [weather, setWeather] = useState({});
+  const [loading, setLoading] = useState(true);
 
 
 
@@ -43,7 +47,7 @@ function Place() {
     (async () => {
 
       if (!localStorage.getItem('currentUser')) {
-        window.location.reload = '/login'
+        window.location.href = '/login'
 
       }
 
@@ -98,6 +102,45 @@ function Place() {
   }, [weather]);
 
 
+  useEffect(() => {
+    // Check if the user has already liked the place
+    const checkLikedStatus = async () => {
+      const user = JSON.parse(localStorage.getItem('currentUser'));
+
+      if (user) {
+        const userId = user._id;
+        try {
+          const { data: { hasLiked } } = await axios.post('/api/places/check-like', { placeId: params.placeid, userId });
+          setLiked(hasLiked);
+        } catch (error) {
+          console.error('Error checking liked status:', error);
+        } finally {
+          setLoading(false);
+        }
+      } else {
+        setLoading(false);
+      }
+    };
+
+    // Load place data and check liked status
+    const fetchDataAndCheckLikedStatus = async () => {
+      try {
+        // Fetch place data
+        const data = await axios.post('/api/places/getplacebyid', { placeid: params.placeid });
+        setPlace(data.place[0]);
+        setSearch(data.place[0].city);
+      } catch (error) {
+        console.error('Error loading data:', error);
+      } finally {
+        setLoading(false);
+        checkLikedStatus();
+      }
+    };
+
+    fetchDataAndCheckLikedStatus();
+  }, [params.placeid]);
+
+
 
 
 
@@ -113,13 +156,35 @@ function Place() {
   const [liked, setLiked] = useState(false);
   let likes = place.likes;
 
-  const handleLikeButtonClick = () => {
-    setLiked((prevLiked) => !prevLiked);
-    setPlace((prevPlace) => ({
-      ...prevPlace,
-      likes: liked ? prevPlace.likes - 1 : prevPlace.likes + 1,
-    }));
+  const handleLikeButtonClick = async () => {
+    const user = JSON.parse(localStorage.getItem("currentUser"));
+
+    // Check if the user is logged in
+    if (!user) {
+      // Redirect to login page or show a message to log in
+      window.location.href = "/login";
+      return;
+    }
+
+    try {
+      const userId = user._id;
+      if (liked) {
+        // If the place is already liked, unlike it
+        await axios.post("/api/places/unlike", { placeId: params.placeid, userId });
+        setPlace((prevPlace) => ({ ...prevPlace, likes: Math.max(prevPlace.likes - 1, 0) }));
+      } else {
+        // If the place is not liked yet, like it
+        await axios.post("/api/places/like", { placeId: params.placeid, userId });
+        setPlace((prevPlace) => ({ ...prevPlace, likes: prevPlace.likes + 1 }));
+      }
+      // Toggle the liked state
+      setLiked((prevLiked) => !prevLiked);
+    } catch (error) {
+      console.error("Error liking/unliking place:", error);
+      // Handle the error (show an error message or handle it accordingly)
+    }
   };
+
 
   const likedColor = "#e4264e";
 

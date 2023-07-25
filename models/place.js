@@ -45,8 +45,10 @@ const placeSchema = mongoose.Schema({
     likes: {
         type: Number,
         required: false,
-        default: 0
+        default: 0,
+        min: 0
     },
+    likedusers: [],
 }, {
     timestamps: true,
 })
