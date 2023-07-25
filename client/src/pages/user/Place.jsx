@@ -16,6 +16,7 @@ import Mist from "../../assets/mist.png";
 import humidity from "../../assets/humidity.png";
 import Windy from "../../assets/windx.png";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
+import UserFooter from '../../components/footer/UserFooter';
 
 
 
@@ -218,6 +219,7 @@ function Place() {
           ""
         )}
       </Modal>
+      <UserFooter />
     </div>
 
 

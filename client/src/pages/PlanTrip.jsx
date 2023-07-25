@@ -8,6 +8,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
+import UserFooter from "../components/footer/UserFooter";
 
 const contentStyle = {
 	background: "red",
@@ -250,6 +251,8 @@ function PlanTrip() {
 					onChange={(e) => setTripName(e.target.value)}
 				/>
 			</Modal>
+
+			<UserFooter />
 
 		</div>
 	);
