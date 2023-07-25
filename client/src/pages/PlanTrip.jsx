@@ -19,7 +19,7 @@ function Place({ place }) {
 		<div>
 
 			<Card
-				hoverable
+				hoverable={false}
 				cover={<img className='palce-card-image' src={`/uploads/${place._id}-0.jpg`} alt={place.name} />}
 			>
 				<div className='place-card-p plan-trip-card '>
@@ -40,9 +40,42 @@ function PlanTrip() {
 	const [doplace, setDo] = useState([]);
 	const [eatplace, setEat] = useState([]);
 	const [stayplace, setStay] = useState([]);
-	const [filteredPlaces, setFilteredPlaces] = useState([]);
-	const [isLoading, setIsLoading] = useState(true);
-	const [showSpinner, setShowSpinner] = useState(true);
+
+	const [doselectedplace, setDoSelectedPlace] = useState([]);
+	const [eatselectedplace, setEatSelectedPlace] = useState([]);
+	const [stayselectedplace, setStaySelectedPlace] = useState([]);
+
+	console.log(doselectedplace)
+	console.log(eatselectedplace)
+	console.log(stayselectedplace)
+
+	const handlePlaceSelect = (placeId, category) => {
+		switch (category) {
+			case 'Do':
+				setDoSelectedPlace((prevSelected) =>
+					prevSelected.includes(placeId)
+						? prevSelected.filter((id) => id !== placeId)
+						: [...prevSelected, placeId]
+				);
+				break;
+			case 'Eat':
+				setEatSelectedPlace((prevSelected) =>
+					prevSelected.includes(placeId)
+						? prevSelected.filter((id) => id !== placeId)
+						: [...prevSelected, placeId]
+				);
+				break;
+			case 'Stay':
+				setStaySelectedPlace((prevSelected) =>
+					prevSelected.includes(placeId)
+						? prevSelected.filter((id) => id !== placeId)
+						: [...prevSelected, placeId]
+				);
+				break;
+			default:
+				break;
+		}
+	};
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -57,19 +90,38 @@ function PlanTrip() {
 				setEat(eatPlaces);
 				setStay(stayPlaces);
 
-				setTimeout(() => {
-					setIsLoading(false);
-					setShowSpinner(false);
-				}, 1500);
+
 			} catch (error) {
 				console.log(error);
-				setIsLoading(false);
-				setShowSpinner(false);
+
 			}
 		};
 
 		fetchData();
 	}, []);
+
+
+	async function plan() {
+		const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+		if (!currentUser) throw new Error('User not found in local storage');
+		const _id = currentUser._id;
+
+		const plan = {
+			userid: _id,
+			doselectedplace: [doselectedplace],
+			eatselectedplace: [eatselectedplace],
+			stayselectedplace: [stayselectedplace]
+
+		}
+		try {
+			const result = await axios.post("/api/trips/createtrip", plan);
+			window.location.href = "/trip";
+
+		} catch (error) {
+			console.log(error)
+
+		}
+	}
 
 
 	const location = useLocation();
@@ -120,7 +172,12 @@ function PlanTrip() {
 				<h3>Do</h3>
 				<Slider {...settings}>
 					{doplace.map((place) => (
-						<Col key={place._id} className="location-card">
+						<Col
+							key={place._id}
+							className={` location-card  ant-card  ${doselectedplace.includes(place._id) ? 'selected' : ''
+								}`}
+							onClick={() => handlePlaceSelect(place._id, 'Do')}
+						>
 							<Place place={place} />
 						</Col>
 					))}
@@ -129,7 +186,12 @@ function PlanTrip() {
 				<h3 className="h3placetrip">Eat</h3>
 				<Slider {...settings}>
 					{eatplace.map((place) => (
-						<Col key={place._id} className="location-card">
+						<Col
+							key={place._id}
+							className={`location-card ant-card  ${eatselectedplace.includes(place._id) ? 'selected' : ''
+								}`}
+							onClick={() => handlePlaceSelect(place._id, 'Eat')}
+						>
 							<Place place={place} />
 						</Col>
 					))}
@@ -138,13 +200,20 @@ function PlanTrip() {
 				<h3 className="h3placetrip">Stay</h3>
 				<Slider {...settings}>
 					{stayplace.map((place) => (
-						<Col key={place._id} className="location-card">
+						<Col
+							key={place._id}
+							className={`location-card ant-card ${stayselectedplace.includes(place._id) ? 'selected' : ''
+								}`}
+							onClick={() => handlePlaceSelect(place._id, 'Stay')}
+						>
 							<Place place={place} />
 						</Col>
 					))}
 				</Slider>
 				<div className="pt-create-btn">
-					<Button><h4>Plan Trip</h4></Button>
+					<Button onClick={plan}>
+						<h4>Plan Trip</h4>
+					</Button>
 				</div>
 			</div>
 

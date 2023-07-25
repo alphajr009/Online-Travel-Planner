@@ -6,18 +6,10 @@ const tripSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    do: {
-        type: String,
-        required: true
-    },
-    eat: {
-        type: String,
-        required: true
-    },
-    stay: {
-        type: String,
-        required: true
-    }
+    do: [],
+    eat: [],
+    stay: [],
+
 }, {
     timestamps: true,
 })

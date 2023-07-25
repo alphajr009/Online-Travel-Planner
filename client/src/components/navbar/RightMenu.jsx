@@ -24,6 +24,9 @@ class RightMenu extends Component {
           <Menu.Item key="1">
             <Link to="/account">Account</Link>
           </Menu.Item>
+          <Menu.Item key="1">
+            <Link to="/favourites">Pins</Link>
+          </Menu.Item>
           <Menu.Item key="2" onClick={this.logout}>
             Sign Out
           </Menu.Item>
