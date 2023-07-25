@@ -15,7 +15,7 @@ import Drizzle from "../../assets/drizzle.png";
 import Mist from "../../assets/mist.png";
 import humidity from "../../assets/humidity.png";
 import Windy from "../../assets/windx.png";
-import { HeartOutlined, HeartFilled } from "@ant-design/icons";
+import { HeartOutlined, HeartFilled, FireOutlined } from "@ant-design/icons";
 import UserFooter from '../../components/footer/UserFooter';
 
 
