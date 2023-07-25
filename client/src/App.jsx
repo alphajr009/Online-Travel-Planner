@@ -34,7 +34,7 @@ function App() {
           <Route path="/admin/*" element={<AdminRouteGuard />} />
           <Route path="/account" element={<Account />} />
           <Route path="/plantrip" element={<PlanTrip />} />
-          <Route path="/place" element={<Place />} />
+          <Route path="/place/:placeid" element={<Place />} />
 
         </Routes>
       </BrowserRouter>

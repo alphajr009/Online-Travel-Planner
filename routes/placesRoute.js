@@ -102,5 +102,21 @@ router.patch('/deleteplace', async (req, res) => {
 });
 
 
+router.post("/getplacebyid", async (req, res) => {
+
+
+    const placeid = req.body.placeid
+
+    try {
+        const place = await Place.find({ _id: placeid })
+        return res.json({ place })
+    } catch (error) {
+        return res.status(400).json({ message: error })
+    }
+
+
+});
+
+
 
 module.exports = router

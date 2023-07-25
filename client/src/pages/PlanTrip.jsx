@@ -24,7 +24,7 @@ function Place({ place }) {
 			>
 				<div className='place-card-p plan-trip-card '>
 					<p>{place.name}</p>
-					<Button>View</Button>
+					<Button onClick={() => window.open(`/place/${place._id}`, '_blank')}>View</Button>
 				</div>
 			</Card>
 
