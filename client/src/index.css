@@ -19,6 +19,13 @@
 	src: url("./fonts/SFPro-Bold.ttf") format("truetype");
 }
 
+.ant-tooltip .ant-tooltip-inner {
+	background-color: #555555;
+	font-family: "SF Pro Display-Regular" !important;
+	font-size: 14px !important;
+
+}
+
 
 body {
 	font-family: "SF Pro Display-Regular";

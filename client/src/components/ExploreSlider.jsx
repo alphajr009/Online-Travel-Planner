@@ -12,6 +12,7 @@ import Ella from "../assets/ella.png";
 import Kandy from "../assets/kandy.png";
 import Yala from "../assets/yala.png";
 import Colombo from "../assets/colombo.png";
+import { useNavigate } from "react-router-dom";
 
 function ExploreSlider() {
 	var settings = {
@@ -48,6 +49,13 @@ function ExploreSlider() {
 		],
 	};
 
+	const navigate = useNavigate();
+
+	const handleCardClick = (cardName) => {
+		navigate(`/plantrip`, { state: { search: cardName } });
+	};
+
+
 	return (
 		<div>
 			<div>
@@ -56,35 +64,43 @@ function ExploreSlider() {
 
 					<Slider {...settings}>
 						<Col className="location-card">
-							<PlaceCard PlaceCardName="Colombo" src={Colombo} />
+							<PlaceCard PlaceCardName="Colombo" src={Colombo}
+								onClick={() => handleCardClick("Colombo")} />
 						</Col>
 
 						<Col className="location-card">
-							<PlaceCard PlaceCardName="Sigiriya" src={Sigiriya} />
+							<PlaceCard PlaceCardName="Sigiriya" src={Sigiriya}
+								onClick={() => handleCardClick("Sigiriya")} />
 						</Col>
 
 						<Col className="location-card">
-							<PlaceCard PlaceCardName="Ella" src={Ella} />
+							<PlaceCard PlaceCardName="Ella" src={Ella}
+								onClick={() => handleCardClick("Ella")} />
 						</Col>
 
 						<Col className="location-card">
-							<PlaceCard PlaceCardName="Mirissa" src={Mirissa} />
+							<PlaceCard PlaceCardName="Mirissa" src={Mirissa}
+								onClick={() => handleCardClick("Mirissa")} />
 						</Col>
 
 						<Col className="location-card">
-							<PlaceCard PlaceCardName="Kandy" src={Kandy} />
+							<PlaceCard PlaceCardName="Kandy" src={Kandy}
+								onClick={() => handleCardClick("Kandy")} />
 						</Col>
 
 						<Col className="location-card">
-							<PlaceCard PlaceCardName="Yala" src={Yala} />
+							<PlaceCard PlaceCardName="Yala" src={Yala}
+								onClick={() => handleCardClick("Yala")} />
 						</Col>
 
 						<Col className="location-card">
-							<PlaceCard PlaceCardName="Ella" src={Ella} />
+							<PlaceCard PlaceCardName="Ella" src={Ella}
+								onClick={() => handleCardClick("Ella")} />
 						</Col>
 
 						<Col className="location-card">
-							<PlaceCard PlaceCardName="Kandy" src={Kandy} />
+							<PlaceCard PlaceCardName="Kandy" src={Kandy}
+								onClick={() => handleCardClick("Kandy")} />
 						</Col>
 					</Slider>
 				</div>

@@ -3,12 +3,13 @@ import { Card } from 'antd';
 
 const { Meta } = Card;
 
-const PlaceCard = ({ PlaceCardName, src }) => (
+const PlaceCard = ({ PlaceCardName, src, onClick }) => (
   <Card
     hoverable
     cover={<img alt="example" src={src} />}
+    onClick={onClick}
   >
-    <p>{PlaceCardName}</p >
+    <p>{PlaceCardName}</p>
   </Card>
 );
 
