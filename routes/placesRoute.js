@@ -117,6 +117,82 @@ router.post("/getplacebyid", async (req, res) => {
 
 });
 
+router.post('/like', async (req, res) => {
+    const { placeId, userId } = req.body;
+
+    try {
+        const place = await Place.findById(placeId);
+        if (!place) {
+            return res.status(404).json({ error: 'Place not found' });
+        }
+
+        if (place.likedusers.includes(userId)) {
+            return res.status(400).json({ error: 'User already liked this place' });
+        }
+        place.likedusers.push(userId);
+        place.likes += 1;
+        await place.save();
+
+        return res.status(200).json({ message: 'Place liked successfully' });
+    } catch (error) {
+        console.error('Error liking place:', error);
+        return res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+
+router.post('/unlike', async (req, res) => {
+    const { placeId, userId } = req.body;
+
+    try {
+        const place = await Place.findById(placeId);
+        if (!place) {
+            return res.status(404).json({ error: 'Place not found' });
+        }
+
+        if (!place.likedusers.includes(userId)) {
+            return res.status(400).json({ error: 'User has not liked this place' });
+        }
+
+        place.likedusers = place.likedusers.filter((id) => id !== userId);
+
+
+        place.likes -= 1;
+
+        await place.save();
+
+        return res.status(200).json({ message: 'Place unliked successfully' });
+    } catch (error) {
+        console.error('Error unliking place:', error);
+        return res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+
+router.post('/check-like', async (req, res) => {
+    const { placeId, userId } = req.body;
+
+    try {
+        const place = await Place.findById(placeId);
+        if (!place) {
+            return res.status(404).json({ error: 'Place not found' });
+        }
+
+        const hasLiked = place.likedusers.includes(userId);
+
+        return res.status(200).json({ hasLiked });
+    } catch (error) {
+        console.error('Error checking if user has liked place:', error);
+        return res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+
+
+
+
+
+
 
 
 module.exports = router

@@ -35,7 +35,7 @@ function UserFooter() {
                 </div>
             </div>
             <div className="copyright">
-                <p className='copywrite-txt'>Copyright © 20022-2023 GUIDEYFY Inc. All Rights Reserved.</p>
+                <p className='copywrite-txt'>Copyright © 20022-2023 TRIPGENIE Inc. All Rights Reserved.</p>
             </div>
 
         </div>
