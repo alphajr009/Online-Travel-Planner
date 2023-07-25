@@ -19,6 +19,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { LockOutlined } from "@ant-design/icons";
 import moment from "moment";
+import UserFooter from "../components/footer/UserFooter";
 
 
 
@@ -466,7 +467,9 @@ function Account() {
 					</Form>
 				</Col>
 			</div>
+			<UserFooter />
 		</Layout>
+
 	);
 }
 
