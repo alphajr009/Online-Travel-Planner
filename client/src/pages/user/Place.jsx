@@ -14,6 +14,8 @@ import Clear from "../../assets/clear.png";
 import Rain from "../../assets/rain.png";
 import Drizzle from "../../assets/drizzle.png";
 import Mist from "../../assets/mist.png";
+import humidity from "../../assets/humidity.png";
+import Windy from "../../assets/windx.png";
 
 function Place() {
 
@@ -108,7 +110,7 @@ function Place() {
   return (
 
 
-    <div>
+    <div className='place-page'>
       <Navbar></Navbar>
 
       <div>
@@ -157,32 +159,29 @@ function Place() {
         onCancel={handleModalClose}
         footer={null}
       >
-        {/* Add your content inside the modal */}
         {typeof weather.main !== "undefined" ? (
-          <div>
+          <div className='containerz'>
 
-            {/* <h3>{weather.name},{weather.sys.country}</h3>
-            <h4>{weather.main.temp}°C</h4>
-            <p>{weather.weather[0].main}</p>
-            <p>({weather.weather[0].description})</p> */}
 
-            <div className="winfo">
-              <img src={image} alt="" className='icon' />
-              <h1>{Math.round(weather.main.temp)}°c</h1>
-              <h2>{weather.name}</h2>
-              <div className="details">
-                <div className="col">
-                  <img src="/Images/humidity.png" alt="" />
-                  <div className='humidity'>
-                    <p>{Math.round(weather.main.humidity)}%</p>
-                    <p>Humidity</p>
+            <div className="weather3">
+              <div className="winfo">
+                <img src={image} alt="" className='icon' />
+                <h1>{Math.round(weather.main.temp)}°c</h1>
+                <h2>{weather.name}</h2>
+                <div className="details">
+                  <div className="col">
+                    <img src={humidity} alt="" />
+                    <div className='humidity'>
+                      <p>{Math.round(weather.main.humidity)}%</p>
+                      <p>Humidity</p>
+                    </div>
                   </div>
-                </div>
-                <div className="col">
-                  <img src="/Images/wind.png" alt="" />
-                  <div className='wind'>
-                    <p>{Math.round(weather.wind.speed)} km/h</p>
-                    <p>Wind</p>
+                  <div className="col">
+                    <img src={Windy} alt="" />
+                    <div className='wind'>
+                      <p>{Math.round(weather.wind.speed)} km/h</p>
+                      <p>Wind</p>
+                    </div>
                   </div>
                 </div>
               </div>
