@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './createplace.css';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLocationArrow, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import { Input, Form, Radio, Pagination, Alert, Select, notification } from 'antd';
+import { Input, Form, Select, notification } from 'antd';
 import axios from 'axios';
 import ImageUploader from '../../../components/ImageUploader';
+import UserFooter from '../../../components/footer/UserFooter';
 
 function CreatePlace() {
 
@@ -153,10 +152,10 @@ function CreatePlace() {
                                             name="title"
                                             rules={[{ required: true, message: 'Please input your Title!' }]}
                                         >
-                                            <Input.TextArea className="createblog-dis-custom-input"
+                                            <Input className="createblog-dis-custom-input"
                                                 value={title}
                                                 onChange={(e) => { settitle(e.target.value) }}
-                                                showCount maxLength={85}
+                                                maxLength={85}
                                             />
                                         </Form.Item>
                                     </div>
@@ -170,7 +169,7 @@ function CreatePlace() {
                                             name="description"
                                             rules={[{ required: true, message: 'Please input your blog discription!' }]}
                                         >
-                                            <Input.TextArea style={{ height: "245px", width: "626px" }} showCount maxLength={1300} className="userp-helpmsg-custom-input"
+                                            <Input.TextArea style={{ height: "245px", width: "626px" }} maxLength={1300} className="userp-helpmsg-custom-input"
                                                 value={description}
                                                 onChange={(e) => { setdescription(e.target.value) }} />
                                         </Form.Item>
@@ -186,10 +185,10 @@ function CreatePlace() {
                                         name="phone"
                                         rules={[{ required: true, message: 'Please input your Phone Number!' }]}
                                     >
-                                        <Input.TextArea className="createblog-dis-custom-input"
+                                        <Input className="createblog-dis-custom-input "
                                             value={phone}
                                             onChange={(e) => { setphone(e.target.value) }}
-                                            showCount maxLength={85}
+                                            maxLength={85}
                                         />
                                     </Form.Item>
                                 </div>
@@ -201,10 +200,10 @@ function CreatePlace() {
                                         name="city"
                                         rules={[{ required: true, message: 'Please input your Address!' }]}
                                     >
-                                        <Input.TextArea className="createblog-dis-custom-input"
+                                        <Input className="createblog-dis-custom-input"
                                             value={city}
                                             onChange={(e) => { setcity(e.target.value) }}
-                                            showCount maxLength={85}
+                                            maxLength={85}
                                         />
                                     </Form.Item>
                                 </div>
@@ -217,10 +216,10 @@ function CreatePlace() {
                                         name="address"
                                         rules={[{ required: true, message: 'Please input your Address!' }]}
                                     >
-                                        <Input.TextArea className="createblog-dis-custom-input"
+                                        <Input className="createblog-dis-custom-input"
                                             value={address}
                                             onChange={(e) => { setaddress(e.target.value) }}
-                                            showCount maxLength={85}
+                                            maxLength={85}
                                         />
                                     </Form.Item>
                                 </div>
@@ -232,10 +231,10 @@ function CreatePlace() {
                                         name="googlemaplink"
                                         rules={[{ required: true, message: 'Please input your Google Map Link!' }]}
                                     >
-                                        <Input.TextArea className="createblog-dis-custom-input"
+                                        <Input className="createblog-dis-custom-input"
                                             value={googlemaplink}
                                             onChange={(e) => { setgooglemaplink(e.target.value) }}
-                                            showCount maxLength={85}
+                                            maxLength={85}
                                         />
                                     </Form.Item>
                                 </div>
@@ -248,10 +247,10 @@ function CreatePlace() {
                                         name="openingtime"
                                         rules={[{ required: true, message: 'Please input Opening time!' }]}
                                     >
-                                        <Input.TextArea className="createblog-dis-custom-input"
+                                        <Input className="createblog-dis-custom-input"
                                             value={openingtime}
                                             onChange={(e) => { setopeningtime(e.target.value) }}
-                                            showCount maxLength={85}
+                                            maxLength={85}
                                         />
                                     </Form.Item>
                                 </div>
@@ -263,10 +262,10 @@ function CreatePlace() {
                                         name="closingtime"
                                         rules={[{ required: true, message: 'Please input Closing time!' }]}
                                     >
-                                        <Input.TextArea className="createblog-dis-custom-input"
+                                        <Input className="createblog-dis-custom-input"
                                             value={closingtime}
                                             onChange={(e) => { setclosingtime(e.target.value) }}
-                                            showCount maxLength={85}
+                                            maxLength={85}
                                         />
                                     </Form.Item>
                                 </div>
@@ -281,7 +280,7 @@ function CreatePlace() {
                 </div>
 
             </div>
-
+            <UserFooter />
         </div>
     )
 }
