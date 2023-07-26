@@ -1,9 +1,7 @@
 .seller-central-places-container {
     display: flex;
     flex-direction: column;
-    align-items: center;
     min-width: none;
-    min-height: 290vh;
 
 }
 
@@ -22,6 +20,7 @@
     transform: translateX(-50%);
     text-align: center;
     cursor: pointer;
+    position: absolute;
 }
 
 .seller-central-create-blog-tab-container {
@@ -81,8 +80,8 @@
 
 .seller-central-table-places-sellers {
     margin-top: 250px;
-    width: 90%;
     font-family: "Sansation-Bold", sans-serif;
+    padding: 0px 100px;
 }
 
 .seller-central-table-places-sellers th {

@@ -57,8 +57,11 @@
     padding-left: 36px;
     padding-right: 60px;
     border-radius: 17px;
-    box-shadow: 0 0 3px 3px #dad9d9;
+    box-shadow: 0 0 3px 1px #dad9d9;
     margin-top: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 250px;
 }
 
 .createblog-category-select {
@@ -240,7 +243,7 @@
 
 .createblog-dis-custom-input {
     font-family: "Sansation-Regular", sans-serif;
-    background-color: #EBEBEB !important;
+    background-color: #ffffff !important;
     font-size: 15px;
     height: 40px;
     width: 630px;
