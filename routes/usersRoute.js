@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/user");
+const Place = require("../models/place");
+
 
 
 router.post("/register", async (req, res) => {
@@ -185,6 +187,28 @@ router.post('/check-save', async (req, res) => {
     }
 });
 
+
+
+router.get("/getfavlocations", async (req, res) => {
+    const userId = req.query.userId;
+
+    try {
+        const user = await User.findById(userId);
+
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
+
+        const favoriteLocationIds = user.favlocations;
+
+        const favoriteLocations = await Place.find({ _id: { $in: favoriteLocationIds } });
+
+        return res.status(200).json({ favoriteLocations });
+    } catch (error) {
+        console.error("Error fetching favorite locations:", error);
+        return res.status(500).json({ error: "Internal server error" });
+    }
+});
 
 
 
