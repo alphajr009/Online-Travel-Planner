@@ -7,6 +7,7 @@ import Account from './pages/Account';
 import PlanTrip from './pages/PlanTrip';
 import Place from './pages/user/Place';
 import Trips from './pages/user/Trips';
+import Location from './pages/user/Location';
 
 
 
@@ -38,6 +39,7 @@ function App() {
           <Route path="/plantrip" element={<PlanTrip />} />
           <Route path="/place/:placeid" element={<Place />} />
           <Route path="/trips" element={<Trips />} />
+          <Route path="/locations" element={<Location />} />
 
         </Routes>
       </BrowserRouter>

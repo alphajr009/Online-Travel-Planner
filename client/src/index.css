@@ -26,6 +26,10 @@
 
 }
 
+.pagnition {
+	text-align: right;
+	margin-top: 50px;
+}
 
 body {
 	font-family: "SF Pro Display-Regular";
@@ -55,6 +59,20 @@ h5 {
 	font-family: "SF Pro Display-Medium";
 	font-size: 17px !important;
 	margin-top: 0px;
+}
+
+
+h6 {
+	font-family: "SF Pro Display-Medium";
+	font-size: 24px !important;
+	margin-top: 0px;
+	margin-bottom: 8px;
+}
+
+.location-step-txt {
+	font-family: "SF Pro Display-Regular";
+	margin-top: 0px;
+	font-size: 14px;
 }
 
 p {

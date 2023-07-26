@@ -14,6 +14,12 @@ const tripSchema = mongoose.Schema({
     eat: [],
     stay: [],
 
+    isComplete: {
+        type: Boolean,
+        default: false
+    },
+
+
 }, {
     timestamps: true,
 })
