@@ -3,7 +3,7 @@ import Navbar from '../../components/navbar/MainNavbar'
 import UserFooter from '../../components/footer/UserFooter'
 import axios from 'axios';
 import { Button, Card, Col, Empty, Pagination, Row, Tooltip } from 'antd';
-import { DeleteOutlined, FireOutlined } from '@ant-design/icons';
+import { DeleteOutlined, SearchOutlined } from '@ant-design/icons';
 
 
 
@@ -127,14 +127,15 @@ function Trips() {
                     {trips.length === 0 ? (
                         <div className="no-favorite-locations">
                             <Empty
-                                image={<FireOutlined />}
+                                image={<SearchOutlined />}
                                 imageStyle={{ height: 60 }}
                                 description={
                                     <span>
-                                        <h6>Here are 3 simple steps to get you started:</h6>
+                                        <h6>Here are 4 simple steps to plan your trip:</h6>
                                         <div className="location-step-txt"> 1. Search for a location to plan your trip</div>
-                                        <div className="location-step-txt">2. Tap the fire icon when you find a location you like</div>
-                                        <div className="location-step-txt">3. You'll find everything you've saved here</div>
+                                        <div className="location-step-txt">2. Select the Places you desired from Do,Eat,Stay</div>
+                                        <div className="location-step-txt">3.Setup the Trip by enter the details</div>
+                                        <div className="location-step-txt">4. You'll find everything you've saved here</div>
                                     </span>
                                 }
                             >

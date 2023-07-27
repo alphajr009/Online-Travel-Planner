@@ -9,11 +9,33 @@
 
 }
 
+.slider-images-02 {
+  background-image: url(../../public/images/sunset-pool1.jpg);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  width: 100%;
+  height: 450px;
+  object-fit: cover;
+  position: relative;
+
+}
+
+.slider-images-03 {
+  background-image: url(../../public/images/sunset-pool12.jpg);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  width: 100%;
+  height: 450px;
+  object-fit: cover;
+  position: relative;
+
+}
+
 .slider-content {
   position: absolute;
   left: 0;
   right: 0;
-  top: 20%;
+  top: 30%;
   margin: auto auto;
   color: #fff;
   z-index: 100 !important;

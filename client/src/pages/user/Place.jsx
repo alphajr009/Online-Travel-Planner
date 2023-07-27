@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Navbar from "../../components/navbar/MainNavbar";
 import "../../css/palnTrip.css";
 import "../../css/place.css";
-import { Carousel, Col, Modal, Button } from "antd";
+import { Col, Modal, Button } from "antd";
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import weather1 from "../../assets/cloud.png";
