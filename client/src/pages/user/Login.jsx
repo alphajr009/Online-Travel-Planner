@@ -1,97 +1,83 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import axios from 'axios';
-import { Layout, Space, Col, Row, Button, Form, Input, Checkbox } from "antd";
+import { Layout, Space, Col, Row, Button, Form, Input, Checkbox, notification } from 'antd';
 
-import "../../css/login.css";
+import '../../css/login.css';
 
 const { Content } = Layout;
 
-
-const onFinish = (values) => {
-	console.log("Success:", values);
-};
-
-const onFinishFailed = (errorInfo) => {
-	console.log("Failed:", errorInfo);
-};
-
 const Login = () => {
-
-	const [email, setemail] = useState('')
-	const [password, setpassword] = useState('')
-
-
-	const [loading, setloading] = useState(false);
-	const [error, seterror] = useState(false);
-
-	const [isRememberMe, setIsRememberMe] = React.useState(false);
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
+	const [loading, setLoading] = useState(false);
+	const [isRememberMe, setIsRememberMe] = useState(false);
 
 	const handleRememberMeChange = (e) => {
 		setIsRememberMe(e.target.checked);
 	};
 
+	const handleLoginFailedNotification = (description) => {
+		notification.error({
+			message: 'User Login Failed',
+			description,
+			placement: 'topLeft',
+		});
+	};
 
+	const onFinish = (values) => {
+		console.log('Success:', values);
+	};
 
-	async function Login() {
+	const onFinishFailed = (errorInfo) => {
+		console.log('Failed:', errorInfo);
+	};
 
+	async function login() {
 		const user = {
 			email,
 			password,
-		}
+		};
 		try {
-			setloading(true)
-			const { data, status } = await axios.post('/api/users/login', user)
-			setloading(false)
+			setLoading(true);
+			const { data, status } = await axios.post('/api/users/login', user);
+			setLoading(false);
 
 			if (status === 200) {
 				localStorage.setItem('currentUser', JSON.stringify(data));
-				if (data.isAdmin = true) {
-					window.location.href = '/admin/places'
+				if (data.isAdmin) {
+					window.location.href = '/admin/places';
 				} else {
-					window.location.href = '/home'
+					window.location.href = '/home';
 				}
-
 			} else {
-				seterror(true);
+				handleLoginFailedNotification('Login failed. Please try again.');
 			}
 		} catch (error) {
-			console.log(error)
-			setloading(false)
-			seterror(true)
+			setLoading(false);
+			if (error.response && error.response.status === 404) {
+				handleLoginFailedNotification('User not found.');
+			} else if (error.response && error.response.status === 400) {
+				handleLoginFailedNotification('Incorrect password.');
+			} else {
+				handleLoginFailedNotification('An error occurred. Please try again.');
+			}
 		}
 	}
 
-
 	return (
-		<Space
-			direction="vertical"
-			style={{
-				width: "100%",
-			}}
-			size={[0, 48]}
-			className="space"
-		>
+		<Space direction="vertical" style={{ width: '100%' }} size={[0, 48]} className="space">
 			<Layout>
 				<Content>
 					<Row className="main-col">
-						<Col
-							className="form-section"
-							span={12}
-						>
-							<Col
-								className="innter-form-section"
-								span={12}
-							>
+						<Col className="form-section" span={12}>
+							<Col className="innter-form-section" span={12}>
 								<h1 className="text-align-left">Login</h1>
 								<p className="text-align-left">
 									Let’s explore the world today
-									<br></br>
+									<br />
 									Sign in to start managing your bookings.
 								</p>
-								<button className="sign-up-google">
-									<img src="/images/Google.svg" alt="" srcSet="" />
-									Sign up with Google
-								</button>
+
 								<Form
 									style={{
 										maxWidth: 600,
@@ -112,11 +98,11 @@ const Login = () => {
 											rules={[
 												{
 													required: true,
-													message: "Please input your email",
+													message: 'Please input your email',
 												},
 											]}
 										>
-											<Input value={email} onChange={(e) => { setemail(e.target.value) }} />
+											<Input value={email} onChange={(e) => setEmail(e.target.value)} />
 										</Form.Item>
 									</div>
 									<div className="m-8">
@@ -127,50 +113,38 @@ const Login = () => {
 										rules={[
 											{
 												required: true,
-												message: "Please input your password!",
+												message: 'Please input your password!',
 											},
 										]}
 									>
-										<Input.Password value={password} onChange={(e) => { setpassword(e.target.value) }} />
+										<Input.Password value={password} onChange={(e) => setPassword(e.target.value)} />
 									</Form.Item>
-									<Form.Item className="sign-up-btn-col"
+									<Form.Item
+										className="sign-up-btn-col"
 										wrapperCol={{
 											offset: 0,
 											span: 24,
 										}}
 									>
-
-										<Button onClick={Login} className="login-btn" type="primary" htmlType="submit">
+										<Button onClick={login} className="login-btn" type="primary" htmlType="submit">
 											Login
 										</Button>
 									</Form.Item>
 								</Form>
 								<div className="forget-pw">
-									<Checkbox
-										checked={isRememberMe}
-										onChange={handleRememberMeChange}
-									>
-										<a title={isRememberMe ? "You are Remembered!" : "Click to Remember"}>
-											Remember me
-										</a>
-									</Checkbox>{" "}
-									<a href="#">Forgot password</a>{" "}
+									<Checkbox checked={isRememberMe} onChange={handleRememberMeChange}>
+										<a title={isRememberMe ? 'You are Remembered!' : 'Click to Remember'}>Remember me</a>
+									</Checkbox>{' '}
+									<a href="#">Forgot password</a>{' '}
 								</div>
 								<div className="login-acc-have">
-									<p className="text-align-center" >Don't you have an account?
-										{" "}
-										<a className="fw-medium" href="/signup">Sign up</a>{" "}
+									<p className="text-align-center">
+										Don't you have an account? <a className="fw-medium" href="/signup">Sign up</a>{' '}
 									</p>
 								</div>
 							</Col>
 						</Col>
-						<Col
-							className="login-pic"
-							type="flex"
-							justify="space-around"
-							align="middle"
-							span={12}
-						></Col>
+						<Col className="login-pic" type="flex" justify="space-around" align="middle" span={12}></Col>
 					</Row>
 				</Content>
 			</Layout>

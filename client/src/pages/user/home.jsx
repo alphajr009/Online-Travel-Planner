@@ -1,5 +1,5 @@
 import React from "react";
-import { Layout, Space, Col, Row, Button, Form, Input, Checkbox } from "antd";
+import { Col, Row, } from "antd";
 import "../../css/Home.css";
 import "../../index.css";
 import Navbar from "../../components/navbar/MainNavbar";
