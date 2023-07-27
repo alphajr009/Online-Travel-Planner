@@ -190,3 +190,35 @@ h2 {
 .nav-menu-items {
 	gap: 10px;
 }
+
+.trip-card-note {
+	color: #cecdcd;
+	font-size: 15px;
+	font-family: "SF Pro Display-Regular" !important;
+	min-height: 48px;
+}
+
+
+.trip-card-footer {
+	display: flex;
+	color: #ffffff;
+	justify-content: space-between;
+	background-color: #329fe2;
+	padding: 4px 6px;
+	border-radius: 6px;
+	margin-bottom: 5%;
+	margin-top: 3%;
+}
+
+.trip-card-footer-item-txt {
+	font-size: 15px;
+}
+
+.tripplan-body-content {
+	padding: 5% 8%;
+}
+
+
+.tripplan-body-content .slick-track {
+	margin-left: 0 !important;
+}
