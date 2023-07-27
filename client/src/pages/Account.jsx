@@ -19,6 +19,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { LockOutlined } from "@ant-design/icons";
 import moment from "moment";
+import UserFooter from "../components/footer/UserFooter";
 
 
 
@@ -106,10 +107,7 @@ function Account() {
 
 		}).catch((error) => {
 
-			notification.error({
-				message: "Error",
-				description: "Please fill in all required fields before saving.",
-			});
+
 		});
 	};
 
@@ -125,7 +123,6 @@ function Account() {
 				setAddress(values.address);
 				setPreferences(values.preferences);
 
-				// Call the changeUserDetails function to save the data
 				await changeUserDetails(
 					values.Name,
 					values.city,
@@ -150,7 +147,7 @@ function Account() {
 		}
 	};
 	const onCancelButtonClick = () => {
-		form.resetFields(); // Reset the form fields and validation warnings
+		form.resetFields();
 		setEditMode(false);
 		setSaveButtonText("Edit Profile");
 	};
@@ -255,7 +252,6 @@ function Account() {
 	const onFormLayoutChange1 = ({ layout, ...values }) => {
 		setFormLayout(layout);
 
-		// Update the state with the form field values
 		setName(values.Name);
 		setCity(values.city);
 		setGender(values.gender);
@@ -466,7 +462,9 @@ function Account() {
 					</Form>
 				</Col>
 			</div>
+			<UserFooter />
 		</Layout>
+
 	);
 }
 

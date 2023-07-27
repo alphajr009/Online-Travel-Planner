@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/user");
+const Place = require("../models/place");
+
 
 
 router.post("/register", async (req, res) => {
@@ -23,29 +25,31 @@ router.post("/register", async (req, res) => {
 
 
 router.post("/login", async (req, res) => {
-
-    const { email, password } = req.body
+    const { email, password } = req.body;
 
     try {
-        const user = await User.findOne({ email: email, password: password })
-        if (user) {
+        const user = await User.findOne({ email: email });
 
-            const temp = {
-                name: user.name,
-                email: user.email,
-                isAdmin: user.isAdmin,
-                _id: user._id,
+        if (user) {
+            if (user.password === password) {
+                const temp = {
+                    name: user.name,
+                    email: user.email,
+                    isAdmin: user.isAdmin,
+                    _id: user._id,
+                };
+                res.send(temp);
+            } else {
+                return res.status(400).json({ message: 'Password incorrect' });
             }
-            res.send(temp);
-        }
-        else {
-            return res.status(400).json({ message: 'Login Failed' });
+        } else {
+            return res.status(404).json({ message: 'User not found' });
         }
     } catch (error) {
         return res.status(400).json({ error });
     }
-
 });
+
 
 router.get("/getallusers", async (req, res) => {
 
@@ -118,6 +122,95 @@ router.patch("/updateuser", async (req, res) => {
 });
 
 
+router.post('/save', async (req, res) => {
+    const { placeId, userId } = req.body;
+
+    try {
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        if (user.favlocations.includes(placeId)) {
+            return res.status(400).json({ error: 'User already Saved this place' });
+        }
+
+        user.favlocations.push(placeId);
+        await user.save();
+
+        return res.status(200).json({ message: 'Place saved successfully' });
+    } catch (error) {
+        console.error('Error saving place:', error);
+        return res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+
+router.post('/unsave', async (req, res) => {
+    const { placeId, userId } = req.body;
+
+    try {
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        if (!user.favlocations.includes(placeId)) {
+            return res.status(400).json({ error: 'User has not saved this place' });
+        }
+
+        user.favlocations = user.favlocations.filter((id) => id.toString() !== placeId.toString());
+
+        await user.save();
+
+        return res.status(200).json({ message: 'Place unsaved successfully' });
+    } catch (error) {
+        console.error('Error unsaving place:', error);
+        return res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+
+router.post('/check-save', async (req, res) => {
+    const { placeId, userId } = req.body;
+
+    try {
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        const hasSaved = user.favlocations.includes(placeId);
+
+        return res.status(200).json({ hasSaved });
+    } catch (error) {
+        console.error('Error checking if user has saved place:', error);
+        return res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+
+
+router.get("/getfavlocations", async (req, res) => {
+    const userId = req.query.userId;
+
+    try {
+        const user = await User.findById(userId);
+
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
+
+        const favoriteLocationIds = user.favlocations;
+
+        const favoriteLocations = await Place.find({ _id: { $in: favoriteLocationIds } });
+
+        return res.status(200).json({ favoriteLocations });
+    } catch (error) {
+        console.error("Error fetching favorite locations:", error);
+        return res.status(500).json({ error: "Internal server error" });
+    }
+});
 
 
 

@@ -19,6 +19,17 @@
 	src: url("./fonts/SFPro-Bold.ttf") format("truetype");
 }
 
+.ant-tooltip .ant-tooltip-inner {
+	background-color: #555555;
+	font-family: "SF Pro Display-Regular" !important;
+	font-size: 14px !important;
+
+}
+
+.pagnition {
+	text-align: right;
+	margin-top: 50px;
+}
 
 body {
 	font-family: "SF Pro Display-Regular";
@@ -29,6 +40,39 @@ h1 {
 	font-size: 40px !important;
 	margin-top: 0px;
 	margin-bottom: 20px;
+}
+
+h3 {
+	font-family: "SF Pro Display-Medium";
+	font-size: 30px !important;
+	margin-top: 0px;
+	margin-bottom: 20px;
+}
+
+h4 {
+	font-family: "SF Pro Display-Medium";
+	font-size: 18px !important;
+	margin-top: 0px;
+}
+
+h5 {
+	font-family: "SF Pro Display-Medium";
+	font-size: 17px !important;
+	margin-top: 0px;
+}
+
+
+h6 {
+	font-family: "SF Pro Display-Medium";
+	font-size: 24px !important;
+	margin-top: 0px;
+	margin-bottom: 8px;
+}
+
+.location-step-txt {
+	font-family: "SF Pro Display-Regular";
+	margin-top: 0px;
+	font-size: 14px;
 }
 
 p {
@@ -84,6 +128,16 @@ h2 {
 	background-color: #005fbd !important;
 }
 
+.trip-modal-label {
+	text-align: center;
+	margin-bottom: 20px;
+	font-size: 22px;
+}
+
+.trip-modal-upload {
+	text-align: center;
+}
+
 .innter-form-section {
 	margin: auto;
 	display: flex;
@@ -91,6 +145,10 @@ h2 {
 	align-content: center;
 	justify-content: center;
 	height: 100vh;
+}
+
+.cloud-icon {
+	font-size: 25px;
 }
 
 .ant-input {
@@ -131,4 +189,36 @@ h2 {
 
 .nav-menu-items {
 	gap: 10px;
+}
+
+.trip-card-note {
+	color: #cecdcd;
+	font-size: 15px;
+	font-family: "SF Pro Display-Regular" !important;
+	min-height: 48px;
+}
+
+
+.trip-card-footer {
+	display: flex;
+	color: #ffffff;
+	justify-content: space-between;
+	background-color: #329fe2;
+	padding: 4px 6px;
+	border-radius: 6px;
+	margin-bottom: 5%;
+	margin-top: 3%;
+}
+
+.trip-card-footer-item-txt {
+	font-size: 15px;
+}
+
+.tripplan-body-content {
+	padding: 5% 8%;
+}
+
+
+.tripplan-body-content .slick-track {
+	margin-left: 0 !important;
 }

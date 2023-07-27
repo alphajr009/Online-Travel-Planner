@@ -4,6 +4,7 @@ import axios from 'axios';
 import { Table, Modal, Form, Input } from 'antd';
 import CreatePlace from './CreatePlace';
 import Swal from 'sweetalert2'
+import UserFooter from '../../../components/footer/UserFooter';
 
 function Place() {
 
@@ -313,6 +314,7 @@ function Place() {
 
                 </Form>
             </Modal>
+            <UserFooter />
         </div>
     )
 }

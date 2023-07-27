@@ -16,7 +16,7 @@ class LeftMenu extends Component {
             <a href="/locations">Locations</a>
           </Menu.Item>
           <Menu.Item key="favourites">
-            <a href="/favourites">Favourites</a>
+            <a href="/trips">Trips</a>
           </Menu.Item>
         </>
 

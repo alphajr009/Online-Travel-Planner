@@ -2,22 +2,27 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: 50px;
 }
-.main-search-bar{
+
+.main-search-bar {
     width: 100%;
     display: flex;
     justify-content: space-between;
 }
 
-.search-input-main{
+.search-input-main {
     width: 100%;
 }
-.option-selector{
+
+.option-selector {
     width: 100%;
 }
-.search-button{
+
+.search-button {
     width: 100%;
 }
+
 .users-cus-name,
 .users-cus-id,
 .users-isadmin,
@@ -69,12 +74,13 @@
     transform: translateX(-50%);
     width: 100%;
 }
-:where(.css-dev-only-do-not-override-12upa3x).ant-row{
+
+:where(.css-dev-only-do-not-override-12upa3x).ant-row {
     width: 100%;
 }
 
 .admin-users-table {
-    margin-top: 250px;
+    margin-top: 50px;
     width: 90%;
     border-collapse: collapse;
     font-size: 15px;
@@ -120,6 +126,17 @@
     width: 80px;
     background-color: var(--red-2);
     border-color: red;
+    border-radius: 4px;
+}
+
+
+.admin-terminal-isAdmin-users-yes {
+    font-family: "Sansation-Bold", sans-serif;
+    color: green;
+    height: 30px;
+    width: 80px;
+    background-color: var(--red-2);
+    border-color: lightgreen;
     border-radius: 4px;
 }
 

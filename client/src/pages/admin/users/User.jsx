@@ -67,7 +67,7 @@ function Users() {
 			dataIndex: "displayName",
 			key: "displayName",
 			render: (text, record) => {
-				return `${record.fname} `;
+				return `${record.name} `;
 			},
 		},
 		{
@@ -82,7 +82,7 @@ function Users() {
 			render: (_, users) => {
 				if (users.isAdmin) {
 					return (
-						<button className="admin-terminal-users-isAdmin-yes">Yes</button>
+						<button className="btn-edit-places-by-seller">Yes</button>
 					);
 				} else {
 					return (
@@ -159,40 +159,40 @@ function Users() {
 
 			<Col span={14} className="main-search-bar">
 				{/* container for booking id */}
-					<Col span={14}>
-						<div>
-							<Input
-								type="text"
-								placeholder="Customer name"
-								className="search-input-main"
-								value={displayname}
-								onChange={handlecustomer}
-							/>
-						</div>
-					</Col>
-					<Col span={5}>
-						<div>
-							<Select
-								className="option-selector"
-								placeholder="IsAdmin"
-								value={isAdmin}
-								onChange={handleuserposition}
-							>
-								<Option key="isAdmin-yes">Yes</Option>
-								<Option key="isAdmin-no">No</Option>
-							</Select>
-						</div>
-					</Col>
-					<Col span={4}>
-						<div>
-							<Button
-								className="search-button"
-								onClick={handleFilter}
-							>
-								Search
-							</Button>
-						</div>
-					</Col>
+				<Col span={14}>
+					<div>
+						<Input
+							type="text"
+							placeholder="Customer name"
+							className="search-input-main"
+							value={displayname}
+							onChange={handlecustomer}
+						/>
+					</div>
+				</Col>
+				<Col span={5}>
+					<div>
+						<Select
+							className="option-selector"
+							placeholder="IsAdmin"
+							value={isAdmin}
+							onChange={handleuserposition}
+						>
+							<Option key="isAdmin-yes">Yes</Option>
+							<Option key="isAdmin-no">No</Option>
+						</Select>
+					</div>
+				</Col>
+				<Col span={4}>
+					<div>
+						<Button
+							className="search-button"
+							onClick={handleFilter}
+						>
+							Search
+						</Button>
+					</div>
+				</Col>
 				{/* container for booking status */}
 
 				{/* container fors search*/}

@@ -1,10 +1,8 @@
 import React, { useCallback, useState } from 'react';
 import axios from 'axios';
-import { GoogleLogin } from '@react-oauth/google';
 import { Layout, Space, Col, Row, Button, Form, Input, Checkbox, Alert, notification } from 'antd';
 import '../../css/login.css';
-import { GoogleLoginButton } from "react-social-login-buttons";
-import { LoginSocialGoogle } from "reactjs-social-login";
+
 
 const { Content } = Layout;
 
@@ -21,10 +19,6 @@ const SignUp = () => {
     const [provider, setProvider] = useState('')
     const [profile, setProfile] = useState(null)
 
-
-
-
-
     const handlePrivacyPolicyChange = (e) => {
         setIsPrivacyPolicyChecked(e.target.checked);
     };
@@ -32,8 +26,6 @@ const SignUp = () => {
     const onLoginStart = useCallback(() => {
         alert('login start')
     }, [])
-
-
 
     const generateRandomPassword = () => {
         const length = 10;
@@ -47,9 +39,6 @@ const SignUp = () => {
 
         return password;
     };
-
-
-
 
     const register = async () => {
         if (password === confirmPassword) {
@@ -90,8 +79,6 @@ const SignUp = () => {
         }
     };
 
-
-
     const onFinish = (values) => {
         console.log('Success:', values);
         register();
@@ -99,6 +86,26 @@ const SignUp = () => {
 
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
+    };
+
+    // Email validation rule
+    const validateEmail = (rule, value) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (value && !emailRegex.test(value)) {
+            return Promise.reject('Please enter a valid email address.');
+        }
+        return Promise.resolve();
+    };
+
+    // Password validation rule
+    const validatePassword = (rule, value) => {
+        if (value && value.length < 6) {
+            return Promise.reject('Password must be at least 6 characters long.');
+        }
+        if (value && !/[A-Z]/.test(value)) {
+            return Promise.reject('Password must contain at least one capital letter.');
+        }
+        return Promise.resolve();
     };
 
     return (
@@ -115,25 +122,6 @@ const SignUp = () => {
                                     Sign in to start managing your bookings.
                                 </p>
 
-                                <button className="sign-up-google">
-                                    <img src="/images/Google.svg" alt="" srcSet="" />
-                                    Sign up with Google
-                                </button>
-
-                                {/* <LoginSocialGoogle
-                                    isOnlyGetToken
-                                    client_id={"489666950957-8dudnsbvm19o2jl44oh3n4m6or84vlme.apps.googleusercontent.com"}
-                                    onLoginStart={onLoginStart}
-                                    onResolve={({ provider, data }) => {
-                                        setProvider(provider)
-                                        setProfile(data)
-                                    }}
-                                    onReject={(err) => {
-                                        console.log(err)
-                                    }}
-                                >
-                                    <GoogleLoginButton />
-                                </LoginSocialGoogle> */}
                                 <Form
                                     style={{
                                         maxWidth: 600,
@@ -156,6 +144,9 @@ const SignUp = () => {
                                                     required: true,
                                                     message: 'Please input your email',
                                                 },
+                                                {
+                                                    validator: validateEmail,
+                                                },
                                             ]}
                                         >
                                             <Input value={email} onChange={(e) => setEmail(e.target.value)} />
@@ -170,6 +161,9 @@ const SignUp = () => {
                                             {
                                                 required: true,
                                                 message: 'Please input your password!',
+                                            },
+                                            {
+                                                validator: validatePassword,
                                             },
                                         ]}
                                     >

@@ -102,5 +102,130 @@ router.patch('/deleteplace', async (req, res) => {
 });
 
 
+router.post("/getplacebyid", async (req, res) => {
+
+
+    const placeid = req.body.placeid
+
+    try {
+        const place = await Place.find({ _id: placeid })
+        return res.json({ place })
+    } catch (error) {
+        return res.status(400).json({ message: error })
+    }
+
+
+});
+
+router.post('/like', async (req, res) => {
+    const { placeId, userId } = req.body;
+
+    try {
+        const place = await Place.findById(placeId);
+        if (!place) {
+            return res.status(404).json({ error: 'Place not found' });
+        }
+
+        if (place.likedusers.includes(userId)) {
+            return res.status(400).json({ error: 'User already liked this place' });
+        }
+        place.likedusers.push(userId);
+        place.likes += 1;
+        await place.save();
+
+        return res.status(200).json({ message: 'Place liked successfully' });
+    } catch (error) {
+        console.error('Error liking place:', error);
+        return res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+
+router.post('/unlike', async (req, res) => {
+    const { placeId, userId } = req.body;
+
+    try {
+        const place = await Place.findById(placeId);
+        if (!place) {
+            return res.status(404).json({ error: 'Place not found' });
+        }
+
+        if (!place.likedusers.includes(userId)) {
+            return res.status(400).json({ error: 'User has not liked this place' });
+        }
+
+        place.likedusers = place.likedusers.filter((id) => id !== userId);
+
+
+        place.likes -= 1;
+
+        await place.save();
+
+        return res.status(200).json({ message: 'Place unliked successfully' });
+    } catch (error) {
+        console.error('Error unliking place:', error);
+        return res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+
+router.post('/check-like', async (req, res) => {
+    const { placeId, userId } = req.body;
+
+    try {
+        const place = await Place.findById(placeId);
+        if (!place) {
+            return res.status(404).json({ error: 'Place not found' });
+        }
+
+        const hasLiked = place.likedusers.includes(userId);
+
+        return res.status(200).json({ hasLiked });
+    } catch (error) {
+        console.error('Error checking if user has liked place:', error);
+        return res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+
+
+router.post("/getdo", async (req, res) => {
+    const placeIds = JSON.parse(req.body.do);
+    try {
+        const places = await Place.find({ _id: { $in: placeIds } });
+        return res.json({ places });
+    } catch (error) {
+        return res.status(400).json({ message: error });
+    }
+});
+
+
+router.post("/geteat", async (req, res) => {
+    const placeIds = JSON.parse(req.body.eat);
+    try {
+        const places = await Place.find({ _id: { $in: placeIds } });
+        return res.json({ places });
+    } catch (error) {
+        return res.status(400).json({ message: error });
+    }
+});
+
+
+router.post("/getstay", async (req, res) => {
+    const placeIds = JSON.parse(req.body.stay);
+    try {
+        const places = await Place.find({ _id: { $in: placeIds } });
+        return res.json({ places });
+    } catch (error) {
+        return res.status(400).json({ message: error });
+    }
+});
+
+
+
+
+
+
+
 
 module.exports = router

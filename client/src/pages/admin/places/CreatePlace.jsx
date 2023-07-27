@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './createplace.css';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLocationArrow, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import { Input, Form, Radio, Pagination, Alert, Select } from 'antd';
+import { Input, Form, Select, notification } from 'antd';
 import axios from 'axios';
 import ImageUploader from '../../../components/ImageUploader';
+import UserFooter from '../../../components/footer/UserFooter';
 
 function CreatePlace() {
 
@@ -78,6 +77,17 @@ function CreatePlace() {
                 },
             });
             console.log(response.status);
+
+            notification.success({
+                message: "Success",
+                description: "Place Added Successfully!",
+            });
+
+            setTimeout(() => {
+                window.location.href = "/admin/places";
+            }, 1000);
+
+
         } catch (error) {
             if (error.response) {
                 console.log("Error1:");
@@ -109,10 +119,10 @@ function CreatePlace() {
 
 
                     <Form>
-                        <div className="crb-s2-blog-title-wrap">
-                            <div className='createblog-dis-select'>
+                        <div className="">
+                            <div className='categort-align'>
                                 <Form.Item
-                                    className='createblog-dis-namebox-conatiner-p'
+                                    className='-conatiner-p'
                                     label="Category:"
                                     name="category"
                                     rules={[{ required: true, message: 'Please input your Title!' }]}>
@@ -132,131 +142,133 @@ function CreatePlace() {
                                 </Form.Item>
                             </div>
 
+                            <div className="align-set">
 
-                            <div className="createblog-dis-namebox">
-                                <div className="createblog-dis-namebox-container">
+                                <div className="aligh-items-cplaces">
+                                    <div className="-container">
+                                        <Form.Item
+                                            className='-conatiner-p'
+                                            label="Title:"
+                                            name="title"
+                                            rules={[{ required: true, message: 'Please input your Title!' }]}
+                                        >
+                                            <Input className="createblog-dis-custom-input"
+                                                value={title}
+                                                onChange={(e) => { settitle(e.target.value) }}
+                                                maxLength={85}
+                                            />
+                                        </Form.Item>
+                                    </div>
+                                </div>
+
+                                <div className="userp-help-messagebox">
+                                    <div className="userp-help-namebox-container">
+                                        <Form.Item
+                                            className='userp-help-namebox-conatiner-p'
+                                            label="Discription :"
+                                            name="description"
+                                            rules={[{ required: true, message: 'Please input your blog discription!' }]}
+                                        >
+                                            <Input.TextArea style={{ height: "245px", width: "626px" }} maxLength={1300} className="userp-helpmsg-custom-input"
+                                                value={description}
+                                                onChange={(e) => { setdescription(e.target.value) }} />
+                                        </Form.Item>
+
+
+                                    </div>
+                                </div>
+
+                                <div className="-container">
                                     <Form.Item
-                                        className='createblog-dis-namebox-conatiner-p'
-                                        label="Title:"
-                                        name="title"
-                                        rules={[{ required: true, message: 'Please input your Title!' }]}
+                                        className='-conatiner-p'
+                                        label="Phone Number:"
+                                        name="phone"
+                                        rules={[{ required: true, message: 'Please input your Phone Number!' }]}
                                     >
-                                        <Input.TextArea className="createblog-dis-custom-input"
-                                            value={title}
-                                            onChange={(e) => { settitle(e.target.value) }}
-                                            showCount maxLength={85}
+                                        <Input className="createblog-dis-custom-input "
+                                            value={phone}
+                                            onChange={(e) => { setphone(e.target.value) }}
+                                            maxLength={85}
                                         />
                                     </Form.Item>
                                 </div>
-                            </div>
 
-                            <div className="userp-help-messagebox">
-                                <div className="userp-help-namebox-container">
+                                <div className="-container">
                                     <Form.Item
-                                        className='userp-help-namebox-conatiner-p'
-                                        label="Discription :"
-                                        name="description"
-                                        rules={[{ required: true, message: 'Please input your blog discription!' }]}
+                                        className='-conatiner-p'
+                                        label="City"
+                                        name="city"
+                                        rules={[{ required: true, message: 'Please input your Address!' }]}
                                     >
-                                        <Input.TextArea style={{ height: "245px", width: "626px" }} showCount maxLength={1300} className="userp-helpmsg-custom-input"
-                                            value={description}
-                                            onChange={(e) => { setdescription(e.target.value) }} />
+                                        <Input className="createblog-dis-custom-input"
+                                            value={city}
+                                            onChange={(e) => { setcity(e.target.value) }}
+                                            maxLength={85}
+                                        />
                                     </Form.Item>
-
-
                                 </div>
-                            </div>
-
-                            <div className="createblog-dis-namebox-container">
-                                <Form.Item
-                                    className='createblog-dis-namebox-conatiner-p'
-                                    label="Phone Number:"
-                                    name="phone"
-                                    rules={[{ required: true, message: 'Please input your Phone Number!' }]}
-                                >
-                                    <Input.TextArea className="createblog-dis-custom-input"
-                                        value={phone}
-                                        onChange={(e) => { setphone(e.target.value) }}
-                                        showCount maxLength={85}
-                                    />
-                                </Form.Item>
-                            </div>
-
-                            <div className="createblog-dis-namebox-container">
-                                <Form.Item
-                                    className='createblog-dis-namebox-conatiner-p'
-                                    label="City"
-                                    name="city"
-                                    rules={[{ required: true, message: 'Please input your Address!' }]}
-                                >
-                                    <Input.TextArea className="createblog-dis-custom-input"
-                                        value={city}
-                                        onChange={(e) => { setcity(e.target.value) }}
-                                        showCount maxLength={85}
-                                    />
-                                </Form.Item>
-                            </div>
 
 
-                            <div className="createblog-dis-namebox-container">
-                                <Form.Item
-                                    className='createblog-dis-namebox-conatiner-p'
-                                    label="Address"
-                                    name="address"
-                                    rules={[{ required: true, message: 'Please input your Address!' }]}
-                                >
-                                    <Input.TextArea className="createblog-dis-custom-input"
-                                        value={address}
-                                        onChange={(e) => { setaddress(e.target.value) }}
-                                        showCount maxLength={85}
-                                    />
-                                </Form.Item>
-                            </div>
+                                <div className="-container">
+                                    <Form.Item
+                                        className='-conatiner-p'
+                                        label="Address"
+                                        name="address"
+                                        rules={[{ required: true, message: 'Please input your Address!' }]}
+                                    >
+                                        <Input className="createblog-dis-custom-input"
+                                            value={address}
+                                            onChange={(e) => { setaddress(e.target.value) }}
+                                            maxLength={85}
+                                        />
+                                    </Form.Item>
+                                </div>
 
-                            <div className="createblog-dis-namebox-container">
-                                <Form.Item
-                                    className='createblog-dis-namebox-conatiner-p'
-                                    label="Google Map Link"
-                                    name="googlemaplink"
-                                    rules={[{ required: true, message: 'Please input your Google Map Link!' }]}
-                                >
-                                    <Input.TextArea className="createblog-dis-custom-input"
-                                        value={googlemaplink}
-                                        onChange={(e) => { setgooglemaplink(e.target.value) }}
-                                        showCount maxLength={85}
-                                    />
-                                </Form.Item>
-                            </div>
+                                <div className="-container">
+                                    <Form.Item
+                                        className='-conatiner-p'
+                                        label="Google Map Link"
+                                        name="googlemaplink"
+                                        rules={[{ required: true, message: 'Please input your Google Map Link!' }]}
+                                    >
+                                        <Input className="createblog-dis-custom-input"
+                                            value={googlemaplink}
+                                            onChange={(e) => { setgooglemaplink(e.target.value) }}
+                                            maxLength={85}
+                                        />
+                                    </Form.Item>
+                                </div>
 
 
-                            <div className="createblog-dis-namebox-container">
-                                <Form.Item
-                                    className='createblog-dis-namebox-conatiner-p'
-                                    label="Opening time"
-                                    name="openingtime"
-                                    rules={[{ required: true, message: 'Please input Opening time!' }]}
-                                >
-                                    <Input.TextArea className="createblog-dis-custom-input"
-                                        value={openingtime}
-                                        onChange={(e) => { setopeningtime(e.target.value) }}
-                                        showCount maxLength={85}
-                                    />
-                                </Form.Item>
-                            </div>
+                                <div className="-container">
+                                    <Form.Item
+                                        className='-conatiner-p'
+                                        label="Opening time"
+                                        name="openingtime"
+                                        rules={[{ required: true, message: 'Please input Opening time!' }]}
+                                    >
+                                        <Input className="createblog-dis-custom-input"
+                                            value={openingtime}
+                                            onChange={(e) => { setopeningtime(e.target.value) }}
+                                            maxLength={85}
+                                        />
+                                    </Form.Item>
+                                </div>
 
-                            <div className="createblog-dis-namebox-container">
-                                <Form.Item
-                                    className='createblog-dis-namebox-conatiner-p'
-                                    label="Closing time"
-                                    name="closingtime"
-                                    rules={[{ required: true, message: 'Please input Closing time!' }]}
-                                >
-                                    <Input.TextArea className="createblog-dis-custom-input"
-                                        value={closingtime}
-                                        onChange={(e) => { setclosingtime(e.target.value) }}
-                                        showCount maxLength={85}
-                                    />
-                                </Form.Item>
+                                <div className="-container">
+                                    <Form.Item
+                                        className='-conatiner-p'
+                                        label="Closing time"
+                                        name="closingtime"
+                                        rules={[{ required: true, message: 'Please input Closing time!' }]}
+                                    >
+                                        <Input className="createblog-dis-custom-input"
+                                            value={closingtime}
+                                            onChange={(e) => { setclosingtime(e.target.value) }}
+                                            maxLength={85}
+                                        />
+                                    </Form.Item>
+                                </div>
                             </div>
 
 
@@ -268,7 +280,7 @@ function CreatePlace() {
                 </div>
 
             </div>
-
+            <UserFooter />
         </div>
     )
 }
