@@ -35,6 +35,7 @@ const Slider = () => {
 			<Carousel
 				autoplay
 				autoplaySpeed={5500}
+				speed={900}
 				effect="scrollx"
 			>
 				<div className="slider-images-01">
