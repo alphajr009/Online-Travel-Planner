@@ -136,7 +136,7 @@ function PlanTrip() {
 			});
 
 			console.log("Trip created:", result.data);
-			// window.location.href = "/trips";
+			window.location.href = "/trips";
 		} catch (error) {
 			console.log("Error creating trip:", error);
 		}
@@ -271,6 +271,7 @@ function PlanTrip() {
 					<Input
 						placeholder="What is your trip name?"
 						value={tripName}
+						maxLength={40}
 						onChange={(e) => setTripName(e.target.value)}
 					/>
 				</Form.Item>
@@ -279,6 +280,7 @@ function PlanTrip() {
 					<Input
 						placeholder="Make a note for your trip"
 						value={tripNote}
+						maxLength={95}
 						onChange={(e) => setTripNote(e.target.value)}
 					/>
 				</Form.Item>

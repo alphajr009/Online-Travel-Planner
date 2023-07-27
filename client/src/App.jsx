@@ -8,6 +8,7 @@ import PlanTrip from './pages/PlanTrip';
 import Place from './pages/user/Place';
 import Trips from './pages/user/Trips';
 import Location from './pages/user/Location';
+import TripPage from './pages/user/TripPage';
 
 
 
@@ -39,6 +40,7 @@ function App() {
           <Route path="/plantrip" element={<PlanTrip />} />
           <Route path="/place/:placeid" element={<Place />} />
           <Route path="/trips" element={<Trips />} />
+          <Route path="/trip/:tripid" element={<TripPage />} />
           <Route path="/locations" element={<Location />} />
 
         </Routes>

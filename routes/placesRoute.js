@@ -189,6 +189,39 @@ router.post('/check-like', async (req, res) => {
 
 
 
+router.post("/getdo", async (req, res) => {
+    const placeIds = JSON.parse(req.body.do);
+    try {
+        const places = await Place.find({ _id: { $in: placeIds } });
+        return res.json({ places });
+    } catch (error) {
+        return res.status(400).json({ message: error });
+    }
+});
+
+
+router.post("/geteat", async (req, res) => {
+    const placeIds = JSON.parse(req.body.eat);
+    try {
+        const places = await Place.find({ _id: { $in: placeIds } });
+        return res.json({ places });
+    } catch (error) {
+        return res.status(400).json({ message: error });
+    }
+});
+
+
+router.post("/getstay", async (req, res) => {
+    const placeIds = JSON.parse(req.body.stay);
+    try {
+        const places = await Place.find({ _id: { $in: placeIds } });
+        return res.json({ places });
+    } catch (error) {
+        return res.status(400).json({ message: error });
+    }
+});
+
+
 
 
 

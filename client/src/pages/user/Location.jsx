@@ -35,13 +35,14 @@ function Place({ place }) {
         <div>
 
             <Card
-                extra={<span style={{ marginLeft: '8px' }}>
-                    <Tooltip title="Remove Location" placement="right">
-                        <DeleteOutlined onClick={() => handleDelete(place._id)} />
-                    </Tooltip>
-                </span>}
                 hoverable={false}
-                cover={<img className='palce-card-image' src={`/uploads/${place._id}-0.jpg`} alt={place.name} />}
+                cover={<span >
+                    <Tooltip title="Remove Location" placement="right">
+                        <DeleteOutlined style={{ position: 'absolute', right: '0', marginTop: '5px', marginRight: '10px', fontSize: '20px', color: '#fff' }} onClick={() => handleDelete(place._id)} />
+
+                    </Tooltip>
+                    <img className='palce-card-image' src={`/uploads/${place._id}-0.jpg`} alt={place.name} />
+                </span>}
             >
                 <div className='place-card-p plan-trip-card '>
                     <p>{place.name}</p>
