@@ -1,6 +1,8 @@
 const express = require("express");
 const helmet = require('helmet');
 const path = require('path');
+const cors = require('cors');
+
 
 
 
@@ -11,6 +13,13 @@ const userRoute = require('./routes/usersRoute')
 const placeRoute = require('./routes/placesRoute')
 const reviewRoute = require('./routes/reviewsRoute')
 const tripRoute = require('./routes/tripsRoute')
+
+const corsOptions = {
+    origin: ["http://localhost:3000", "https://guideyfy.herokuapp.com"],
+    optionsSuccessStatus: 200,
+};
+
+app.use(cors(corsOptions));
 
 app.use(helmet());
 
