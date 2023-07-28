@@ -15,7 +15,7 @@ const reviewRoute = require('./routes/reviewsRoute')
 const tripRoute = require('./routes/tripsRoute')
 
 const corsOptions = {
-    origin: ["http://localhost:3000", "https://tripgenie-b2e79f0cee46.herokuapp.com/"],
+    origin: ["http://localhost:3000", "https://tripgenie-b2e79f0cee46.herokuapp.com"],
     optionsSuccessStatus: 200,
 };
 
@@ -23,14 +23,7 @@ app.use(cors(corsOptions));
 
 app.use(helmet());
 
-app.use(
-    helmet.contentSecurityPolicy({
-        directives: {
-            'cross-origin-opener-policy': ['same-origin', 'allow-popups', 'strict-origin',],
-            'cross-origin-embedder-policy': ['require-corp'],
-        },
-    })
-);
+
 
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
