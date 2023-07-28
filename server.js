@@ -15,7 +15,7 @@ const reviewRoute = require('./routes/reviewsRoute')
 const tripRoute = require('./routes/tripsRoute')
 
 const corsOptions = {
-    origin: ["http://localhost:3000", "https://guideyfy.herokuapp.com"],
+    origin: ["http://localhost:3000", "https://tripgenie-b2e79f0cee46.herokuapp.com/"],
     optionsSuccessStatus: 200,
 };
 
