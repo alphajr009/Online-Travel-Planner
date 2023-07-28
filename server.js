@@ -23,6 +23,18 @@ app.use(cors(corsOptions));
 
 app.use(helmet());
 
+// Add CSP directive to allow the 'https://api.openweathermap.org' domain
+
+app.use(
+    helmet.contentSecurityPolicy({
+        directives: {
+            defaultSrc: ["'self'"],
+            connectSrc: ["'self'", "https://api.openweathermap.org"],
+        },
+    })
+);
+
+
 
 
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
