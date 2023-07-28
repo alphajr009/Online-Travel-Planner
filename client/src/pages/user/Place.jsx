@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Navbar from "../../components/navbar/MainNavbar";
 import "../../css/palnTrip.css";
 import "../../css/place.css";
-import { Col, Modal, Button } from "antd";
+import { Col, Modal, Button, Rate, Form, Input } from "antd";
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import weather1 from "../../assets/cloud.png";
@@ -17,6 +17,8 @@ import humidity from "../../assets/humidity.png";
 import Windy from "../../assets/windx.png";
 import { HeartOutlined, HeartFilled, FireOutlined, FireFilled } from "@ant-design/icons";
 import UserFooter from '../../components/footer/UserFooter';
+import Slider from "react-slick";
+
 
 
 
@@ -40,6 +42,7 @@ function Place() {
   const [search, setSearch] = useState("");
   const [weather, setWeather] = useState({});
   const [loading, setLoading] = useState(true);
+  const [reviews, setReviews] = useState([]);
 
 
 
@@ -53,7 +56,7 @@ function Place() {
         const data = (await axios.post("/api/places/getplacebyid", { placeid: params.placeid })).data
         setPlace(data.place[0]);
         setSearch(data.place[0].city)
-        console.log(data.place[0])
+
 
 
 
@@ -63,6 +66,24 @@ function Place() {
       }
     })();
   }, [params.placeid]);
+
+
+  useEffect(() => {
+
+    (async () => {
+
+      try {
+        const data = (await axios.post("/api/reviews/getreviewbyid", { placeid: params.placeid })).data
+        setReviews(data.review);
+
+
+      } catch (error) {
+        console.log('error')
+
+      }
+    })();
+  }, [params.placeid]);
+
 
 
   useEffect(() => {
@@ -145,7 +166,6 @@ function Place() {
 
 
   useEffect(() => {
-    // Check if the user has already liked the place
     const checkSavedStatus = async () => {
       const user = JSON.parse(localStorage.getItem('currentUser'));
 
@@ -248,6 +268,67 @@ function Place() {
 
   const likedColor = "#e4264e";
 
+
+  var settings = {
+    infinite: false,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    initialSlide: 0,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: true,
+          dots: true
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2
+        }
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1
+        }
+      }
+    ]
+  };
+
+
+  const [value, setValue] = useState();
+  const [name, setName] = useState('');
+  const [reviewd, setReview] = useState('');
+
+
+  async function sendReview() {
+
+    const user = JSON.parse(localStorage.getItem("currentUser"));
+
+    if (!user) {
+      window.location.href = "/login";
+      return;
+    }
+
+    try {
+      const userId = user._id;
+      await axios.post("/api/reviews/review", { placeId: params.placeid, name, reviewd, value });
+      window.location.reload();
+    } catch (error) {
+      console.error("Error sending review:", error);
+    }
+
+  }
+
+
   return (
 
 
@@ -315,8 +396,73 @@ function Place() {
 
             </div>
           </div>
-        </div>
 
+        </div>
+        <div className='place-reviews'>
+          <h1> Reviews</h1>
+
+
+
+          <Slider {...settings}>
+            {reviews.map((review) => (
+              <div className='review-cc-card' key={review._id}>
+                <div className='review-card-slide'>
+                  <div className='review-card'>
+                    <div className='review-card-header'>
+                      <div style={{ marginTop: '2px', width: '145px' }}>{review.name}</div>
+                      <div className='ratepoint'>
+                        <Rate style={{ fontSize: '18px' }} value={review.value} />
+                      </div>
+                    </div>
+                    <div className='review-dis'>{review.reviewd}</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </Slider>
+
+          <h3 className='right-text'>Write a review</h3>
+
+
+          <div className="review-card-write">
+
+            <Form.Item
+              name="rate"
+            >
+              <Rate style={{ fontSize: '25px' }} onChange={setValue} value={value} />
+            </Form.Item>
+
+            <Form.Item
+              label=" Name:"
+              name="name"
+              rules={[{ required: true, message: 'Please input your Name!' }]}
+            >
+              <Input className="createblog-dis-custom-inputx "
+                maxLength={19}
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+            </Form.Item>
+
+
+            <Form.Item
+              label=" Review:"
+              name="review"
+              rules={[{ required: true, message: 'Please input your Review!' }]}
+            >
+              <Input.TextArea className="createblog-dis-custom-inputx "
+                value={reviewd}
+                maxLength={442}
+                onChange={(e) => setReview(e.target.value)}
+              />
+            </Form.Item>
+
+
+            <Button onClick={sendReview}>Send</Button>
+
+          </div>
+
+        </div>
       </div>
       <Modal
         visible={isModalVisible}
