@@ -82,9 +82,6 @@ function Trips() {
     const [currentPage, setCurrentPage] = useState(1);
 
 
-
-
-
     useEffect(() => {
         const fetchData = async () => {
             const user = JSON.parse(localStorage.getItem('currentUser'));
