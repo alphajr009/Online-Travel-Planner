@@ -19,6 +19,13 @@
 	src: url("./fonts/SFPro-Bold.ttf") format("truetype");
 }
 
+@font-face {
+	font-family: "SF Pro Display-Italic";
+	font-style: normal;
+	src: url("./fonts/SF\ Pro\ Display\ Italic.ttf") format("truetype");
+}
+
+
 .ant-tooltip .ant-tooltip-inner {
 	background-color: #555555;
 	font-family: "SF Pro Display-Regular" !important;
@@ -72,12 +79,11 @@ h6 {
 .location-step-txt {
 	font-family: "SF Pro Display-Regular";
 	margin-top: 0px;
-	font-size: 14px;
+	font-size: 15px;
 }
 
 p {
 	font-family: "SF Pro Display-Regular";
-	margin-top: 0px;
 	margin-bottom: 8px;
 }
 
@@ -89,6 +95,13 @@ h2 {
 	font-family: "SF Pro Display-Regular";
 	font-size: 39px !important;
 	margin-bottom: 8px;
+}
+
+.review-dis {
+	font-family: "SF Pro Display-Italic" !important;
+	font-size: 15px;
+	margin-top: 20px;
+	height: 147.3px;
 }
 
 .ant-form label {

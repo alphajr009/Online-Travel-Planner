@@ -2,19 +2,20 @@ const mongoose = require('mongoose');
 
 const reviewSchema = mongoose.Schema({
 
-    placeid: {
+
+    name: {
         type: String,
         required: true
     },
-    userid: {
+    placeId: {
         type: String,
         required: true
     },
-    rating: {
+    value: {
         type: Number,
         required: true
     },
-    message: {
+    reviewd: {
         type: String,
         required: true
     }
