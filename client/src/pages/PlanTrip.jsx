@@ -38,7 +38,7 @@ function Place({ place }) {
 
 function PlanTrip() {
 
-	const user = JSON.parse(localStorage.getItem("currentUser"))
+	const user = JSON.parse(localStorage.getItem("currentUser"));
 
 	const [doplace, setDo] = useState([]);
 	const [eatplace, setEat] = useState([]);
@@ -56,6 +56,10 @@ function PlanTrip() {
 	const [isModalVisible, setIsModalVisible] = useState(false);
 
 	const [imageurl, setImageurl] = useState('');
+	const [preferences, setPreferences] = useState([]);
+	const [loading, setLoading] = useState(true);
+
+
 
 
 	const onImageUpload = (imageFile) => {
@@ -95,25 +99,53 @@ function PlanTrip() {
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
+
+				const response1 = await axios.post("/api/users/getuserbyid", {
+					userid: user._id,
+				});
+				const data1 = response1.data[0];
+				const flatPreferences = data1.favhotles.flat();
+				setPreferences(flatPreferences);
+
+
 				const response = await axios.get('/api/places/getallplaces');
 				const data = response.data;
 				const doPlaces = data.places.filter(place => place.category === 'Do' && place.city.toLowerCase().includes(searchValue.toLowerCase()));
 				const eatPlaces = data.places.filter(place => place.category === 'Eat' && place.city.toLowerCase().includes(searchValue.toLowerCase()));
 				const stayPlaces = data.places.filter(place => place.category === 'Stay' && place.city.toLowerCase().includes(searchValue.toLowerCase()));
 
-				setDo(doPlaces);
-				setEat(eatPlaces);
-				setStay(stayPlaces);
 
+				// Helper function to check if the place name contains any word from preferences
+				const containsPreference = (placeName) => {
+					const lowerCasePlaceName = placeName.toLowerCase();
+					return preferences.some(preference => lowerCasePlaceName.includes(preference.toLowerCase()));
+				};
 
+				// Sort places based on whether their names match the preferences or not
+				const sortPlacesByPreferences = (places) => {
+					const matchingPlaces = places.filter(place => containsPreference(place.name));
+					const remainingPlaces = places.filter(place => !containsPreference(place.name));
+					return [...matchingPlaces, ...remainingPlaces];
+				};
+
+				// Sort and set the state for doPlaces, eatPlaces, and stayPlaces
+				setDo(sortPlacesByPreferences(doPlaces));
+				setEat(sortPlacesByPreferences(eatPlaces));
+				setStay(sortPlacesByPreferences(stayPlaces));
+
+				setLoading(false);
+
+				console.log("Do Places:", doPlaces);
 			} catch (error) {
 				console.log(error);
-
+				setLoading(false);
 			}
 		};
 
 		fetchData();
-	}, []);
+	}, [preferences]);
+
+
 
 
 	async function plan() {
