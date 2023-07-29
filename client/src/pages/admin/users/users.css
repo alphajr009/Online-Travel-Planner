@@ -17,10 +17,12 @@
 
 .option-selector {
     width: 100%;
+    margin-top: 5px;
 }
 
 .search-button {
     width: 100%;
+    margin-top: 5px;
 }
 
 .users-cus-name,

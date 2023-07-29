@@ -42,10 +42,14 @@ function Users() {
 		}
 
 		if (displayname !== "") {
-			tempUsers = tempUsers.filter((user) =>
-				user.displayName.toLowerCase().includes(displayname.toLowerCase())
-			);
+			tempUsers = tempUsers.filter((user) => {
+				if (user.name && typeof user.name === 'string') {
+					return user.name.toLowerCase().includes(displayname.toLowerCase());
+				}
+				return false;
+			});
 		}
+
 
 		if (isAdmin !== null) {
 			tempUsers = tempUsers.filter(
@@ -178,8 +182,8 @@ function Users() {
 							value={isAdmin}
 							onChange={handleuserposition}
 						>
-							<Option key="isAdmin-yes">Yes</Option>
-							<Option key="isAdmin-no">No</Option>
+							<Option key="true">Yes</Option>
+							<Option key="false">No</Option>
 						</Select>
 					</div>
 				</Col>
