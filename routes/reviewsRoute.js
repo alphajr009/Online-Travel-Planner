@@ -4,10 +4,10 @@ const Review = require("../models/review");
 
 
 router.post("/review", async (req, res) => {
-    const { placeId, name, reviewd, value } = req.body;
+    const { placeId, name, reviewd, value ,age } = req.body;
 
     try {
-        const newReview = new Review({ placeId, name, reviewd, value });
+        const newReview = new Review({ placeId, name, reviewd, value ,age});
         const review = await newReview.save();
         res.send('Review Post Successfully');
 

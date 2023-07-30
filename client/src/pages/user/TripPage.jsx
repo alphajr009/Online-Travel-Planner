@@ -5,6 +5,10 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { Button, Card, Col } from 'antd';
 import Slider from "react-slick";
+import { FilePdfOutlined } from "@ant-design/icons";
+import jsPDF from 'jspdf'
+
+
 
 
 function Place({ place }) {
@@ -119,6 +123,32 @@ function TripPage() {
         ]
     };
 
+    async function downloadReceipt() {
+
+
+        const doc = new jsPDF();
+
+
+        // doc.setFont("helvetica")
+        // doc.setFontSize(17);
+        doc.text(`${trips.tripname}`, 52, 85);
+        // doc.text(`${booking._id}`, 52, 85);
+
+
+
+        // doc.setFont("helvetica")
+        // doc.setFontSize(14);
+        // doc.text(`${booking.room}`, 49, 115.5);
+        // doc.text(`${booking.fromdate}`, 49, 126.5);
+        // doc.text(`${booking.todate}`, 49.7, 137.5);
+        // doc.text(`0${booking.totaldays}`, 50, 148.7);
+        // doc.text(`Rs. ${booking.totalamount}/-`, 50, 159.6);
+
+
+        doc.save(`Invoice_${trips.tripname}.pdf`);
+    }
+
+
 
 
     return (
@@ -133,6 +163,16 @@ function TripPage() {
                 <div className="place-cover-details">
                     <h1>{trips.tripname}</h1>
                     <p>You can manage your trip easily from here</p>
+
+                    <div className="download-button-container">
+                        <Button
+                            onClick={() => downloadReceipt}
+                        >
+                            <FilePdfOutlined />
+                            Downlaod
+                        </Button>
+
+                    </div>
                 </div>
 
                 <div className='tripplan-body-content'>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { Card, Col, Row } from 'antd';
+import { Card, Col, Pagination, Row } from 'antd';
 import { ScaleLoader } from 'react-spinners';
 import '../css/Categories.css';
 
@@ -53,6 +53,11 @@ function Do() {
         fetchData();
     }, []);
 
+
+    const handlePageChange = (page) => {
+        setCurrentPage(page);
+    };
+
     return (
         <div>
             {showSpinner ? (
@@ -72,6 +77,16 @@ function Do() {
                     </Row>
                 </div>
             )}
+
+            <div className="pagnition">
+                <Pagination
+                    current={currentPage}
+                    pageSize={placesPerPage}
+                    total={filteredPlaces.length}
+                    onChange={handlePageChange}
+                    showSizeChanger={false}
+                />
+            </div>
         </div>
     );
 }

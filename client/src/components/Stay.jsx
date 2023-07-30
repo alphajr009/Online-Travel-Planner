@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { Card, Col, Row } from 'antd';
+import { Card, Col, Pagination, Row } from 'antd';
 import { ScaleLoader } from 'react-spinners';
 import '../css/Categories.css';
 
@@ -54,6 +54,10 @@ function Stay() {
         fetchData();
     }, []);
 
+    const handlePageChange = (page) => {
+        setCurrentPage(page);
+    };
+
     return (
         <div>
             {showSpinner ? (
@@ -66,13 +70,23 @@ function Stay() {
                         {filteredPlaces
                             .slice((currentPage - 1) * placesPerPage, currentPage * placesPerPage)
                             .map(place => (
-                                <Col key={place.id} span={6} className='palce-card' > 
+                                <Col key={place.id} span={6} className='palce-card' >
                                     <Place place={place} />
                                 </Col>
                             ))}
                     </Row>
                 </div>
             )}
+
+            <div className="pagnition">
+                <Pagination
+                    current={currentPage}
+                    pageSize={placesPerPage}
+                    total={filteredPlaces.length}
+                    onChange={handlePageChange}
+                    showSizeChanger={false}
+                />
+            </div>
         </div>
     );
 }

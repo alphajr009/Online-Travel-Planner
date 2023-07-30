@@ -376,27 +376,7 @@ function Account() {
 										suffix={<LockOutlined style={{ color: "#aaa" }} />}
 									/>
 								</Form.Item>
-								<Form.Item
-									name="birthday"
-									rules={[
-										{
-											type: "object",
-											required: true,
-											message: "Please select your birthday!",
-										},
-									]}
-								>
-									<label>Birthday</label>
-									<DatePicker
-										placeholder={birthdayPlaceholder}
-										disabled={!editMode}
-										defaultValue={birthday ? moment(new Date(birthday)) : null}
-										onChange={(date, dateString) => {
-											const birthdayDate = moment(date).toDate();
-											setBirthday(birthdayDate);
-										}}
-									/>
-								</Form.Item>
+
 
 								<Form.Item
 									name="address"
@@ -463,6 +443,7 @@ function Account() {
 				</Col>
 			</div>
 			<UserFooter />
+
 		</Layout>
 
 	);

@@ -15,6 +15,11 @@ const reviewSchema = mongoose.Schema({
         type: Number,
         required: true
     },
+
+    age: {
+        type: String,
+        required: false
+    },
     reviewd: {
         type: String,
         required: true

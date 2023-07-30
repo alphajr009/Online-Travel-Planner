@@ -18,6 +18,7 @@ import Windy from "../../assets/windx.png";
 import { HeartOutlined, HeartFilled, FireOutlined, FireFilled } from "@ant-design/icons";
 import UserFooter from '../../components/footer/UserFooter';
 import Slider from "react-slick";
+import { faAngellist } from '@fortawesome/free-brands-svg-icons';
 
 
 
@@ -307,6 +308,7 @@ function Place() {
   const [value, setValue] = useState();
   const [name, setName] = useState('');
   const [reviewd, setReview] = useState('');
+  const [age, setAge] = useState('');
 
 
   async function sendReview() {
@@ -320,8 +322,8 @@ function Place() {
 
     try {
       const userId = user._id;
-      await axios.post("/api/reviews/review", { placeId: params.placeid, name, reviewd, value });
-      window.location.reload();
+      await axios.post("/api/reviews/review", { placeId: params.placeid, name, reviewd, value,age });
+      // window.location.reload();
     } catch (error) {
       console.error("Error sending review:", error);
     }
@@ -444,6 +446,18 @@ function Place() {
               />
             </Form.Item>
 
+            <Form.Item
+              label=" Age:"
+              name="age"
+              rules={[{ required: true, message: 'Please input your Age!' }]}
+            >
+              <Input className="createblog-dis-custom-inputx "
+                maxLength={19}
+                value={age}
+                onChange={(e) => setAge(e.target.value)}
+              />
+            </Form.Item>
+
 
             <Form.Item
               label=" Review:"
@@ -456,6 +470,8 @@ function Place() {
                 onChange={(e) => setReview(e.target.value)}
               />
             </Form.Item>
+
+            
 
 
             <Button onClick={sendReview}>Send</Button>
