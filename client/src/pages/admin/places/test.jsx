@@ -8,7 +8,7 @@ import UserFooter from '../../../components/footer/UserFooter';
 
 function Place() { 
 
-    const [activeTab, setActiveTab] = useState('create blog');
+    const [activeTab, setActiveTab] = useState('create place');
     const [places, setplaces] = useState([])
     const [loading, setloading] = useState(false)
     const [error, seterror] = useState()
@@ -37,7 +37,7 @@ function Place() {
      const closeModal = () => {
         setPlaceToEdit(null);
         setIsModalVisible(false);
-        window.location.href = '/admin/places';
+        window.location.href = 'admin/places';
     };
 
     async function updatePlace(place) {
@@ -213,8 +213,8 @@ function Place() {
                 <div className="seller-central-places-tab">
 
                     <div
-                        className={`seller-central-create-blog-tab-container ${activeTab === 'create blog' ? 'active' : ''}`}
-                        onClick={() => setActiveTab('create blog')}
+                        className={`seller-central-create-blog-tab-container ${activeTab === 'create place' ? 'active' : ''}`}
+                        onClick={() => setActiveTab('create place')}
                     >
                         <span className='seller-central-tab-text-create-blog'>Create Place</span>
                     </div>
@@ -226,7 +226,7 @@ function Place() {
                         <span className='seller-central-tab--text-places'>Places</span>
                     </div>
                 </div>
-                {activeTab === 'create blog' && (
+                {activeTab === 'create place' && (
                     <div className='seller-central-create-places-sellers'>
                         <CreatePlace />
                     </div>
