@@ -32,6 +32,16 @@ function Place() {
     const openEditModal = (place) => {
         setPlaceToEdit(place);
         setIsModalVisible(true);
+
+        // Set state variables with values from PlaceToEdit
+        if (place) {
+            setUpdatedBlogTitle(place.name || '');
+            setUpdatedPhonenumber(place.phonenumber || '');
+            setUpdatedCity(place.city || '');
+            setUpdatedAddress(place.address || '');
+            setUpdatedGoogleMapLink(place.googlemaplink || '');
+            setdescription(place.description || '');
+        }
     };
 
     const closeModal = () => {
@@ -148,9 +158,9 @@ function Place() {
 
     async function editPlace(_id, updatedBlogTitle, updatedPhonenumber, updatedCity, updatedAddress, updatedGoogleMaplink) {
         try {
-            await axios.patch('/api/places/editblog', {
+            await axios.patch('/api/places/editplace', {
                 _id,
-                title: updatedBlogTitle,
+                name: updatedBlogTitle,
                 description: description,
                 phonenumber: updatedPhonenumber,
                 city: updatedCity,
@@ -168,7 +178,6 @@ function Place() {
             console.log(error);
         }
     }
-
 
 
     async function deletePlace(_id) {
@@ -200,6 +209,7 @@ function Place() {
             }
         })();
     }, []);
+
     return (
         <div className='seller-central-places'>
             <div className='seller-central-places-container'>

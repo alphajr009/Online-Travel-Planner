@@ -222,7 +222,29 @@ router.post("/getstay", async (req, res) => {
 });
 
 
+router.patch('/editplace', async (req, res) => {
+    try {
+        const { _id, name, description, phonenumber, city, address, googlemaplink } = req.body;
+        const updatedPlace = await Place.findByIdAndUpdate(_id, {
+            name,
+            description,
+            phonenumber,
+            city,
+            address,
+            googlemaplink
 
+        }, { new: true });
+
+        if (!updatedPlace) {
+            return res.status(404).json({ message: 'Place not found' });
+        }
+
+        res.status(200).json({ message: 'Blog updated successfully', place: updatedPlace });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: 'Server error' });
+    }
+});
 
 
 
